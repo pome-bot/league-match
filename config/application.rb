@@ -11,13 +11,16 @@ module LeagueMatch
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
+    config.i18n.default_locale = :ja #add
+    config.time_zone = 'Tokyo' #add
+
     config.generators do |g|  #add
       g.stylesheets false     #add
       g.javascripts false     #add
       g.helper false          #add
       g.test_framework false  #add
     end                       #add
-    
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
