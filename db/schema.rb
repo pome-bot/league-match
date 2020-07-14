@@ -10,7 +10,57 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_14_110822) do
+ActiveRecord::Schema.define(version: 2020_07_14_112610) do
+
+  create_table "groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_groups_on_name", unique: true
+  end
+
+  create_table "groups_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id", "user_id"], name: "index_groups_users_on_group_id_and_user_id", unique: true
+    t.index ["group_id"], name: "index_groups_users_on_group_id"
+    t.index ["user_id"], name: "index_groups_users_on_user_id"
+  end
+
+  create_table "leagues", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_leagues_on_group_id"
+    t.index ["name", "group_id"], name: "index_leagues_on_name_and_group_id", unique: true
+  end
+
+  create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "league_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "order", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["league_id", "user_id"], name: "index_orders_on_league_id_and_user_id", unique: true
+    t.index ["league_id"], name: "index_orders_on_league_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "results", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "league_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "user2_id", null: false
+    t.integer "user_score", null: false
+    t.integer "user2_score", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["league_id", "user_id", "user2_id"], name: "index_results_on_league_id_and_user_id_and_user2_id", unique: true
+    t.index ["league_id"], name: "index_results_on_league_id"
+    t.index ["user_id"], name: "index_results_on_user_id"
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -27,4 +77,11 @@ ActiveRecord::Schema.define(version: 2020_07_14_110822) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "groups_users", "groups"
+  add_foreign_key "groups_users", "users"
+  add_foreign_key "leagues", "groups"
+  add_foreign_key "orders", "leagues"
+  add_foreign_key "orders", "users"
+  add_foreign_key "results", "leagues"
+  add_foreign_key "results", "users"
 end
