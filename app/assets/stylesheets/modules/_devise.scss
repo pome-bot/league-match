@@ -1,0 +1,18 @@
+#error_explanation{
+  background-color: #FFD5EC;
+  border-radius: 5px;
+  margin: 5px 4vw 10px 4vw;
+  padding: 5px;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  h2{
+    font-size: 14px;
+  }
+  ul{
+    font-size: 12px;
+    margin-left: 20px;
+    list-style: square;
+  }
+}

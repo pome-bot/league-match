@@ -4,8 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :group_users
+  has_many :groups, through: :group_users
   has_many :orders
   has_many :leagues, through: :orders
-       
+
+  validates :name, presence: true, uniqueness: true
+  # validates :name, presence: true, uniqueness: {case_sensitive: true}
 
 end

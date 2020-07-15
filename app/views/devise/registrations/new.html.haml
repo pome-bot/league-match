@@ -1,21 +1,35 @@
-%h2 Sign up
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = render "devise/shared/error_messages", resource: resource
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label :password
-    - if @minimum_password_length
-      %em
-        (#{@minimum_password_length} characters minimum)
-    %br/
-    = f.password_field :password, autocomplete: "new-password"
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "new-password"
-  .actions
-    = f.submit "Sign up"
-= render "devise/shared/links"
+.wrapper-sign-up
+  %header
+    %h1<>League Match App
+  .main-sign-up
+    .main-sign-up__contents
+      = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+        = render "devise/shared/error_messages", resource: resource
+        .field
+          %label<>name
+          %br/
+          = f.text_field :name, autofocus: true, autocomplete: "name", class: "input-field"
+        .field
+          %label<>email
+          %br/
+          = f.email_field :email, autocomplete: "email", class: "input-field"
+        .field
+          %label<>password (minimun 6 character)
+          %br/
+          = f.password_field :password, class: "input-field"
+        .field
+          %label<>password confirmation
+          %br/
+          = f.password_field :password_confirmation, class: "input-field"
+        .actions
+          = f.submit "Sign up", class: "button-green"
+      .other-buttons
+        = link_to root_path, class: "back-top-btn" do
+          %button.button-gray<>Back to top
+        = link_to new_user_session_path, class: "sign-in-btn" do
+          %button.button-gray<>Sign in
+  %footer
+    %p<>App favicon by 
+    = link_to "icon8", "#"
+
+-# = render "devise/shared/links"
