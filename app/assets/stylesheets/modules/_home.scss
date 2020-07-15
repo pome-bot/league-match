@@ -1,0 +1,142 @@
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+button{
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #CEF9DC;
+  border: 1px solid #003300;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.wrapper-top{
+  header{
+    background-color: #003300;
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+  .main-top{
+    height: 70vh;
+    background-color: #003300;
+    display: flex;
+    justify-content: center;
+    &__contents{
+      padding-top: 12vh;
+      background-color: white;
+      height: 70vh;
+      width: 98vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .sign-btn{
+        display: block;
+        height: 10vh;
+        width: 40vw;
+        button{
+          height: 10vh;
+          width: 40vw;
+          font-size: 26px;
+        }
+      }
+      .sign-up-btn{
+        margin-top: 10vh;
+      }
+      .what-is{
+        margin-top: 10vh;
+        font-size: 20px;
+      }
+    }
+  }
+  footer{
+    padding: 10px 20px;
+    background-color: #003300;
+    height: 10vh;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    a{
+      margin-left: 5px;
+      color: white;
+    }
+  }
+}
+
+.wrapper-about{
+  header{
+    background-color: #003300;
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+  .main-about{
+    height: 70vh;
+    background-color: #003300;
+    display: flex;
+    justify-content: center;
+    &__contents{
+      padding-top: 4vh;
+      background-color: white;
+      height: 70vh;
+      width: 98vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      h2{
+        font-size: 16px;
+      }
+      p{
+        margin: 0 6vw;
+        margin-top: 4vh;
+        font-size: 12px;
+      }
+      ul{
+        margin: 4vh 8vw 0 12vw;
+        font-size: 12px;
+        list-style: square;
+      }
+      .back-top-btn{
+        margin-top: 6vh;
+        height: 10vh;
+        width: 40vw;
+        display: flex;
+        justify-content: center;
+        button{
+          height: 8vh;
+          width: 50vw;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+  footer{
+    padding: 10px 20px;
+    background-color: #003300;
+    height: 10vh;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    a{
+      margin-left: 5px;
+      color: white;
+    }
+  }
+}
