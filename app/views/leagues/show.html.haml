@@ -1,0 +1,35 @@
+
+.div<>----
+
+- if @team_num <= 1
+  %span<>error
+- elsif @team_num % 2 == 0
+  - (@team_num-1).times do |i|
+    %div
+      %span<>Round
+      %span<>
+        = i+1
+      - (@team_num/2).times do |j|
+        %div
+          %span<>= @gameAs[i][j]
+          %span<>-
+          %span<>= @gameBs[i][j]
+- else 
+  - @team_num.times do |i|
+    %div
+      %span<>Round
+      %span<>
+        = i+1
+      - ( (@team_num-1)/2 ).times do |j|
+        %div
+          %span<>= @gameAs[i][j]
+          %span<>-
+          %span<>= @gameBs[i][j]
+    %div<>
+      = @gameCs[i]
+
+      
+        
+
+
+
