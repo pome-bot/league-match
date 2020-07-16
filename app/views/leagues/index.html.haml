@@ -1,0 +1,34 @@
+.wrapper-league
+  %header.group
+    = link_to current_user.name, groups_path, class: "header-user-name"
+    = link_to edit_user_path(current_user), class: "header-cog" do
+      = icon('fas', 'cog', class: "header-cog__icon")
+  .header-league
+    .header-league__name-member
+      = link_to @group.name, group_leagues_path(@group.id), class: "group-name"
+      %ul.group-members
+        - @group.users.each do |user|
+          %li.group-members__member= user.name
+    = link_to edit_group_path(@group.id), class: "group-cog" do
+      = icon('fas', 'cog', class: "group-cog__icon")
+  .main-league
+    .main-league__contents
+      .add-league-box
+        = link_to new_group_league_path(@group.id), class: "add-league-btn" do
+          %button.button-green<>Add league
+      - @group.leagues.each do |league|
+        .league-box
+          = link_to league.name, group_league_path(league.group_id, league.id), class: "league-box__league-name"
+          %ul.league-box__league-members
+            - league.users.each do |user|
+              %li.league-box__league-members--member= user.name
+          %p.league-box__league-date= league.created_at.strftime("%Y年%m月%d日")
+  %footer.group
+    .footer-left<>League Match App
+    .footer-right
+      %p<>App favicon by 
+      = link_to "ios-filled", "https://icons8.jp/icon/pack/alphabet/ios-filled"
+      %p<>,
+      = link_to "icons8", "https://icons8.com/"
+
+

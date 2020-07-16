@@ -1,5 +1,9 @@
 class LeaguesController < ApplicationController
 
+  def index
+    @group = Group.find(params[:group_id])
+  end
+
   def show
 
     group_id = 1

@@ -1,1 +1,25 @@
-group_index
+.wrapper-group
+  %header.group
+    = link_to current_user.name, groups_path, class: "header-user-name"
+    = link_to edit_user_path(current_user), class: "header-cog" do
+      = icon('fas', 'cog', class: "header-cog__icon")
+  .main-group
+    .main-group__contents
+      .add-group-box
+        = link_to new_group_path, class: "add-group-btn" do
+          %button.button-green<>Add group
+      - @groups.each do |group|
+        .group-box
+          = link_to group.name, group_leagues_path(group.id), class: "group-box__group-name"
+          %ul.group-box__group-members
+            - group.users.each do |user|
+              %li.group-box__group-members--member= user.name
+          %p.group-box__group-date= group.created_at.strftime("%Y年%m月%d日")
+  %footer.group
+    .footer-left<>League Match App
+    .footer-right
+      %p<>App favicon by 
+      = link_to "ios-filled", "https://icons8.jp/icon/pack/alphabet/ios-filled"
+      %p<>,
+      = link_to "icons8", "https://icons8.com/"
+

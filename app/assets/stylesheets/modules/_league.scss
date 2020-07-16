@@ -1,0 +1,87 @@
+.header-league{
+  padding: 1vh 4vw 1vh 6vw;
+  border: 5px solid #003300;
+  color: #003300;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__name-member{
+    width: 100%;
+    a.group-name{
+      color: #003300;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .group-members{
+      margin-top: 1vh;
+      width: 100%;
+      font-size: 13px;
+      &__member{
+        display: inline-block;
+      }
+    }
+  }
+  a.group-cog{
+    margin-left: 20px;
+    .group-cog__icon{
+      color: #003300;
+      font-size: 18px;
+    }
+  }
+}
+
+// index.html.haml
+.wrapper-league{
+  .main-league{
+    background-color: #003300;
+    display: flex;
+    justify-content: center;
+    &__contents{
+      padding: 3vh 10vw 5vh 10vw;
+      background-color: white;
+      width: 98vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .add-league-box{
+        margin-bottom: 2vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        a.add-league-btn{
+          height: 5vh;
+          width: 120px;
+          button.button-green{
+            height: 5vh;
+            width: 120px;
+            font-size: 18px;
+          }
+        }
+      }
+      .league-box{
+        margin-bottom: 2vh;
+        width: 100%;
+        &__league-name{
+          display: block;
+          font-size: 20px;
+        }
+        &__league-members{
+          width: 70vw;
+          margin-left: 4vw;
+          font-size: 12px;
+          color: gray;
+          &--member{
+            margin-right: 5px;
+            display: inline-block;
+          }
+        }
+        &__league-date{
+          margin-left: 4vw;
+          font-size: 12px;
+          color: gray;
+        }
+      }
+    }
+  }
+}
+
