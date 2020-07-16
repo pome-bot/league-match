@@ -1,8 +1,9 @@
 .wrapper-sign-up
-  %header
-    %h1<>League Match App
+  %header.top
+    = link_to "League Match App", root_path, class: "top__logo" 
   .main-sign-up
     .main-sign-up__contents
+      %h2<>Sign up
       = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
         = render "devise/shared/error_messages", resource: resource
         .field
@@ -23,13 +24,16 @@
           = f.password_field :password_confirmation, class: "input-field"
         .actions
           = f.submit "Sign up", class: "button-green"
-      .other-buttons
-        = link_to root_path, class: "back-top-btn" do
+      .other-btns
+        = link_to root_path, class: "back-top-btn other-btn" do
           %button.button-gray<>Back to top
-        = link_to new_user_session_path, class: "sign-in-btn" do
+        = link_to new_user_session_path, class: "sign-in-btn other-btn" do
           %button.button-gray<>Sign in
-  %footer
+  %footer.top
     %p<>App favicon by 
-    = link_to "icon8", "#"
+    = link_to "ios-filled", "https://icons8.jp/icon/pack/alphabet/ios-filled"
+    %p<>,
+    = link_to "icons8", "https://icons8.com/"
 
 -# = render "devise/shared/links"
+

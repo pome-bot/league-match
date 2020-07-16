@@ -1,0 +1,19 @@
+.wrapper-signout
+  %header.top
+    = link_to "League Match App", root_path, class: "top__logo" 
+  .main-signout
+    .main-signout__contents
+      %h2<>Thank you!
+      .sign-btns
+        = link_to new_user_session_path, class: "sign-in-btn sign-btn" do
+          %button.button-green<>Sign in
+        = link_to new_user_registration_path, class: "sign-up-btn sign-btn" do
+          %button.button-green<>Sign up
+      = link_to root_path, class: "back-top-btn" do
+        %button.button-gray<>Back to top
+  %footer.top
+    %p<>App favicon by 
+    = link_to "ios-filled", "https://icons8.jp/icon/pack/alphabet/ios-filled"
+    %p<>,
+    = link_to "icons8", "https://icons8.com/"
+

@@ -1,6 +1,6 @@
 .wrapper-sign-in
-  %header
-    %h1<>League Match App
+  %header.top
+    = link_to "League Match App", root_path, class: "top__logo" 
   .main-sign-in
     .main-sign-in__contents
       %h2<>Sign in
@@ -14,18 +14,20 @@
           %br/
           = f.password_field :password, class: "input-field"
         - if devise_mapping.rememberable?
-          .field
-            = f.check_box :remember_me
+          .field.field-checkbox
+            = f.check_box :remember_me, class: "field-checkbox__checkbox"
             = f.label :remember_me
         .actions
           = f.submit "Sign in", class: "button-green"
-      .other-buttons
-        = link_to root_path, class: "back-top-btn" do
+      .other-btns
+        = link_to root_path, class: "back-top-btn other-btn" do
           %button.button-gray<>Back to top
-        = link_to new_user_registration_path, class: "sign-up-btn" do
+        = link_to new_user_registration_path, class: "sign-up-btn other-btn" do
           %button.button-gray<>Sign up
-  %footer
+  %footer.top
     %p<>App favicon by 
-    = link_to "icon8", "#"
+    = link_to "ios-filled", "https://icons8.jp/icon/pack/alphabet/ios-filled"
+    %p<>,
+    = link_to "icons8", "https://icons8.com/"
 
 -# = render "devise/shared/links"
