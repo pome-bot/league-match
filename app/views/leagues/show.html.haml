@@ -1,35 +1,73 @@
+.wrapper-league-show
+  %header.group
+    = link_to current_user.name, groups_path, class: "header-user-name"
+    = link_to edit_user_path(current_user), class: "header-cog" do
+      = icon('fas', 'cog', class: "header-cog__icon")
+  .header-league
+    .header-league__name-member
+      = link_to @group.name, group_leagues_path(@group.id), class: "group-name"
+      %ul.group-members
+        - @group.users.each do |user|
+          %li.group-members__member= user.name
+    = link_to edit_group_path(@group.id), class: "group-cog" do
+      = icon('fas', 'cog', class: "group-cog__icon")
+  .header-league-show
+    .header-league-show__name-member
+      %h2.league-name= @league.name
+      %ul.league-members
+        - @league.users.each do |user|
+          %li.league-members__member= user.name
+    = link_to edit_group_league_path(@group.id, @league.id), class: "league-cog" do
+      = icon('fas', 'cog', class: "league-cog__icon")
+  .main-league-show
+    .main-league-show__contents
+      .league-table
 
-.div<>----
-
-- if @team_num <= 1
-  %span<>error
-- elsif @team_num % 2 == 0
-  - (@team_num-1).times do |i|
-    %div
-      %span<>Round
-      %span<>
-        = i+1
-      - (@team_num/2).times do |j|
-        %div
-          %span<>= @gameAs[i][j]
-          %span<>-
-          %span<>= @gameBs[i][j]
-- else 
-  - @team_num.times do |i|
-    %div
-      %span<>Round
-      %span<>
-        = i+1
-      - ( (@team_num-1)/2 ).times do |j|
-        %div
-          %span<>= @gameAs[i][j]
-          %span<>-
-          %span<>= @gameBs[i][j]
-    %div<>
-      = @gameCs[i]
-
-      
-        
+        %table
+          %tr
+            %th<>
+            - @league.users.each do |user|
+              %th=user.name
+            %th<>won
+            %th<>lost
+            %th<>even
+          - @league.users.each do |user|
+            %tr
+              %td=user.name
+              - (@league.users.count + 3).times do
+                %td
 
 
-
+      .league-order
+        - if @team_num <= 1
+          %span<>error
+        - elsif @team_num % 2 == 0
+          - (@team_num-1).times do |i|
+            %div
+              %span<>Round
+              %span= i+1
+              - (@team_num/2).times do |j|
+                %div
+                  %span<>= @gameAs[i][j]
+                  %span<>-
+                  %span<>= @gameBs[i][j]
+        - else 
+          - @team_num.times do |i|
+            %div
+              %span<>Round
+              %span<>
+                = i+1
+              - ( (@team_num-1)/2 ).times do |j|
+                %div
+                  %span<>= @gameAs[i][j]
+                  %span<>-
+                  %span<>= @gameBs[i][j]
+            %div<>
+              = @gameCs[i]
+  %footer.group
+    .footer-left<>League Match App
+    .footer-right
+      %p<>App favicon by 
+      = link_to "ios-filled", "https://icons8.jp/icon/pack/alphabet/ios-filled"
+      %p<>,
+      = link_to "icons8", "https://icons8.com/"

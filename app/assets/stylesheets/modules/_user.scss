@@ -2,18 +2,18 @@
 .wrapper-sign-up{
   .main-sign-up{
     height: 70vh;
-    background-color: #003300;
+    border-right: 5px solid #003300;
+    border-left: 5px solid #003300;
     display: flex;
     justify-content: center;
     &__contents{
       padding: 2vh 5vw 0 5vw;
-      background-color: white;
       height: 70vh;
-      width: 98vw;
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow: scroll;
+      overflow: auto;
       h2{
         font-size: 20px;
       }
@@ -70,14 +70,14 @@
 .wrapper-sign-in{
   .main-sign-in{
     height: 70vh;
-    background-color: #003300;
+    border-right: 5px solid #003300;
+    border-left: 5px solid #003300;
     display: flex;
     justify-content: center;
     &__contents{
       padding: 5vh 5vw 0 5vw;
-      background-color: white;
       height: 70vh;
-      width: 98vw;
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
