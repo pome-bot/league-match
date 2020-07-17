@@ -22,20 +22,34 @@
   .main-league-show
     .main-league-show__contents
       .league-table
-
         %table
           %tr
             %th<>
             - @league.users.each do |user|
               %th=user.name
-            %th<>won
+            %th.thtd-won<>won
             %th<>lost
             %th<>even
+            %th<>rank
+          - i = 0
           - @league.users.each do |user|
             %tr
               %td=user.name
-              - (@league.users.count + 3).times do
-                %td
+              - @team_num.times do |j|
+                %td{class: "data-user-name_#{@place_name[i]} data-user2-name_#{@place_name[j]}"}
+                  .td-becenter
+                    %span.score=@gameA_results[i][j]
+                    - if @gameA_results[i][j]
+                      %span.space-span<>-
+                    %span.score=@gameB_results[i][j]
+              %td.thtd-won
+              %td
+              %td
+              %td
+              - i += 1
+      .league-form
+
+
 
 
       .league-order

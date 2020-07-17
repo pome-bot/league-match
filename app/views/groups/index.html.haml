@@ -6,7 +6,7 @@
   .main-group
     .main-group__contents
       .add-group-box
-        = link_to new_group_path, class: "add-group-btn" do
+        = link_to new_group_path, class: "btn-wrapper" do
           %button.button-green<>Add group
       - @groups.each do |group|
         .group-box

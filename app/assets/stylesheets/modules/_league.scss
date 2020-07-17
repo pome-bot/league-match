@@ -1,6 +1,8 @@
 .header-league{
   padding: 1vh 4vw 1vh 6vw;
-  border: 5px solid #003300;
+  border-right: 4px solid #003300;
+  border-left: 4px solid #003300;
+  border-bottom: 4px solid #003300;
   color: #003300;
   display: flex;
   justify-content: space-between;
@@ -9,29 +11,31 @@
     width: 100%;
     a.group-name{
       color: #003300;
-      font-size: 18px;
+      font-size: 2.5vh;
       font-weight: bold;
     }
     .group-members{
       margin-top: 1vh;
       width: 100%;
-      font-size: 13px;
+      font-size: 1.5vh;
       &__member{
         display: inline-block;
       }
     }
   }
   a.group-cog{
-    margin-left: 20px;
+    margin-left: 10px;
     .group-cog__icon{
       color: #003300;
-      font-size: 20px;
+      font-size: 2.5vh;
     }
   }
 }
 
 .header-league-show{
-  padding: 1vh calc(4vw + 6px) 1vh calc(8vw + 5px);
+  padding: 1.2vh 4vw 1vh 9vw;
+  border-right: 4px solid #003300;
+  border-left: 4px solid #003300;
   background-color: #003300;
   color: white;
   display: flex;
@@ -41,12 +45,13 @@
   &__name-member{
     width: 100%;
     h2.league-name{
+      font-size: 2.2vh;
       font-weight: bold;
     }
     .league-members{
       margin-top: 1vh;
       width: 100%;
-      font-size: 13px;
+      font-size: 1.5vh;
       &__member{
         display: inline-block;
       }
@@ -55,7 +60,7 @@
   a.league-cog{
     margin-left: 20px;
     .league-cog__icon{
-      font-size: 18px;
+      font-size: 2.5vh;
       color: white;
     }
   }
@@ -64,8 +69,8 @@
 // index.html.haml
 .wrapper-league{
   .main-league{
-    border-right: 5px solid #003300;
-    border-left: 5px solid #003300;
+    border-right: 4px solid #003300;
+    border-left: 4px solid #003300;
     display: flex;
     justify-content: center;
     &__contents{
@@ -79,28 +84,19 @@
         width: 100%;
         display: flex;
         justify-content: center;
-        a.add-league-btn{
-          height: 5vh;
-          width: 120px;
-          button.button-green{
-            height: 5vh;
-            width: 120px;
-            font-size: 18px;
-          }
-        }
       }
       .league-box{
         margin-bottom: 2vh;
         width: 100%;
         &__league-name{
           display: block;
-          font-size: 20px;
+          font-size: (64vh * $mn);
         }
         &__league-members{
           width: 70vw;
           margin-left: 4vw;
-          font-size: 12px;
-          color: gray;
+          font-size: (32vh * $mn);
+          color: #004400;
           &--member{
             margin-right: 5px;
             display: inline-block;
@@ -108,8 +104,8 @@
         }
         &__league-date{
           margin-left: 4vw;
-          font-size: 12px;
-          color: gray;
+          font-size: (32vh * $mn);
+          color: #004400;
         }
       }
     }
@@ -119,69 +115,54 @@
 // show.html.haml
 .wrapper-league-show{
   .main-league-show{
-    border-right: 5px solid #003300;
-    border-left: 5px solid #003300;
+    border-right: 4px solid #003300;
+    border-left: 4px solid #003300;
     display: flex;
     justify-content: center;
     &__contents{
-      padding: 3vh 10vw 5vh 10vw;
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      .add-league-box{
-        margin-bottom: 2vh;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        a.add-league-btn{
-          height: 5vh;
-          width: 120px;
-          button.button-green{
-            height: 5vh;
-            width: 120px;
-            font-size: 18px;
+      .league-table{
+        margin: 3vh 5vw;
+        width: 90vw;
+        overflow: auto;
+        table{
+          tbody{
+            tr{
+              th, td{
+                border: 1px solid #003300;
+                font-size: (32vh * $mn);
+                max-width: 15vw;
+                padding: 10px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                color: #003300;
+                .td-becenter{
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  span.space-span{
+                    margin: 0 5px;
+                  }
+                }
+              }
+              .thtd-won{
+                border-left: 3px double #003300;
+              }
+            }
           }
         }
+      
       }
-      .league-box{
-        margin-bottom: 2vh;
+      .league-form{
+        height: 500px;
         width: 100%;
-        &__league-name{
-          display: block;
-          font-size: 20px;
-        }
-        &__league-members{
-          width: 70vw;
-          margin-left: 4vw;
-          font-size: 12px;
-          color: gray;
-          &--member{
-            margin-right: 5px;
-            display: inline-block;
-          }
-        }
-        &__league-date{
-          margin-left: 4vw;
-          font-size: 12px;
-          color: gray;
-        }
+        background-color: #003300;
       }
     }
   }
 }
 
-.league-table{
-  width: 80vw;
-  overflow: auto;
-}
-
-table{
-  display: block;
-}
-table th, td{
-  border: 1px solid black;
-  border-color: black;
-  font-size: 12px;
-  padding: 3px;
-}

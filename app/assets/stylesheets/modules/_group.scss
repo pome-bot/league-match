@@ -8,17 +8,17 @@ header.group{
   color: white;
   a.header-user-name{
     color: white;
-    font-size: 20px;
+    font-size: 3vh;
     font-weight: bold;
   }
   a.header-cog{
     color: white;
-    font-size: 20px;
+    font-size: 3vh;
   }
 }
 
 footer.group{
-  padding: 10px;
+  padding: 10px 4vw;
   background-color: #003300;
   height: 5vh;
   color: white;
@@ -26,18 +26,18 @@ footer.group{
   justify-content: space-between;
   align-items: center;
   .footer-left{
-    font-size: 13px;
+    font-size: 2vh;
   }
   .footer-right{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 12px;
+    font-size: 1.5vh;
       a{
-      margin-left: 5px;
+      margin-left: 10px;
       color: white;
       text-decoration: underline;
-      font-size: 12px;
+      font-size: 1.5vh;
     }
   }
 }
@@ -46,13 +46,13 @@ footer.group{
 .wrapper-group{
   .main-group{
     height: 87vh;
-    border-right: 5px solid #003300;
-    border-left: 5px solid #003300;
+    border-right: 4px solid #003300;
+    border-left: 4px solid #003300;
     display: flex;
     justify-content: center;
     &__contents{
       padding: 3vh 10vw 5vh 10vw;
-      height: 87vh;
+      height: 100%;
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -63,28 +63,20 @@ footer.group{
         width: 100%;
         display: flex;
         justify-content: center;
-        a.add-group-btn{
-          height: 5vh;
-          width: 120px;
-          button.button-green{
-            height: 5vh;
-            width: 120px;
-            font-size: 18px;
-          }
-        }
       }
       .group-box{
         margin-bottom: 2vh;
         width: 100%;
         &__group-name{
           display: block;
-          font-size: 20px;
+          font-size: (64vh * $mn);
+          color: #003300;
         }
         &__group-members{
           width: 70vw;
           margin-left: 4vw;
-          font-size: 12px;
-          color: gray;
+          font-size: (32vh * $mn);
+          color: #004400;
           &--member{
             margin-right: 5px;
             display: inline-block;
@@ -92,8 +84,8 @@ footer.group{
         }
         &__group-date{
           margin-left: 4vw;
-          font-size: 12px;
-          color: gray;
+          font-size: (32vh * $mn);
+          color: #004400;
         }
       }
     }

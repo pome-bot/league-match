@@ -9,40 +9,45 @@ class LeaguesController < ApplicationController
     @group = Group.find(params[:group_id])
     @league = League.find(params[:id])
 
-    @users = @league.users
+    @users = @league.users.order("created_at ASC")
     @team_num = @users.length
     @results = @league.results
 
 
-    gameA_results = Array.new(@team_num) { Array.new(@team_num) }
-    gameB_results = Array.new(@team_num) { Array.new(@team_num) }
+    @gameA_results = Array.new(@team_num) { Array.new(@team_num) }
+    @gameB_results = Array.new(@team_num) { Array.new(@team_num) }
 
-    # place_name = Array.new(@team_num)
-    # i = 0
-    # @users.each do |user|
-    #   place_name[i] = user.name
-    #   i += 1 
-    # end
+    place_id = Array.new(@team_num)
+    i = 0
+    @users.each do |user|
+      place_id[i] = user.id
+      i += 1 
+    end
 
     @team_num.times do |i|
       @team_num.times do |j|
         if i == j
-          gameA_results[i][j] = nil
+          @gameA_results[i][j] = nil
+          @gameB_results[i][j] = nil
+        elsif @results.where(user_id: place_id[i]).where(user2_id: place_id[j]).length != 0
+          @gameA_results[i][j] = @results.where(user_id: place_id[i]).where(user2_id: place_id[j])[0].user_score
+          @gameB_results[i][j] = @results.where(user_id: place_id[i]).where(user2_id: place_id[j])[0].user2_score
+        elsif @results.where(user_id: place_id[j]).where(user2_id: place_id[i]).length != 0
+          @gameA_results[i][j] = @results.where(user_id: place_id[j]).where(user2_id: place_id[i])[0].user2_score
+          @gameB_results[i][j] = @results.where(user_id: place_id[j]).where(user2_id: place_id[i])[0].user_score
         else
-          # gameA_rsults[i][j] = 
+          @gameA_results[i][j] = nil
+          @gameB_results[i][j] = nil
         end
       end
     end
 
 
 
-
-
-
-    place_name = Array.new(@team_num)
+    @place_name = Array.new(@team_num) 
     i = 0
     @users.each do |user|
-      place_name[i] = user.name
+      @place_name[i] = user.name
       i += 1 
     end
     
@@ -56,8 +61,8 @@ class LeaguesController < ApplicationController
 
       (@team_num-1).times do |i|
         (@team_num/2).times do |j|
-          @gameAs[i][j] = place_name[gameAs_temp[i][j]-1]
-          @gameBs[i][j] = place_name[gameBs_temp[i][j]-1]
+          @gameAs[i][j] = @place_name[gameAs_temp[i][j]-1]
+          @gameBs[i][j] = @place_name[gameBs_temp[i][j]-1]
         end
       end
     else  # @team_num % 2 == 1          # odd
@@ -67,15 +72,15 @@ class LeaguesController < ApplicationController
 
       gameAs_temp, gameBs_temp = odd_gameAB(@team_num)
       gameCs_temp = odd_gameC_br(@team_num)
-      @gameCs[0] = place_name[@team_num-1]
+      @gameCs[0] = @place_name[@team_num-1]
 
       @team_num.times do |i|
         ( (@team_num-1)/2 ).times do |j|
-          @gameAs[i][j] = place_name[gameAs_temp[i][j]-1]
-          @gameBs[i][j] = place_name[gameBs_temp[i][j]-1]
+          @gameAs[i][j] = @place_name[gameAs_temp[i][j]-1]
+          @gameBs[i][j] = @place_name[gameBs_temp[i][j]-1]
         end
         if i != (@team_num - 1)
-          @gameCs[i+1] = place_name[gameCs_temp[i+1]-1]
+          @gameCs[i+1] = @place_name[gameCs_temp[i+1]-1]
         end
       end
     end
