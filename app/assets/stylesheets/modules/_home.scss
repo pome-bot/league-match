@@ -1,3 +1,5 @@
+$mn: 0.0574;
+
 .button-green{
   cursor: pointer;
   border-radius: 5px;
@@ -12,6 +14,18 @@
   border: 1px solid black;
 }
 
+a.btn-wrapper{
+  display: block;
+  height: 10vh;
+  width: 40vw;
+  padding: (10vh / 12);
+  button{
+    height: 100%;
+    width: 100%;
+    font-size: (10vh / 3);
+  }
+}
+
 header.top{
   background-color: #003300;
   height: 20vh;
@@ -21,7 +35,7 @@ header.top{
   color: white;
   a.top__logo{
     color: white;
-    font-size: 30px;
+    font-size: 4.5vh;
     font-weight: bold;
   }
 }
@@ -34,7 +48,7 @@ footer.top{
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 12px;
+  font-size: (32vh * $mn);
   a{
     margin-left: 5px;
     color: white;
@@ -46,8 +60,8 @@ footer.top{
 .wrapper-top{
   .main-top{
     height: 70vh;
-    border-right: 5px solid #003300;
-    border-left: 5px solid #003300;
+    border-right: 4px solid #003300;
+    border-left: 4px solid #003300;
     display: flex;
     justify-content: center;
     &__contents{
@@ -57,20 +71,11 @@ footer.top{
       display: flex;
       flex-direction: column;
       align-items: center;
-      a.top-btn{
-        display: block;
-        height: 10vh;
-        width: 40vw;
-        button{
-          height: 10vh;
-          width: 40vw;
-          font-size: 26px;
-        }
-      }
-      .sign-up-btn{
+      overflow: auto;
+      a.sign-up-btn{
         margin-top: 10vh;
       }
-      .aboutme-btn{
+      a.aboutme-btn{
         margin-top: 10vh;
       }
     }
@@ -81,8 +86,8 @@ footer.top{
 .wrapper-about{
   .main-about{
     height: 70vh;
-    border-right: 5px solid #003300;
-    border-left: 5px solid #003300;
+    border-right: 4px solid #003300;
+    border-left: 4px solid #003300;
     display: flex;
     justify-content: center;
     &__contents{
@@ -92,47 +97,30 @@ footer.top{
       display: flex;
       flex-direction: column;
       align-items: center;
+      overflow: auto;
       h2{
-        font-size: 16px;
+        font-size: (48vh * $mn);
       }
       p{
         margin: 0 6vw;
         margin-top: 4vh;
-        font-size: 12px;
+        font-size: (32vh * $mn);
       }
       ul{
         margin: 4vh 8vw 0 12vw;
-        font-size: 12px;
+        font-size: (32vh * $mn);
         list-style: square;
       }
       .sign-btns{
-        margin-top: 7vh;
+        margin-top: 5vh;
         display: flex;
-        a.sign-btn{
-          display: block;
-          height: 8vh;
-          width: 25vw;
-          button{
-            height: 8vh;
-            width: 25vw;
-            font-size: 22px;
-          }
-        }
         a.sign-up-btn{
-          margin-left: 10vw;
+          margin-left: 4vw;
         }
       }
-      .back-top-btn{
-        margin-top: 4vh;
-        height: 8vh;
-        width: 30vw;
-        display: flex;
-        justify-content: center;
-        button{
-          height: 8vh;
-          width: 30vw;
-          font-size: 20px;
-        }
+      a.back-top-btn{
+        margin-top: 3vh;
+        margin-bottom: 2vh;
       }
     }
   }
@@ -142,8 +130,8 @@ footer.top{
 .wrapper-signout{
   .main-signout{
     height: 70vh;
-    border-right: 5px solid #003300;
-    border-left: 5px solid #003300;
+    border-right: 4px solid #003300;
+    border-left: 4px solid #003300;
     display: flex;
     justify-content: center;
     &__contents{
@@ -153,39 +141,22 @@ footer.top{
       display: flex;
       flex-direction: column;
       align-items: center;
+      overflow: auto;
       h2{
-        font-size: 30px;
+        font-size: (64vh * $mn);
+        font-weight: bold;
         height: 30vh;
         padding-top: 10vh;
       }
       .sign-btns{
         margin-top: 7vh;
         display: flex;
-        a.sign-btn{
-          display: block;
-          height: 8vh;
-          width: 25vw;
-          button{
-            height: 8vh;
-            width: 25vw;
-            font-size: 22px;
-          }
-        }
         a.sign-up-btn{
-          margin-left: 10vw;
+          margin-left: 4vw;
         }
       }
       .back-top-btn{
         margin-top: 4vh;
-        height: 8vh;
-        width: 30vw;
-        display: flex;
-        justify-content: center;
-        button{
-          height: 8vh;
-          width: 30vw;
-          font-size: 20px;
-        }
       }
     }
   }

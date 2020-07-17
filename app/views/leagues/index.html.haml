@@ -16,7 +16,7 @@
       .add-league-box
         = link_to new_group_league_path(@group.id), class: "add-league-btn" do
           %button.button-green<>Add league
-      - @group.leagues.each do |league|
+      - @leagues.each do |league|
         .league-box
           = link_to league.name, group_league_path(league.group_id, league.id), class: "league-box__league-name"
           %ul.league-box__league-members

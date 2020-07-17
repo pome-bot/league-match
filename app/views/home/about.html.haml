@@ -8,15 +8,15 @@
       %ul
         %li<>グループ毎に複数のリーグ戦を組むことができる。
         %li<>リーグ戦の勝敗を記録できる。
-        %li<>リーグ戦の試合順位を自動で作成できる。
+        %li<>リーグ戦の試合順を自動で作成できる。
         %li<>リーグ毎にコメントを投稿できる。
         %li<>ユーザーの試合成績を確認できる。
       .sign-btns
-        = link_to new_user_session_path, class: "sign-in-btn sign-btn" do
+        = link_to new_user_session_path, class: "sign-in-btn btn-wrapper" do
           %button.button-green<>Sign in
-        = link_to new_user_registration_path, class: "sign-up-btn sign-btn" do
+        = link_to new_user_registration_path, class: "sign-up-btn btn-wrapper" do
           %button.button-green<>Sign up
-      = link_to root_path, class: "back-top-btn" do
+      = link_to root_path, class: "back-top-btn btn-wrapper" do
         %button.button-gray<>Back to top
   %footer.top
     %p<>App favicon by 

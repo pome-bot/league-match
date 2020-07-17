@@ -2,6 +2,7 @@ class LeaguesController < ApplicationController
 
   def index
     @group = Group.find(params[:group_id])
+    @leagues = @group.leagues.includes(:users)
   end
 
   def show
