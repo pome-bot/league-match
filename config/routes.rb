@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get "signout", to: "home#signout"
 
   resources :users
+  resources :results
   resources :groups do
     resources :leagues
   end

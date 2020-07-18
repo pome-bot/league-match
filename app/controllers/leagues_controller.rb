@@ -6,6 +6,7 @@ class LeaguesController < ApplicationController
   end
 
   def show
+    @result = Result.new
     @group = Group.find(params[:group_id])
     @league = League.find(params[:id])
 

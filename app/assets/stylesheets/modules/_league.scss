@@ -17,7 +17,7 @@
     .group-members{
       margin-top: 1vh;
       width: 100%;
-      font-size: 1.5vh;
+      font-size: 1.8vh;
       &__member{
         display: inline-block;
       }
@@ -45,13 +45,13 @@
   &__name-member{
     width: 100%;
     h2.league-name{
-      font-size: 2.2vh;
+      font-size: 2.5vh;
       font-weight: bold;
     }
     .league-members{
       margin-top: 1vh;
       width: 100%;
-      font-size: 1.5vh;
+      font-size: 1.8vh;
       &__member{
         display: inline-block;
       }
@@ -133,8 +133,9 @@
             tr{
               th, td{
                 border: 1px solid #003300;
-                font-size: (32vh * $mn);
-                max-width: 15vw;
+                font-size: (48vh * $mn);
+                text-align: center;
+                max-width: 20vw;
                 padding: 10px;
                 text-overflow: ellipsis;
                 white-space: nowrap;
@@ -152,15 +153,166 @@
               .thtd-won{
                 border-left: 3px double #003300;
               }
+              td.td-gray{
+                background-color: lightgray;
+              }
             }
           }
         }
-      
       }
       .league-form{
-        height: 500px;
+        padding: 3vh 3vw 0 3vw;
         width: 100%;
         background-color: #003300;
+        display: flex;
+        justify-content: center;
+        form{
+          .form-scores{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            &__score-box{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 8vh;
+              width: 100%;
+              padding: (10vh / 12);
+              span.score-vs{
+                font-size: 50px;
+                color: white;
+              }
+              input, select{
+                font-size: (48vh * $mn);
+                text-align: center;
+                border-radius: 5px;
+                border: none;
+                height: 100%;
+                width: 100%;
+              }
+              select.form-name{
+                width: 30vw;
+                appearance: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-left: 20px;
+              }
+              input.form-score{
+                width: 11vw;
+                margin: 0 2vw;
+                &::placeholder {
+                  color: #004400;
+                  opacity: 0.2;
+                }
+              }
+            }
+            &__send-btn{
+              margin: 2vh 0;
+              display: block;
+              height: 8vh;
+              width: 40vw;
+              padding: (10vh / 12);
+              input.button-green{
+                height: 100%;
+                width: 100%;
+                font-size: (10vh / 3);
+              }
+            }
+          }
+        }
+      }
+      .league-order{
+        padding-top: 2vh;
+        border-bottom: 4px solid #003300;
+        width: 100%;
+        font-size: (48vh * $mn);
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        .order-header{
+          margin-bottom: 2vh;
+          padding: 0 4vw;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          &__side{
+            width: 10vw;
+          }
+          &__right{
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            .div-tip{
+              background-color: lightgreen;
+            }
+          }
+          &__center{
+            h2{
+              font-size: (54vh * $mn);
+            }
+          }
+        }
+        .order-contents{
+          width: 100%;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          .round-box{
+            width: 100%;
+            margin-bottom: 3vh;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            &__header{
+              font-size: (54vh * $mn);
+              margin-bottom: 1vh;
+              display: flex;
+              justify-content: center;
+              span.round-head{
+                margin-right: 10px;
+              }
+            }
+            .game-box{
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              span.user-name__left{
+                width: 30vw;
+                text-align: right;
+              }
+              span.user-name__right{
+                width: 30vw;
+                text-align: left;
+              }
+              span.score{
+                margin: 0 2vw;
+                width: 10vw;
+                text-align: center;
+              }
+              span.score-vs__f{
+                margin: 0 2vw;
+              }
+            }
+            .no-game-box{
+              opacity: 0.5;
+              margin-top: 1vh;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              span.nogame{
+                margin-right: 2vw;
+              }
+            }
+          }
+        }
+      }
+      .league-comments{
+        font-size: 60px;
+        background-color: lightpink;
+        width: 100%;
+        height: 200px;
       }
     }
   }

@@ -36,48 +36,88 @@
             %tr
               %td=user.name
               - @team_num.times do |j|
-                %td{class: "data-user-name_#{@place_name[i]} data-user2-name_#{@place_name[j]}"}
-                  .td-becenter
-                    %span.score=@gameA_results[i][j]
-                    - if @gameA_results[i][j]
-                      %span.space-span<>-
-                    %span.score=@gameB_results[i][j]
+                - if i == j
+                  %td.td-gray
+                - else
+                  %td{class: "data-user-name_#{@place_name[i]} data-user2-name_#{@place_name[j]}"}
+                    .td-becenter
+                      %span.score=@gameA_results[i][j]
+                      - if @gameA_results[i][j]
+                        %span.space-span<>-
+                      %span.score=@gameB_results[i][j]
               %td.thtd-won
               %td
               %td
               %td
               - i += 1
       .league-form
-
-
-
-
+        = form_with model: @result, local: true do |f|
+          .form-scores
+            .form-scores__score-box
+              = f.select :user_name, @place_name, { include_blank: "select"}, class: "form-name"
+              = f.number_field :user_score, placeholder: "00", class: "form-score"
+              %span.score-vs<>-
+              = f.number_field :user2_score, placeholder: "00", class: "form-score"
+              = f.select :user2_name, @place_name, { include_blank: "select"}, class: "form-name"
+            .form-scores__send-btn
+              = f.submit "Send", class: "button-green"
       .league-order
-        - if @team_num <= 1
-          %span<>error
-        - elsif @team_num % 2 == 0
-          - (@team_num-1).times do |i|
-            %div
-              %span<>Round
-              %span= i+1
-              - (@team_num/2).times do |j|
-                %div
-                  %span<>= @gameAs[i][j]
-                  %span<>-
-                  %span<>= @gameBs[i][j]
-        - else 
-          - @team_num.times do |i|
-            %div
-              %span<>Round
-              %span<>
-                = i+1
-              - ( (@team_num-1)/2 ).times do |j|
-                %div
-                  %span<>= @gameAs[i][j]
-                  %span<>-
-                  %span<>= @gameBs[i][j]
-            %div<>
-              = @gameCs[i]
+        .order-header
+          .order-header__left.order-header__side
+          .order-header__center
+            %h2<>Recommended order
+          .order-header__right.order-header__side
+            .div-tip<>tip
+        .order-contents
+          - if @team_num <= 1
+            %span<>error
+          - elsif @team_num % 2 == 0
+            - (@team_num-1).times do |i|
+              .round-box
+                .round-box__header
+                  %span.round-head<>Round
+                  %span<>
+                    = i+1
+                - (@team_num/2).times do |j|
+                  .game-box
+                    %span.user-name__left<>= @gameAs[i][j]
+                    - if true
+                      %span.score<>00
+                      %span.score-vs__t<>-
+                    - else 
+                      %span.score-vs__f<>-
+                    - if true
+                      %span.score<>0
+                    %span.user-name__right<>= @gameBs[i][j]
+          - else 
+            - @team_num.times do |i|
+              .round-box
+                .round-box__header
+                  %span.round-head<>Round
+                  %span<>
+                    = i+1
+                - ( (@team_num-1)/2 ).times do |j|
+                  .game-box
+                    %span.user-name__left<>= @gameAs[i][j]
+                    - if true
+                      %span.score<>00
+                      %span.score-vs__t<>-
+                    - else 
+                      %span.score-vs__f<>-
+                    - if true
+                      %span.score<>0
+                    %span.user-name__right<>= @gameBs[i][j]
+                .no-game-box<>
+                  %span.nogame<>no game:
+                  %span.nogame-user-name= @gameCs[i]
+      
+      
+      
+      
+      
+      .league-comments
+
+
   %footer.group
     .footer-left<>League Match App
     .footer-right
