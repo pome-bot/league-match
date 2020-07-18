@@ -35,7 +35,7 @@
           - @league.users.each do |user|
             %tr
               %td=user.name
-              - @team_num.times do |j|
+              - @user_num.times do |j|
                 - if i == j
                   %td.td-gray
                 - else
@@ -69,18 +69,18 @@
           .order-header__right.order-header__side
             .div-tip<>tip
         .order-contents
-          - if @team_num <= 1
+          - if @user_num <= 1
             %span<>error
-          - elsif @team_num % 2 == 0
-            - (@team_num-1).times do |i|
+          - elsif @user_num % 2 == 0
+            - (@user_num-1).times do |i|
               .round-box
                 .round-box__header
                   %span.round-head<>Round
                   %span<>
                     = i+1
-                - (@team_num/2).times do |j|
+                - (@user_num/2).times do |j|
                   .game-box
-                    %span.user-name__left<>= @gameAs[i][j]
+                    %span.user-name__left= @game_homes[i][j]
                     - if true
                       %span.score<>00
                       %span.score-vs__t<>-
@@ -88,17 +88,17 @@
                       %span.score-vs__f<>-
                     - if true
                       %span.score<>0
-                    %span.user-name__right<>= @gameBs[i][j]
+                    %span.user-name__right= @game_visitors[i][j]
           - else 
-            - @team_num.times do |i|
+            - @user_num.times do |i|
               .round-box
                 .round-box__header
                   %span.round-head<>Round
                   %span<>
                     = i+1
-                - ( (@team_num-1)/2 ).times do |j|
+                - ( (@user_num-1)/2 ).times do |j|
                   .game-box
-                    %span.user-name__left<>= @gameAs[i][j]
+                    %span.user-name__left= @game_homes[i][j]
                     - if true
                       %span.score<>00
                       %span.score-vs__t<>-
@@ -106,10 +106,10 @@
                       %span.score-vs__f<>-
                     - if true
                       %span.score<>0
-                    %span.user-name__right<>= @gameBs[i][j]
+                    %span.user-name__right= @game_visitors[i][j]
                 .no-game-box<>
                   %span.nogame<>no game:
-                  %span.nogame-user-name= @gameCs[i]
+                  %span.nogame-user-name= @game_nones[i]
       
       
       

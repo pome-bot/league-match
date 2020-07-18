@@ -318,3 +318,79 @@
   }
 }
 
+// new.html.haml
+.wrapper-league-new{
+  .main-league-new{
+    border-right: 4px solid #003300;
+    border-left: 4px solid #003300;
+    display: flex;
+    justify-content: center;
+    font-size: (48vh * $mn);
+    &__contents{
+      padding: 3vh 10vw 5vh 10vw;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      #new-league{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        .league-new__errors{
+
+        }
+        .field{
+          padding-top: 1vh;
+          padding-bottom: 1vh;
+          font-size: (32vh * $mn);
+          input.input-field{
+            padding: 0 10px;
+            font-size: (48vh * $mn);
+            width: 80vw;
+          }
+        }
+        .field.check-boxes{
+          width: 80vw;
+          label.check-box{
+            margin-bottom: 1vh;
+            display: block;
+          }
+          .check-boxes__box{
+            input{
+              margin-right: 20px;
+              margin-bottom: 3vh;
+              height: 3vh;
+              width: 3vh;
+            }
+            label{
+              margin-right: 50px;
+              height: 3vh;
+              font-size: (48vh * $mn);
+            }
+          }
+        }
+        .actions{
+          margin: 3vh 0 2vh 0;
+          display: block;
+          height: 8vh;
+          width: 50vw;
+          padding: (10vh / 12);
+          input.button-green{
+            height: 100%;
+            width: 100%;
+            font-size: (10vh / 3);
+          }
+        }
+
+
+
+
+
+
+
+
+
+      }
+    }
+  }
+}

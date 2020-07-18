@@ -1,0 +1,41 @@
+.wrapper-league-new
+  %header.group
+    = link_to current_user.name, groups_path, class: "header-user-name"
+    = link_to edit_user_path(current_user), class: "header-cog" do
+      = icon('fas', 'cog', class: "header-cog__icon")
+  .header-league
+    .header-league__name-member
+      = link_to @group.name, group_leagues_path(@group.id), class: "group-name"
+      %ul.group-members
+        - @group.users.each do |user|
+          %li.group-members__member= user.name
+    = link_to edit_group_path(@group.id), class: "group-cog" do
+      = icon('fas', 'cog', class: "group-cog__icon")
+  .main-league-new
+    .main-league-new__contents
+      %h2<>Add league
+      = form_with model: [@group, @league], local: true, id: "new-league" do |f|
+        - if @league.errors.any?
+          .league-new__errors
+            %h2= "Error: #{@league.errors.full_messages.count}"
+            %ul
+              - @league.errors.full_messages.each do |message|
+                %li= message
+        .field
+          %label<>league name
+          %br/
+          = f.text_field :name, autofocus: true, autocomplete: "name", class: 'input-field'
+        .field.check-boxes
+          %label.check-box<>members
+          .check-boxes__box
+            = f.collection_check_boxes :user_ids, @group.users, :id, :name
+        .actions
+          = f.submit "Add league",class: 'button-green'
+
+  %footer.group
+    .footer-left<>League Match App
+    .footer-right
+      %p<>App favicon by 
+      = link_to "ios-filled", "https://icons8.jp/icon/pack/alphabet/ios-filled"
+      %p<>,
+      = link_to "icons8", "https://icons8.com/"

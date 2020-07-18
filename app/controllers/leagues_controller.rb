@@ -1,9 +1,45 @@
 class LeaguesController < ApplicationController
 
+  def new
+    @group = Group.find(params[:group_id])
+    @league = League.new
+    @league.users << @group.users
+  end
+
   def index
     @group = Group.find(params[:group_id])
     @leagues = @group.leagues.includes(:users)
   end
+
+  def create
+    @league = Leagure.new(league_params)
+    if @league.save
+      random_array = (1..@league.users.length).to_a.sort_by{rand}
+
+      i = 0
+      @league.users.each do |user|
+        Order.create(league_id: @league.id, user_id: user.id, order: random_array[i])
+        i += 1
+      end
+
+      redirect_to group_league_path(@league.group_id, @league.id)
+    else
+      render :new
+    end
+  
+  end
+
+  # private
+  # def league_params
+  #   params.require(:league).permit(:name, :group_id, user_ids: [])
+  # end
+
+
+
+
+
+
+
 
   def show
     @result = Result.new
@@ -11,22 +47,22 @@ class LeaguesController < ApplicationController
     @league = League.find(params[:id])
 
     @users = @league.users.order("created_at ASC")
-    @team_num = @users.length
+    @user_num = @users.length
     @results = @league.results
 
 
-    @gameA_results = Array.new(@team_num) { Array.new(@team_num) }
-    @gameB_results = Array.new(@team_num) { Array.new(@team_num) }
+    @gameA_results = Array.new(@user_num) { Array.new(@user_num) }
+    @gameB_results = Array.new(@user_num) { Array.new(@user_num) }
 
-    place_id = Array.new(@team_num)
+    place_id = Array.new(@user_num)
     i = 0
     @users.each do |user|
       place_id[i] = user.id
       i += 1 
     end
 
-    @team_num.times do |i|
-      @team_num.times do |j|
+    @user_num.times do |i|
+      @user_num.times do |j|
         if i == j
           @gameA_results[i][j] = nil
           @gameB_results[i][j] = nil
@@ -45,43 +81,43 @@ class LeaguesController < ApplicationController
 
 
 
-    @place_name = Array.new(@team_num) 
+    @place_name = Array.new(@user_num) 
     i = 0
     @users.each do |user|
       @place_name[i] = user.name
       i += 1 
     end
     
-    if @team_num <= 1
+    if @user_num <= 1
       return false
-    elsif @team_num % 2 == 0            # even
-      @gameAs = Array.new(@team_num-1) { Array.new(@team_num/2) }
-      @gameBs = Array.new(@team_num-1) { Array.new(@team_num/2) }
+    elsif @user_num % 2 == 0            # even
+      @game_homes = Array.new(@user_num-1) { Array.new(@user_num/2) }
+      @game_visitors = Array.new(@user_num-1) { Array.new(@user_num/2) }
 
-      gameAs_temp, gameBs_temp = even_gameAB(@team_num)
+      game_homes_temp, game_visitors_temp = even_gameHVs(@user_num)
 
-      (@team_num-1).times do |i|
-        (@team_num/2).times do |j|
-          @gameAs[i][j] = @place_name[gameAs_temp[i][j]-1]
-          @gameBs[i][j] = @place_name[gameBs_temp[i][j]-1]
+      (@user_num-1).times do |i|
+        (@user_num/2).times do |j|
+          @game_homes[i][j] = @place_name[game_homes_temp[i][j]-1]
+          @game_visitors[i][j] = @place_name[game_visitors_temp[i][j]-1]
         end
       end
-    else  # @team_num % 2 == 1          # odd
-      @gameAs = Array.new(@team_num) { Array.new( (@team_num-1)/2 ) }
-      @gameBs = Array.new(@team_num) { Array.new( (@team_num-1)/2 ) }
-      @gameCs = Array.new(@team_num)
+    else  # @user_num % 2 == 1          # odd
+      @game_homes = Array.new(@user_num) { Array.new( (@user_num-1)/2 ) }
+      @game_visitors = Array.new(@user_num) { Array.new( (@user_num-1)/2 ) }
+      @game_nones = Array.new(@user_num)
 
-      gameAs_temp, gameBs_temp = odd_gameAB(@team_num)
-      gameCs_temp = odd_gameC_br(@team_num)
-      @gameCs[0] = @place_name[@team_num-1]
+      game_homes_temp, game_visitors_temp = odd_gameHVs(@user_num)
+      gameCs_temp = odd_gameNones(@user_num)
+      @game_nones[0] = @place_name[@user_num-1]
 
-      @team_num.times do |i|
-        ( (@team_num-1)/2 ).times do |j|
-          @gameAs[i][j] = @place_name[gameAs_temp[i][j]-1]
-          @gameBs[i][j] = @place_name[gameBs_temp[i][j]-1]
+      @user_num.times do |i|
+        ( (@user_num-1)/2 ).times do |j|
+          @game_homes[i][j] = @place_name[game_homes_temp[i][j]-1]
+          @game_visitors[i][j] = @place_name[game_visitors_temp[i][j]-1]
         end
-        if i != (@team_num - 1)
-          @gameCs[i+1] = @place_name[gameCs_temp[i+1]-1]
+        if i != (@user_num - 1)
+          @game_nones[i+1] = @place_name[gameCs_temp[i+1]-1]
         end
       end
     end
@@ -94,73 +130,73 @@ class LeaguesController < ApplicationController
 
   private
 
-  def even_gameAB(team_num)
-    place = Array.new(team_num)
-    gameA = Array.new(team_num-1) { Array.new(team_num/2) }
-    gameB = Array.new(team_num-1) { Array.new(team_num/2) }
+  def even_gameHVs(user_num)
+    place = Array.new(user_num)
+    gameA = Array.new(user_num-1) { Array.new(user_num/2) }
+    gameB = Array.new(user_num-1) { Array.new(user_num/2) }
   
-    team_num.times do |i|
+    user_num.times do |i|
       place[i] = i+1
     end
   
-    (team_num-1).times do |i|
-      (team_num/2).times do |j|
+    (user_num-1).times do |i|
+      (user_num/2).times do |j|
         if (j%2 == 1) || (i%2 == 1 && j==0)
-          gameA[i][j] = place[team_num-(j+1)]
+          gameA[i][j] = place[user_num-(j+1)]
           gameB[i][j] = place[j]
         else
           gameA[i][j] = place[j]
-          gameB[i][j] = place[team_num-(j+1)]
+          gameB[i][j] = place[user_num-(j+1)]
         end
       end
-      place = shift_place_even(place,team_num)
+      place = shift_place_even(place,user_num)
     end
   
     return gameA, gameB
   end
   
-  def odd_gameAB(team_num)
-    place = Array.new(team_num)
-    gameA = Array.new(team_num) { Array.new( (team_num-1)/2 ) }
-    gameB = Array.new(team_num) { Array.new( (team_num-1)/2 ) }
+  def odd_gameHVs(user_num)
+    place = Array.new(user_num)
+    gameA = Array.new(user_num) { Array.new( (user_num-1)/2 ) }
+    gameB = Array.new(user_num) { Array.new( (user_num-1)/2 ) }
   
-    team_num.times do |i|
+    user_num.times do |i|
       place[i] = i+1
     end
   
-    team_num.times do |i|
-      ( (team_num-1)/2 ).times do |j|
+    user_num.times do |i|
+      ( (user_num-1)/2 ).times do |j|
         if j%2 == 1
-          gameA[i][j] = place[ team_num-(j+2)]
+          gameA[i][j] = place[ user_num-(j+2)]
           gameB[i][j] = place[j]
         else          
           gameA[i][j] = place[j]
-          gameB[i][j] = place[ team_num-(j+2)]
+          gameB[i][j] = place[ user_num-(j+2)]
         end
       end
-      place = shift_place_odd(place, team_num)
+      place = shift_place_odd(place, user_num)
     end
   
     return gameA, gameB
   end
   
-  def odd_gameC_br(team_num)
-    gameC = Array.new(@team_num)
-    gameC[0] =team_num
-    (team_num-1).times do |i|
+  def odd_gameNones(user_num)
+    gameC = Array.new(@user_num)
+    gameC[0] =user_num
+    (user_num-1).times do |i|
       gameC[i+1] = i+1
     end
     return gameC
   end
   
-  def shift_place_even(place, team_num)
+  def shift_place_even(place, user_num)
     place.unshift 1
-    place[1] = place[team_num]
+    place[1] = place[user_num]
     place.pop
     return place
   end
   
-  def shift_place_odd(place, team_num)
+  def shift_place_odd(place, user_num)
     place << place[0]
     place.shift
     return place
