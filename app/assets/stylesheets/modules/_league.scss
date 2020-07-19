@@ -135,20 +135,12 @@
                 border: 1px solid #003300;
                 font-size: (48vh * $mn);
                 text-align: center;
-                max-width: 20vw;
+                max-width: 25vw;
                 padding: 10px;
                 text-overflow: ellipsis;
                 white-space: nowrap;
                 overflow: hidden;
                 color: #003300;
-                .td-becenter{
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  span.space-span{
-                    margin: 0 5px;
-                  }
-                }
               }
               .thtd-won{
                 border-left: 3px double #003300;

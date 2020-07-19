@@ -29,29 +29,27 @@
               %th=user.name
             %th.thtd-won<>won
             %th<>lost
-            %th<>even
+            %th<>evennnnnnnnnnnnnn
             %th<>rank
           - i = 0
           - @league.users.each do |user|
             %tr
               %td=user.name
-              - @user_num.times do |j|
+              - j = 0
+              - @league.users.each do |user2|
                 - if i == j
                   %td.td-gray
                 - else
-                  %td{class: "data-user-name_#{@place_name[i]} data-user2-name_#{@place_name[j]}"}
-                    .td-becenter
-                      %span.score=@gameA_results[i][j]
-                      - if @gameA_results[i][j]
-                        %span.space-span<>-
-                      %span.score=@gameB_results[i][j]
+                  %td{"data-user-name": user.name, "data-user2-name": user2.name}= @league.get_game_scores(user.id, user2.id)
+                - j += 1
               %td.thtd-won
               %td
               %td
               %td
               - i += 1
       .league-form
-        = form_with model: @result, local: true do |f|
+        = form_with model: [@group, @game], local: true do |f|
+          = f.hidden_field :league_id, {value: @league.id}
           .form-scores
             .form-scores__score-box
               = f.select :user_name, @place_name, { include_blank: "select"}, class: "form-name"
@@ -61,67 +59,71 @@
               = f.select :user2_name, @place_name, { include_blank: "select"}, class: "form-name"
             .form-scores__send-btn
               = f.submit "Send", class: "button-green"
-      .league-order
-        .order-header
-          .order-header__left.order-header__side
-          .order-header__center
-            %h2<>Recommended order
-          .order-header__right.order-header__side
-            .div-tip<>tip
-        .order-contents
-          - if @user_num <= 1
-            %span<>error
-          - elsif @user_num % 2 == 0
-            - (@user_num-1).times do |i|
-              .round-box
-                .round-box__header
-                  %span.round-head<>Round
-                  %span<>
-                    = i+1
-                - (@user_num/2).times do |j|
-                  .game-box
-                    %span.user-name__left= @game_homes[i][j]
-                    - if true
-                      %span.score<>00
-                      %span.score-vs__t<>-
-                    - else 
-                      %span.score-vs__f<>-
-                    - if true
-                      %span.score<>0
-                    %span.user-name__right= @game_visitors[i][j]
-          - else 
-            - @user_num.times do |i|
-              .round-box
-                .round-box__header
-                  %span.round-head<>Round
-                  %span<>
-                    = i+1
-                - ( (@user_num-1)/2 ).times do |j|
-                  .game-box
-                    %span.user-name__left= @game_homes[i][j]
-                    - if true
-                      %span.score<>00
-                      %span.score-vs__t<>-
-                    - else 
-                      %span.score-vs__f<>-
-                    - if true
-                      %span.score<>0
-                    %span.user-name__right= @game_visitors[i][j]
-                .no-game-box<>
-                  %span.nogame<>no game:
-                  %span.nogame-user-name= @game_nones[i]
-      
-      
-      
-      
-      
-      .league-comments
+
+       
 
 
-  %footer.group
-    .footer-left<>League Match App
-    .footer-right
-      %p<>App favicon by 
-      = link_to "ios-filled", "https://icons8.jp/icon/pack/alphabet/ios-filled"
-      %p<>,
-      = link_to "icons8", "https://icons8.com/"
+  -#     .league-order
+  -#       .order-header
+  -#         .order-header__left.order-header__side
+  -#         .order-header__center
+  -#           %h2<>Recommended order
+  -#         .order-header__right.order-header__side
+  -#           .div-tip<>tip
+  -#       .order-contents
+  -#         - if @user_num <= 1
+  -#           %span<>error
+  -#         - elsif @user_num % 2 == 0
+  -#           - (@user_num-1).times do |i|
+  -#             .round-box
+  -#               .round-box__header
+  -#                 %span.round-head<>Round
+  -#                 %span<>
+  -#                   = i+1
+  -#               - (@user_num/2).times do |j|
+  -#                 .game-box
+  -#                   %span.user-name__left= @game_homes[i][j]
+  -#                   - if true
+  -#                     %span.score<>00
+  -#                     %span.score-vs__t<>-
+  -#                   - else 
+  -#                     %span.score-vs__f<>-
+  -#                   - if true
+  -#                     %span.score<>0
+  -#                   %span.user-name__right= @game_visitors[i][j]
+  -#         - else 
+  -#           - @user_num.times do |i|
+  -#             .round-box
+  -#               .round-box__header
+  -#                 %span.round-head<>Round
+  -#                 %span<>
+  -#                   = i+1
+  -#               - ( (@user_num-1)/2 ).times do |j|
+  -#                 .game-box
+  -#                   %span.user-name__left= @game_homes[i][j]
+  -#                   - if true
+  -#                     %span.score<>00
+  -#                     %span.score-vs__t<>-
+  -#                   - else 
+  -#                     %span.score-vs__f<>-
+  -#                   - if true
+  -#                     %span.score<>0
+  -#                   %span.user-name__right= @game_visitors[i][j]
+  -#               .no-game-box<>
+  -#                 %span.nogame<>no game:
+  -#                 %span.nogame-user-name= @game_nones[i]
+      
+      
+      
+      
+      
+  -#     .league-comments
+
+
+  -# %footer.group
+  -#   .footer-left<>League Match App
+  -#   .footer-right
+  -#     %p<>App favicon by 
+  -#     = link_to "ios-filled", "https://icons8.jp/icon/pack/alphabet/ios-filled"
+  -#     %p<>,
+  -#     = link_to "icons8", "https://icons8.com/"
