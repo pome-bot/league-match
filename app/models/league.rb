@@ -1,8 +1,8 @@
 class League < ApplicationRecord
 
   belongs_to :group
-  has_many :orders
-  has_many :users, through: :orders
-  has_many :results
+  has_many :leagues_users
+  has_many :users, through: :leagues_users
+  has_many :games
 
 end

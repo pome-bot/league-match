@@ -1,4 +1,4 @@
-class Order < ApplicationRecord
+class LeaguesUser < ApplicationRecord
 
   belongs_to :user
   belongs_to :league

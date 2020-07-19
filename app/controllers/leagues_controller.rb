@@ -16,11 +16,11 @@ class LeaguesController < ApplicationController
     if @league.save
       random_array = (1..@league.users.length).to_a.sort_by{rand}
 
-      i = 0
-      @league.users.each do |user|
-        Order.create(league_id: @league.id, user_id: user.id, order: random_array[i])
-        i += 1
-      end
+      # i = 0
+      # @league.users.each do |user|
+      #   Order.create(league_id: @league.id, user_id: user.id, order: random_array[i])
+      #   i += 1
+      # end
 
       redirect_to group_league_path(@league.group_id, @league.id)
     else
@@ -42,13 +42,13 @@ class LeaguesController < ApplicationController
 
 
   def show
-    @result = Result.new
+    @game = Game.new
     @group = Group.find(params[:group_id])
     @league = League.find(params[:id])
 
     @users = @league.users.order("created_at ASC")
     @user_num = @users.length
-    @results = @league.results
+    @games = @league.games
 
 
     @gameA_results = Array.new(@user_num) { Array.new(@user_num) }
@@ -66,10 +66,10 @@ class LeaguesController < ApplicationController
         if i == j
           @gameA_results[i][j] = nil
           @gameB_results[i][j] = nil
-        elsif @results.where(user_id: place_id[i]).where(user2_id: place_id[j]).length != 0
+        elsif @games.where(user_id: place_id[i]).where(user2_id: place_id[j]).length != 0
           @gameA_results[i][j] = @results.where(user_id: place_id[i]).where(user2_id: place_id[j])[0].user_score
           @gameB_results[i][j] = @results.where(user_id: place_id[i]).where(user2_id: place_id[j])[0].user2_score
-        elsif @results.where(user_id: place_id[j]).where(user2_id: place_id[i]).length != 0
+        elsif @games.where(user_id: place_id[j]).where(user2_id: place_id[i]).length != 0
           @gameA_results[i][j] = @results.where(user_id: place_id[j]).where(user2_id: place_id[i])[0].user2_score
           @gameB_results[i][j] = @results.where(user_id: place_id[j]).where(user2_id: place_id[i])[0].user_score
         else
