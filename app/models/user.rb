@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :groups, through: :groups_users
   has_many :leagues_users
   has_many :leagues, through: :leagues_users
+  has_many :games
 
   validates :name, presence: true, uniqueness: true
   # validates :name, presence: true, uniqueness: {case_sensitive: true}
