@@ -92,3 +92,108 @@ footer.group{
   }
 }
 
+// new.html.haml
+.wrapper-group-new{
+  .main-group-new{
+    height: 87vh;
+    border-right: 4px solid #003300;
+    border-left: 4px solid #003300;
+    display: flex;
+    justify-content: center;
+    &__contents{
+      padding: 3vh 10vw 5vh 10vw;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: auto;
+      h2{
+        font-size: (48vh * $mn);
+      }
+    }
+  }
+}
+
+// edit.html.haml
+.wrapper-group-edit{
+  .main-group-edit{
+    height: 87vh;
+    border-right: 4px solid #003300;
+    border-left: 4px solid #003300;
+    display: flex;
+    justify-content: center;
+    &__contents{
+      padding: 3vh 10vw 5vh 10vw;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: auto;
+      h2{
+        font-size: (48vh * $mn);
+      }
+    }
+  }
+}
+
+// _form_group.html.haml
+#new-group{
+  font-size: (48vh * $mn);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .group-new__errors{
+
+  }
+  .field{
+    padding: 1vh 0;
+    width: 80vw;
+    label{
+      font-size: (32vh * $mn);
+    }
+    input.input-field{
+      padding: 0 10px;
+      width: 80vw;
+      font-size: (48vh * $mn);
+      &::placeholder {
+        color: #004400;
+        opacity: 0.3;
+      }
+    }
+    .group-member{
+      font-size: (40vh * $mn);
+      border-right: 1px solid #004400;
+      border-left: 1px solid #004400;
+      border-bottom: 1px solid #004400;
+      padding: 5px 20px 5px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      i.group-member__add{
+        font-size: (64vh * $mn);
+        color: #007700;
+      }
+      i.group-member__remove{
+        font-size: (64vh * $mn);
+        color: #FF97C2;
+      }
+    }
+    .group-member__current-user{
+      border-top: 1px solid #004400;
+    }
+  }
+  .actions{
+    margin: 3vh 0 2vh 0;
+    display: block;
+    height: 8vh;
+    width: 40vw;
+    padding: (10vh / 12);
+    input.button-green{
+      height: 100%;
+      width: 100%;
+      font-size: (10vh / 3);
+    }
+  }
+}

@@ -15,6 +15,10 @@ a {
   color: black;
 }
 
+input.submit{
+  font-family: Arial;
+}
+
 @import "modules/home";
 @import "modules/user";
 @import "modules/devise_error";
