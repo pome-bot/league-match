@@ -6,13 +6,15 @@ class GamesController < ApplicationController
     user = User.find_by(name: params[:game][:user_name])
     user2 = User.find_by(name: params[:game][:user2_name])
 
-    if user.present? && user2.present?
+    unless user.present? && user2.present? && user != user2 && params[:game][:user_score].present? && params[:game][:user2_score].present?
+      # set error messages
+    else 
       gameA = @league.games.where(user_id: user.id).find_by(user2_id: user2.id)
       gameB = @league.games.where(user_id: user2.id).find_by(user2_id: user.id)
-  
-      if gameA.present? && params[:game][:user_score].present? && params[:game][:user2_score].present?
+      
+      if gameA.present?
         gameA.update(game_params)
-      elsif gameB.present? && params[:game][:user_score].present? && params[:game][:user2_score].present?
+      elsif gameB.present?
         gameB.update(user_score: game_params[:user2_score], user2_score: game_params[:user_score])
       end
     end

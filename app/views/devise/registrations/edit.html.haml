@@ -1,36 +1,49 @@
-%h2
-  Edit #{resource_name.to_s.humanize}
-= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-  = render "devise/shared/error_messages", resource: resource
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    %div
-      Currently waiting confirmation for: #{resource.unconfirmed_email}
-  .field
-    = f.label :password
-    %i (leave blank if you don't want to change it)
-    %br/
-    = f.password_field :password, autocomplete: "new-password"
-    - if @minimum_password_length
-      %br/
-      %em
-        = @minimum_password_length
-        characters minimum
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "new-password"
-  .field
-    = f.label :current_password
-    %i (we need your current password to confirm your changes)
-    %br/
-    = f.password_field :current_password, autocomplete: "current-password"
-  .actions
-    = f.submit "Update"
-%h3 Cancel my account
-%p
-  Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
-= link_to "Back", :back
+.wrapper-sign-edit
+  %header.group
+    = link_to current_user.name, groups_path, class: "header-user-name"
+    = link_to edit_user_path(current_user), class: "header-cog" do
+      = icon('fas', 'cog', class: "header-cog__icon")
+  .main-sign-edit
+    .main-sign-edit__contents
+      %h2<>Edit account
+      = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+        = render "devise/shared/error_messages", resource: resource
+        .field
+          %label<>email
+          %br/
+          = f.email_field :email, autofocus: true, autocomplete: "email", class: "input-field"
+        - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+          %div
+            Currently waiting confirmation for: #{resource.unconfirmed_email}
+        .field
+          %label<>password (minimun 6 character)
+          %br/
+          %i (leave blank if you don't want to change it)
+          %br/
+          = f.password_field :password, class: "input-field"
+        .field
+          %label<>password confirmation
+          %br/
+          = f.password_field :password_confirmation, class: "input-field"
+        .field
+          %label<>current password
+          %br/
+          %i (we need your current password to confirm your changes)
+          %br/
+          = f.password_field :current_password, class: "input-field"
+        .actions
+          = f.submit "Update", class: "button-green"
+      .other-btns
+        = link_to edit_user_path(current_user), class: "back-btn btn-wrapper" do
+          %button.button-gray<>Back
+        = link_to user_registration_path, method: :delete, data: { confirm: "Are you sure?" }, class: "cancel-btn btn-wrapper" do
+          %button.button-red<>Cancel account
+  %footer.group
+    .footer-left<>League Match App
+    .footer-right
+      %p<>App favicon by 
+      = link_to "ios-filled", "https://icons8.jp/icon/pack/alphabet/ios-filled"
+      %p<>,
+      = link_to "icons8", "https://icons8.com/"
+
+-# = render "devise/shared/links"

@@ -1,52 +1,20 @@
-.AccountPage
-  .AccountPage__title
-    %h2 Edit Account
-    %h5 アカウントの編集
-    = link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'Button'
-    -# = link_to "ログアウト", '#', class: 'Button'
-    = link_to "トップページに戻る", root_path, class: 'Button'
-  .AccountPage__form
-    = form_for(current_user) do |f|
-      .FormField
-        .FormField__label--normal
-          = f.label :name
-        .FormField__input--normal
-          = f.text_field :name, autofocus: true
-      .FormField
-        .FormField__label--normal
-          = f.label :email
-        .FormField__input--normal
-          = f.email_field :email
-      = f.submit "Update", class: 'Button UserButton'
-
-.wrapper-sign-in
-  %header
-    %h1<>League Match App
-  .main-sign-in
-    .main-sign-in__contents
-      %h2<>Sign in
-      -# = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-      -#   .field
-      -#     %label<>email
-      -#     %br/
-      -#     = f.email_field :email, autofocus: true, autocomplete: "email", class: "input-field"
-      -#   .field
-      -#     %label<>password
-      -#     %br/
-      -#     = f.password_field :password, class: "input-field"
-      -#   - if devise_mapping.rememberable?
-      -#     .field
-      -#       = f.check_box :remember_me
-      -#       = f.label :remember_me
-      -#   .actions
-      -#     = f.submit "Sign in", class: "button-green"
-      .other-buttons
-        = link_to root_path, class: "back-top-btn" do
-          %button.button-gray<>Back to top
-        = link_to new_user_registration_path, class: "sign-up-btn" do
-          %button.button-gray<>Sign up
-  %footer
-    %p<>App favicon by 
-    = link_to "icon8", "#"
-
--# = render "devise/shared/links"
+.wrapper-user-top
+  %header.group
+    = link_to current_user.name, groups_path, class: "header-user-name"
+    = link_to edit_user_path(current_user), class: "header-cog" do
+      = icon('fas', 'cog', class: "header-cog__icon")
+  .main-user-top
+    .main-user-top__contents
+      = link_to destroy_user_session_path, method: :delete, class: "sign-out-btn btn-wrapper" do
+        %button.button-gray<>Sign out
+      = link_to edit_user_registration_path, class: "edit-account-btn btn-wrapper" do
+        %button.button-gray<>Edit account
+      = link_to root_path, class: "back-btn btn-wrapper" do
+        %button.button-green<>Back
+  %footer.group
+    .footer-left<>League Match App
+    .footer-right
+      %p<>App favicon by 
+      = link_to "ios-filled", "https://icons8.jp/icon/pack/alphabet/ios-filled"
+      %p<>,
+      = link_to "icons8", "https://icons8.com/"

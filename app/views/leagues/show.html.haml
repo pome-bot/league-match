@@ -25,18 +25,18 @@
         %table
           %tr
             %th<>
-            - @league.users.each do |user|
+            - @users.each do |user|
               %th=user.name
             %th.thtd-won<>won
             %th<>lost
             %th<>evennnnnnnnnnnnnn
             %th<>rank
           - i = 0
-          - @league.users.each do |user|
+          - @users.each do |user|
             %tr
               %td=user.name
               - j = 0
-              - @league.users.each do |user2|
+              - @users.each do |user2|
                 - if i == j
                   %td.td-gray
                 - else
@@ -70,27 +70,23 @@
           - if @user_num <= 1
             %span<>error
           - elsif @user_num % 2 == 0
-            - (@user_num-1).times do |i|
+            - i = 0
+            - (@user_num-1).times do |j|
               .round-box
                 .round-box__header
                   %span.round-head<>Round
-                  %span<>
-                    = i+1
-                - (@user_num/2).times do |j|
+                  %span= j+1
+                - (@user_num/2).times do
                   .game-box
-                    %span.user-name__left= @game_homes[i][j]
-                    - if true
-                      %span.score<>00
-                      %span.score-vs__t<>-
-                    - else 
-                      %span.score-vs__f<>-
-                    - if true
-                      %span.score<>0
-                    %span.user-name__right= @game_visitors[i][j]
+                    %span.user-name__left= @games[i].user.name
+                    %span.score= @games[i].user_score
+                    %span.score-vs__t<>-
+                    %span.score= @games[i].user2_score
+                    %span.user-name__right= @game_user2_names[i]
+                    - i += 1
           - else 
             - i = 0
-            - j = 0
-            - @user_num.times do
+            - @user_num.times do |j|
               .round-box
                 .round-box__header
                   %span.round-head<>Round
@@ -106,15 +102,14 @@
                 .no-game-box<>
                   %span.nogame<>no game:
                   %span.nogame-user-name= @game_nones[j]
-                - j += 1
       .league-comments
-        = @test_numnum
+        %span<>test
 
 
-  -# %footer.group
-  -#   .footer-left<>League Match App
-  -#   .footer-right
-  -#     %p<>App favicon by 
-  -#     = link_to "ios-filled", "https://icons8.jp/icon/pack/alphabet/ios-filled"
-  -#     %p<>,
-  -#     = link_to "icons8", "https://icons8.com/"
+  %footer.group
+    .footer-left<>League Match App
+    .footer-right
+      %p<>App favicon by 
+      = link_to "ios-filled", "https://icons8.jp/icon/pack/alphabet/ios-filled"
+      %p<>,
+      = link_to "icons8", "https://icons8.com/"
