@@ -9,6 +9,7 @@ class LeaguesController < ApplicationController
   def index
     @group = Group.find(params[:group_id])
     @leagues = @group.leagues.order(created_at: "DESC").includes(:users)
+    @users = @group.users.order(name: "ASC")
   end
 
   def create

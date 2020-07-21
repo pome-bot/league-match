@@ -10,6 +10,10 @@ header.group{
     color: white;
     font-size: 3vh;
     font-weight: bold;
+    max-width: 80vw;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
   a.header-cog{
     color: white;
@@ -79,11 +83,16 @@ footer.group{
           color: #004400;
           &--member{
             margin-right: 5px;
+            max-width: 70vw;
             display: inline-block;
-          }
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            }
         }
         &__group-date{
           margin-left: 4vw;
+          margin-top: 1vh;
           font-size: (32vh * $mn);
           color: #004400;
         }

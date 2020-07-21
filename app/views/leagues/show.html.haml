@@ -7,7 +7,7 @@
     .header-league__name-member
       = link_to @group.name, group_leagues_path(@group.id), class: "group-name"
       %ul.group-members
-        - @group.users.each do |user|
+        - @users.each do |user|
           %li.group-members__member= user.name
     = link_to edit_group_path(@group.id), class: "group-cog" do
       = icon('fas', 'cog', class: "group-cog__icon")
@@ -15,7 +15,7 @@
     .header-league-show__name-member
       %h2.league-name= @league.name
       %ul.league-members
-        - @league.users.each do |user|
+        - @users.each do |user|
           %li.league-members__member= user.name
     = link_to edit_group_league_path(@group.id, @league.id), class: "league-cog" do
       = icon('fas', 'cog', class: "league-cog__icon")
@@ -26,15 +26,15 @@
           %tr
             %th<>
             - @users.each do |user|
-              %th=user.name
+              %th.thtd-user-name=user.name
             %th.thtd-won<>won
             %th<>lost
-            %th<>evennnnnnnnnnnnnn
+            %th<>even
             %th<>rank
           - i = 0
           - @users.each do |user|
             %tr
-              %td=user.name
+              %td.thtd-user-name=user.name
               - j = 0
               - @users.each do |user2|
                 - if i == j
@@ -65,7 +65,9 @@
           .order-header__center
             %h2<>Recommended order
           .order-header__right.order-header__side
-            .div-tip<>tip
+            %label#info-toggle
+              = icon('fas', 'info-circle', class: "label-tip__icon")
+            #fadein-fadeout
         .order-contents
           - if @user_num <= 1
             %span<>error
@@ -78,11 +80,11 @@
                   %span= j+1
                 - (@user_num/2).times do
                   .game-box
-                    %span.user-name__left= @games[i].user.name
+                    %span.user-name.user-name__left= @games[i].user.name
                     %span.score= @games[i].user_score
-                    %span.score-vs__t<>-
+                    %span.score-vs<>-
                     %span.score= @games[i].user2_score
-                    %span.user-name__right= @game_user2_names[i]
+                    %span.user-name.user-name__right= @game_user2_names[i]
                     - i += 1
           - else 
             - i = 0
@@ -93,11 +95,11 @@
                   %span= j+1
                 - ( (@user_num-1)/2 ).times do
                   .game-box
-                    %span.user-name__left= @games[i].user.name
+                    %span.user-name.user-name__left= @games[i].user.name
                     %span.score= @games[i].user_score
-                    %span.score-vs__t<>-
+                    %span.score-vs<>-
                     %span.score= @games[i].user2_score
-                    %span.user-name__right= @game_user2_names[i]
+                    %span.user-name.user-name__right= @game_user2_names[i]
                     - i += 1
                 .no-game-box<>
                   %span.nogame<>no game:

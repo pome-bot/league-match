@@ -7,7 +7,7 @@
     .header-league__name-member
       = link_to @group.name, group_leagues_path(@group.id), class: "group-name"
       %ul.group-members
-        - @group.users.each do |user|
+        - @users.each do |user|
           %li.group-members__member= user.name
     = link_to edit_group_path(@group.id), class: "group-cog" do
       = icon('fas', 'cog', class: "group-cog__icon")
@@ -20,7 +20,7 @@
         .league-box
           = link_to league.name, group_league_path(league.group_id, league.id), class: "league-box__league-name"
           %ul.league-box__league-members
-            - league.users.each do |user|
+            - league.users.order(name: "ASC").each do |user|
               %li.league-box__league-members--member= user.name
           %p.league-box__league-date= league.created_at.strftime("%Y年%m月%d日")
   %footer.group
