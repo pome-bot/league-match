@@ -68,6 +68,11 @@
             %label#info-toggle
               = icon('fas', 'info-circle', class: "label-tip__icon")
             #fadein-fadeout
+              .div
+                %h2<>Tip of recommended order
+                %p<>左側を先攻、右側を後攻とすることで、バランス良く対戦できます。
+                %P<>Defining left side first and right side next, games can be fair. 
+                %p.close-message<>Click me to close
         .order-contents
           - if @user_num <= 1
             %span<>error

@@ -239,6 +239,7 @@
         align-items: center;
         flex-direction: column;
         .order-header{
+          position: relative;
           margin-bottom: 2vh;
           padding: 0 4vw;
           width: 100%;
@@ -248,12 +249,16 @@
             width: 10vw;
           }
           &__right{
+            position: relative;
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            position: relative;
             label#info-toggle{
               height: 100%;
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
               i.label-tip__icon{
                 font-size: (64vh * $mn);
                 color: #003300;
@@ -261,25 +266,37 @@
             }
             #fadein-fadeout{
               position: absolute;
-              height: 100px;
-              width: 100px;
-              background-color: red;
+              width: 80vw;
+              padding: 20px;
+              top: 5vh;
+              right: calc(46vw - 4px);
+              transform: translate(50%, 0);
+              // -webkit-transform: translate(-50%, -50%);
+              // -ms-transform: translate(-50%, -50%);
+              background-color: #CEF9DC;
+              border: 1px solid #003300;
+              border-radius: 5px;
               transition: opacity 1s, visibility 1s;
-              opacity: 0;
+              opacity: 0; 
               visibility: hidden;
-              top: 100px;
-              left: -100px;
+              h2{
+                font-size: (54vh * $mn);
+                margin-bottom: 2vh;
+              }
+              p{
+                font-size: (48vh * $mn);
+                margin: 0 3vw 1vh 3vw;
+              }
+              p.close-message{
+                width: 100%;
+                margin: 0;
+                text-align: center;
+              }
             }
             #fadein-fadeout.is-show{
               opacity: 1;
               visibility: visible;
             }
-
-
-
-
-
-
           }
           &__center{
             h2{

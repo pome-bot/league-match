@@ -7,4 +7,8 @@ $(function(){
     info_box.toggleClass('is-show');
   });
 
+  info_box.on("click", function() {
+    $(this).toggleClass('is-show');
+  });
+
 })
