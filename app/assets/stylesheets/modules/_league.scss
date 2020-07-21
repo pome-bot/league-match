@@ -422,6 +422,11 @@
               margin-right: 50px;
               height: 3vh;
               font-size: (48vh * $mn);
+              max-width: 60vw;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+              display: inline-block;
             }
           }
         }

@@ -2,6 +2,7 @@ class LeaguesController < ApplicationController
 
   def new
     @group = Group.find(params[:group_id])
+    @users = @group.users.order(name: "ASC")
     @league = League.new
     @league.users << @group.users.order(name: "ASC")
   end
