@@ -163,7 +163,7 @@ footer.group{
       }
     }
     .group-member{
-      font-size: (40vh * $mn);
+      font-size: (48vh * $mn);
       border-right: 1px solid #004400;
       border-left: 1px solid #004400;
       border-bottom: 1px solid #004400;
@@ -177,7 +177,7 @@ footer.group{
       }
       i.group-member__remove{
         font-size: (64vh * $mn);
-        color: #FF97C2;
+        color: #FF9872;
       }
     }
     .group-member__current-user{

@@ -9,33 +9,25 @@
     %label<>group name
     %br/
     = f.text_field :name, autofocus: true, autocomplete: "name", class: 'input-field'
-  .field.check-boxes
-    %label.check-box<>members
-    .check-boxes__box
-      = f.collection_check_boxes :user_ids, User.all, :id, :name
+  -# .field.check-boxes
+  -#   %label.check-box<>members
+  -#   .check-boxes__box
+  -#     = f.collection_check_boxes :user_ids, User.all, :id, :name
   .field
     %label<>search user
     .user-search
       %input.input-field#user-search__field{placeholder: "search user", type: "text"}
     #user-search-result
-      .group-member
-        %p.group-member__name<>dummy user
-        = icon('fas', 'plus-square', class: "group-member__add group-member__button icon-plus", "data-user-id": "999", "data-user-name": "dummy")
-        %input{name: "group[user_ids][]", type:"hidden", value: "999"}
-  .field
+  .field#group-members
     %label<>added members
     .group-member.group-member__current-user
       %p.group-member__name= current_user.name
       %input{name: "group[user_ids][]", type: "hidden", value: current_user.id}
-    .group-member
-      %p.group-member__name<>dummy user
-      = icon('fas', 'minus-square', class: "group-member__remove group-member__button icon-plus", "data-user-id": "999", "data-user-name": "dummy")
-      %input{name: "group[user_ids][]", type:"hidden", value: "999"}
     - group.users.each do |user|
       - if current_user.name != user.name
         .group-member
           %p.group-member__name= user.name
-          = icon('fas', 'minus-square', class: "group-member__remove group-member__button icon-plus", "data-user-id": "999", "data-user-name": "dummy")
+          = icon('fas', 'minus-square', class: "group-member__remove group-member__button icon-plus", "data-user-id": user.id, "data-user-name": user.name)
           %input{name: "group[user_ids][]", type:"hidden", value: user.id}
   .actions
-    = f.submit "Add group",class: 'button-green submit'
+    = f.submit class: 'button-green submit'
