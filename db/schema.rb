@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_22_023257) do
+ActiveRecord::Schema.define(version: 2020_07_22_073327) do
 
   create_table "games", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "league_id", null: false
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 2020_07_22_023257) do
     t.integer "rank", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "difference"
+    t.integer "difference", default: 0
     t.index ["league_id", "user_id"], name: "index_leagues_users_on_league_id_and_user_id", unique: true
     t.index ["league_id"], name: "index_leagues_users_on_league_id"
     t.index ["order"], name: "index_leagues_users_on_order"

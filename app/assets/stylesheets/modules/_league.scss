@@ -160,6 +160,12 @@
                 text-overflow: ellipsis;
                 overflow: hidden;
               }
+              .td-scores{
+                transition: background-color 0.1s;
+              }
+              .td-scores.is-colored{
+                background-color: #CEF9DC;
+              }
               td.td-gray{
                 background-color: lightgray;
               }
@@ -205,6 +211,10 @@
                 justify-content: center;
                 align-items: center;
                 padding-left: 20px;
+                transition: background-color 0.1s;
+              }
+              select.form-name.is-colored{
+                background-color: #CEF9DC;
               }
               input.form-score{
                 width: 11vw;
@@ -329,6 +339,7 @@
               display: flex;
               justify-content: center;
               align-items: center;
+              transition: background-color 0.1s;
               span.user-name{
                 width: 25vw;
                 width: 25vw;
@@ -350,6 +361,9 @@
                 white-space: nowrap;
                 overflow: hidden;
               }
+            }
+            .game-box.is-colored{
+              background-color: #CEF9DC;
             }
             .no-game-box{
               opacity: 0.5;
