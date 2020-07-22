@@ -5,6 +5,63 @@ class League < ApplicationRecord
   has_many :users, through: :leagues_users
   has_many :games
 
+  def get_ranks(points)
+    max = points.count * 3
+    min = 0
+
+    rank = Array.new(points.count)
+    rank_temp = Array.new(max+2, 0)
+    rank_temp[max+1] = 1
+    
+    points.count.times do |i|
+      rank_temp[points[i]] += 1 
+    end
+    
+    i = max
+    (max+1 - min).times do
+      rank_temp[i] += rank_temp[i+1]
+      i -= 1
+    end
+    
+    points.count.times do |i|
+      rank[i] = rank_temp[points[i]+1]
+    end
+
+    return rank
+  end
+
+  def get_wons(users)
+    wons = []
+    users.each do |user|
+      wons << get_won_count(user.id)
+    end
+    return wons
+  end
+
+  def get_losts(users)
+    losts = []
+    users.each do |user|
+      losts << get_lost_count(user.id)
+    end
+    return losts
+  end
+
+  def get_evens(users)
+    evens = []
+    users.each do |user|
+      evens << get_even_count(user.id)
+    end
+    return evens
+  end
+
+  def get_points(wons, losts, evens)
+    points = []
+    wons.each_with_index do |won, i|
+      points << (won*3 + losts[i]*0 + evens[i]*1)
+    end
+    return points
+  end
+
   def create_games(group)
     user_num = users.length
     place_user = Array.new(user_num)
@@ -164,6 +221,69 @@ class League < ApplicationRecord
     place << place[0]
     place.shift
     return place
+  end
+
+  def get_won_count(user_id)
+    gameAs = games.where(user_id: user_id)
+    gameBs = games.where(user2_id: user_id)
+    i = 0
+    gameAs.each do |game|
+      if game.user_score.present?
+        if game.user_score > game.user2_score
+          i += 1
+        end
+      end
+    end
+    gameBs.each do |game|
+      if game.user_score.present?
+        if game.user_score < game.user2_score
+          i += 1
+        end
+      end
+    end
+    return i
+  end
+
+  def get_lost_count(user_id)
+    gameAs = games.where(user_id: user_id)
+    gameBs = games.where(user2_id: user_id)
+    i = 0
+    gameAs.each do |game|
+      if game.user_score.present?
+        if game.user_score < game.user2_score
+          i += 1
+        end
+      end
+    end
+    gameBs.each do |game|
+      if game.user_score.present?
+        if game.user_score > game.user2_score
+          i += 1
+        end
+      end
+    end
+    return i
+  end
+
+  def get_even_count(user_id)
+    gameAs = games.where(user_id: user_id)
+    gameBs = games.where(user2_id: user_id)
+    i = 0
+    gameAs.each do |game|
+      if game.user_score.present?
+        if game.user_score == game.user2_score
+          i += 1
+        end
+      end
+    end
+    gameBs.each do |game|
+      if game.user_score.present?
+        if game.user_score == game.user2_score
+          i += 1
+        end
+      end
+    end
+    return i
   end
 
 end

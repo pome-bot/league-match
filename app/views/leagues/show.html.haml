@@ -30,23 +30,21 @@
             %th.thtd-won<>won
             %th<>lost
             %th<>even
+            %th<>point
             %th<>rank
-          - i = 0
-          - @users.each do |user|
+          - @users.each_with_index do |user, i|
             %tr
               %td.thtd-user-name=user.name
-              - j = 0
-              - @users.each do |user2|
+              - @users.each_with_index do |user2, j|
                 - if i == j
                   %td.td-gray
                 - else
                   %td{"data-user-name": user.name, "data-user2-name": user2.name}= @league.get_game_scores(user.id, user2.id)
-                - j += 1
-              %td.thtd-won
-              %td
-              %td
-              %td
-              - i += 1
+              %td.thtd-won= @game_wons[i]
+              %td= @game_losts[i]
+              %td= @game_evens[i]
+              %td= @game_points[i]
+              %td= @game_ranks[i]
       .league-form
         = form_with model: [@group, @game], local: true do |f|
           = f.hidden_field :league_id, {value: @league.id}
@@ -68,11 +66,10 @@
             %label#info-toggle
               = icon('fas', 'info-circle', class: "label-tip__icon")
             #fadein-fadeout
-              .div
-                %h2<>Tip of recommended order
-                %p<>左側を先攻、右側を後攻とすることで、バランス良く対戦できます。
-                %P<>Defining left side first and right side next, games can be fair. 
-                %p.close-message<>Click me to close
+              %h2<>Tip of recommended order
+              %p<>左側を先攻、右側を後攻とすることで、バランスよく対戦できます。
+              %P<>Defining left side first and right side next, games can be fair. 
+              %p.close-message<>Click me to close
         .order-contents
           - if @user_num <= 1
             %span<>error
