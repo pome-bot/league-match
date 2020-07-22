@@ -34,17 +34,18 @@ class LeaguesController < ApplicationController
 
     @user_num = @league.users.length
     @users = @league.users.order(name: "ASC")
+    @lusers = @league.leagues_users
     @games = @league.games.order(order: "ASC").includes(:user)
 
     @name_array = @league.get_name_array
     @game_user2_names = @league.get_user2_names
     @game_nones = @league.get_game_nones
 
-    @game_wons = @league.get_wons(@users)
-    @game_losts = @league.get_losts(@users)
-    @game_evens = @league.get_evens(@users)
-    @game_points = @league.get_points(@game_wons, @game_losts, @game_evens)
-    @game_ranks = @league.get_ranks(@game_points)
+    # @game_wons = @league.get_wons(@users)
+    # @game_losts = @league.get_losts(@users)
+    # @game_evens = @league.get_evens(@users)
+    # @game_points = @league.get_points(@game_wons, @game_losts, @game_evens)
+    # @game_ranks = @league.get_ranks(@game_points)
   end
 
   private

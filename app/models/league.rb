@@ -5,6 +5,116 @@ class League < ApplicationRecord
   has_many :users, through: :leagues_users
   has_many :games
 
+  def update_leagues_users_table_rank_temp
+    lusers = leagues_users
+    points = []
+    max = lusers.count * win_point
+    min = 0
+    rank = Array.new(max+2, 0)
+    rank[max+1] = 1
+
+    lusers.each do |luser|
+      points << luser.point
+    end
+    
+    lusers.count.times do |i|
+      rank[points[i]] += 1 
+    end
+    
+    i = max
+    (max+1 - min).times do
+      rank[i] += rank[i+1]
+      i -= 1
+    end
+    
+    lusers.each_with_index do |luser, i|
+      luser.update(rank: rank[points[i]+1])
+    end
+  end
+
+
+  def get_won_count(user_id)
+    gameAs = games.where(user_id: user_id)
+    gameBs = games.where(user2_id: user_id)
+    i = 0
+    gameAs.each do |game|
+      if game.user_score.present?
+        if game.user_score > game.user2_score
+          i += 1
+        end
+      end
+    end
+    gameBs.each do |game|
+      if game.user_score.present?
+        if game.user_score < game.user2_score
+          i += 1
+        end
+      end
+    end
+    return i
+  end
+
+  def get_lost_count(user_id)
+    gameAs = games.where(user_id: user_id)
+    gameBs = games.where(user2_id: user_id)
+    i = 0
+    gameAs.each do |game|
+      if game.user_score.present?
+        if game.user_score < game.user2_score
+          i += 1
+        end
+      end
+    end
+    gameBs.each do |game|
+      if game.user_score.present?
+        if game.user_score > game.user2_score
+          i += 1
+        end
+      end
+    end
+    return i
+  end
+
+  def get_even_count(user_id)
+    gameAs = games.where(user_id: user_id)
+    gameBs = games.where(user2_id: user_id)
+    i = 0
+    gameAs.each do |game|
+      if game.user_score.present?
+        if game.user_score == game.user2_score
+          i += 1
+        end
+      end
+    end
+    gameBs.each do |game|
+      if game.user_score.present?
+        if game.user_score == game.user2_score
+          i += 1
+        end
+      end
+    end
+    return i
+  end
+
+  def get_difference(user_id)
+    gameAs = games.where(user_id: user_id)
+    gameBs = games.where(user2_id: user_id)
+    i = 0
+    gameAs.each do |game|
+      if game.user_score.present?
+        i += game.user_score
+        i -= game.user2_score
+      end
+    end
+    gameBs.each do |game|
+      if game.user_score.present?
+        i -= game.user_score
+        i += game.user2_score
+      end
+    end
+    return i
+  end
+
   def get_ranks(points)
     max = points.count * 3
     min = 0
@@ -223,67 +333,5 @@ class League < ApplicationRecord
     return place
   end
 
-  def get_won_count(user_id)
-    gameAs = games.where(user_id: user_id)
-    gameBs = games.where(user2_id: user_id)
-    i = 0
-    gameAs.each do |game|
-      if game.user_score.present?
-        if game.user_score > game.user2_score
-          i += 1
-        end
-      end
-    end
-    gameBs.each do |game|
-      if game.user_score.present?
-        if game.user_score < game.user2_score
-          i += 1
-        end
-      end
-    end
-    return i
-  end
-
-  def get_lost_count(user_id)
-    gameAs = games.where(user_id: user_id)
-    gameBs = games.where(user2_id: user_id)
-    i = 0
-    gameAs.each do |game|
-      if game.user_score.present?
-        if game.user_score < game.user2_score
-          i += 1
-        end
-      end
-    end
-    gameBs.each do |game|
-      if game.user_score.present?
-        if game.user_score > game.user2_score
-          i += 1
-        end
-      end
-    end
-    return i
-  end
-
-  def get_even_count(user_id)
-    gameAs = games.where(user_id: user_id)
-    gameBs = games.where(user2_id: user_id)
-    i = 0
-    gameAs.each do |game|
-      if game.user_score.present?
-        if game.user_score == game.user2_score
-          i += 1
-        end
-      end
-    end
-    gameBs.each do |game|
-      if game.user_score.present?
-        if game.user_score == game.user2_score
-          i += 1
-        end
-      end
-    end
-    return i
-  end
 
 end
