@@ -27,12 +27,12 @@
             %th<>
             - @users.each do |user|
               %th.thtd-user-name=user.name
-            %th.thtd-won<>won
+            %th.thtd-border-double<>won
             %th<>lost
             %th<>even
-            %th<>point
+            %th.thtd-border-double<>point
             %th<>dif
-            %th<>rank
+            %th.thtd-border-double<>rank
           - @users.each_with_index do |user, i|
             %tr
               %td.thtd-user-name=user.name
@@ -41,12 +41,12 @@
                   %td.td-gray
                 - else
                   %td{"data-user-name": user.name, "data-user2-name": user2.name}= @league.get_game_scores(user.id, user2.id)
-              %td.thtd-won= @lusers.find_by(user_id: user.id).won
+              %td.thtd-border-double= @lusers.find_by(user_id: user.id).won
               %td= @lusers.find_by(user_id: user.id).lost
               %td= @lusers.find_by(user_id: user.id).even
-              %td= @lusers.find_by(user_id: user.id).point
+              %td.thtd-border-double= @lusers.find_by(user_id: user.id).point
               %td= @lusers.find_by(user_id: user.id).difference
-              %td= @lusers.find_by(user_id: user.id).rank
+              %td.thtd-border-double= @lusers.find_by(user_id: user.id).rank
       .league-form
         = form_with model: [@group, @game], local: true do |f|
           = f.hidden_field :league_id, {value: @league.id}

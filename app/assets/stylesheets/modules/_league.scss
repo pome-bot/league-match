@@ -150,14 +150,14 @@
                 text-align: center;
                 padding: 20px;
                 color: #003300;
+                white-space: nowrap;
               }
-              .thtd-won{
+              .thtd-border-double{
                 border-left: 3px double #003300;
               }
               .thtd-user-name{
                 max-width: 25vw;
                 text-overflow: ellipsis;
-                white-space: nowrap;
                 overflow: hidden;
               }
               td.td-gray{

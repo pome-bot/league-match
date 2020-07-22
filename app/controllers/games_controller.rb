@@ -19,14 +19,16 @@ class GamesController < ApplicationController
         update_leagues_users_table_5columns(league, user1)
         update_leagues_users_table_5columns(league, user2)
         league.update_leagues_users_table_rank_temp
-    
+        league.compare_tie_ranker_with_dif
+        league.compare_tie_ranker_with_match
 
       elsif gameB.present?
         gameB.update(user_score: score2, user2_score: score1)
         update_leagues_users_table_5columns(league, user1)
         update_leagues_users_table_5columns(league, user2)
         league.update_leagues_users_table_rank_temp
-
+        league.compare_tie_ranker_with_dif
+        league.compare_tie_ranker_with_match
 
       end
     end

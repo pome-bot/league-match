@@ -5,6 +5,36 @@ class League < ApplicationRecord
   has_many :users, through: :leagues_users
   has_many :games
 
+  def compare_tie_ranker_with_dif
+    lusers = leagues_users
+
+    lusers.each_with_index do |luser, i|
+      lusers.each_with_index do |luser2, j|
+        if i < j
+          if luser.rank == luser2.rank
+            rank_tie = luser.rank
+            update_tie_rankers_with_dif(rank_tie)
+          end
+        end
+      end
+    end
+  end
+
+  def compare_tie_ranker_with_match
+    lusers = leagues_users
+
+    lusers.each_with_index do |luser, i|
+      lusers.each_with_index do |luser2, j|
+        if i < j
+          if luser.rank == luser2.rank
+            rank_tie = luser.rank
+            update_tie_rankers_with_match(rank_tie)
+          end
+        end
+      end
+    end
+  end
+
   def update_leagues_users_table_rank_temp
     lusers = leagues_users
     points = []
@@ -31,7 +61,6 @@ class League < ApplicationRecord
       luser.update(rank: rank[points[i]+1])
     end
   end
-
 
   def get_won_count(user_id)
     gameAs = games.where(user_id: user_id)
@@ -113,63 +142,6 @@ class League < ApplicationRecord
       end
     end
     return i
-  end
-
-  def get_ranks(points)
-    max = points.count * 3
-    min = 0
-
-    rank = Array.new(points.count)
-    rank_temp = Array.new(max+2, 0)
-    rank_temp[max+1] = 1
-    
-    points.count.times do |i|
-      rank_temp[points[i]] += 1 
-    end
-    
-    i = max
-    (max+1 - min).times do
-      rank_temp[i] += rank_temp[i+1]
-      i -= 1
-    end
-    
-    points.count.times do |i|
-      rank[i] = rank_temp[points[i]+1]
-    end
-
-    return rank
-  end
-
-  def get_wons(users)
-    wons = []
-    users.each do |user|
-      wons << get_won_count(user.id)
-    end
-    return wons
-  end
-
-  def get_losts(users)
-    losts = []
-    users.each do |user|
-      losts << get_lost_count(user.id)
-    end
-    return losts
-  end
-
-  def get_evens(users)
-    evens = []
-    users.each do |user|
-      evens << get_even_count(user.id)
-    end
-    return evens
-  end
-
-  def get_points(wons, losts, evens)
-    points = []
-    wons.each_with_index do |won, i|
-      points << (won*3 + losts[i]*0 + evens[i]*1)
-    end
-    return points
   end
 
   def create_games(group)
@@ -333,5 +305,75 @@ class League < ApplicationRecord
     return place
   end
 
+  def update_tie_rankers_with_dif(rank_tie)
+    lusers = leagues_users.where(rank: rank_tie)
+    difs = []
+    max = 0
+    min = 0
+
+    lusers.each do |luser|
+      difs << luser.difference
+    end
+
+    max = difs.max
+    min = difs.min
+
+    if min < 0
+      difs = []
+      lusers.each do |luser|
+        difs << luser.difference - min
+      end
+      max = difs.max - min
+      min = 0
+    end
+
+    rank = Array.new(max+2, 0)
+    rank[max+1] = 0
+
+    lusers.count.times do |i|
+      rank[difs[i]] += 1 
+    end
+    
+    i = max
+    (max+1 - min).times do
+      rank[i] += rank[i+1]
+      i -= 1
+    end
+    
+    lusers.each_with_index do |luser, i|
+      luser.update(rank: rank_tie + rank[difs[i]+1])
+    end
+  end
+
+  def update_tie_rankers_with_match(rank_tie)
+    lusers = leagues_users.where(rank: rank_tie)
+
+    if lusers.count == 2
+      luser1 = lusers[0]
+      luser2 = lusers[1]
+
+      gameA = games.where(user_id: luser1.user_id).find_by(user2_id: luser2.user_id)
+      gameB = games.where(user_id: luser2.user_id).find_by(user2_id: luser1.user_id)
+
+      if gameA.present?
+        if gameA.user_score.present?
+          if gameA.user_score > gameA.user2_score
+            luser2.update(rank: rank_tie + 1)
+          else
+            luser1.update(rank: rank_tie + 1)
+          end
+        end
+      end
+      if gameB.present?
+        if gameB.user_score.present?
+          if gameB.user_score > gameB.user2_score
+            luser1.update(rank: rank_tie + 1)
+          else
+            luser2.update(rank: rank_tie + 1)
+          end
+        end
+      end
+    end
+  end
 
 end
