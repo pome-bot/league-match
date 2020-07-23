@@ -1,7 +1,8 @@
 class GamesController < ApplicationController
 
   def create
-    league = League.find(params[:game][:league_id])
+    league_id = params[:game][:league_id]
+    league = League.find(league_id)
 
     user1 = User.find_by(name: params[:game][:user_name])
     user2 = User.find_by(name: params[:game][:user2_name])
@@ -12,24 +13,18 @@ class GamesController < ApplicationController
     unless user1.present? && user2.present? && user1 != user2 && score1.present? && score2.present?
       # set error messages
     else 
-      gameA = league.games.where(user_id: user1.id).find_by(user2_id: user2.id)
-      gameB = league.games.where(user_id: user2.id).find_by(user2_id: user1.id)
+      gameA = league.games.find_by(user_id: user1.id, user2_id: user2.id)
+      gameB = league.games.find_by(user_id: user2.id, user2_id: user1.id)
       if gameA.present?
         gameA.update(user_score: score1, user2_score: score2)
         update_leagues_users_table_5columns(league, user1)
         update_leagues_users_table_5columns(league, user2)
-        league.update_leagues_users_table_rank_temp
-        league.compare_tie_ranker_with_dif
-        league.compare_tie_ranker_with_match
-
+        update_leagues_users_rank(league_id)
       elsif gameB.present?
         gameB.update(user_score: score2, user2_score: score1)
         update_leagues_users_table_5columns(league, user1)
         update_leagues_users_table_5columns(league, user2)
-        league.update_leagues_users_table_rank_temp
-        league.compare_tie_ranker_with_dif
-        league.compare_tie_ranker_with_match
-
+        update_leagues_users_rank(league_id)
       end
     end
 
@@ -51,5 +46,14 @@ class GamesController < ApplicationController
     luser_dif = league.get_difference(user.id)
     luser.update(won: luser_won, lost: luser_lost, even: luser_even, point: luser_point, difference: luser_dif)
   end
+
+  def update_leagues_users_rank(league_id)
+    league = League.find(league_id)
+    league.update_leagues_users_table_rank_temp
+    league = League.find(league_id)
+    league.compare_tie_ranker_with_dif
+    league = League.find(league_id)
+    league.compare_tie_ranker_with_match
+end
 
 end

@@ -16,6 +16,7 @@ class LeaguesController < ApplicationController
   def create
     @group = Group.find(params[:group_id])
     @league = League.new(league_params)
+    @users = @group.users.order(name: "ASC")
 
     if @league.users.length <= 1
       render :new
@@ -40,12 +41,6 @@ class LeaguesController < ApplicationController
     @name_array = @league.get_name_array
     @game_user2_names = @league.get_user2_names
     @game_nones = @league.get_game_nones
-
-    # @game_wons = @league.get_wons(@users)
-    # @game_losts = @league.get_losts(@users)
-    # @game_evens = @league.get_evens(@users)
-    # @game_points = @league.get_points(@game_wons, @game_losts, @game_evens)
-    # @game_ranks = @league.get_ranks(@game_points)
   end
 
   private

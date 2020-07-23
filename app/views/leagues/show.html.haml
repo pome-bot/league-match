@@ -85,9 +85,9 @@
                 - (@user_num/2).times do
                   .game-box
                     %span.user-name.user-name__left= @games[i].user.name
-                    %span.score= @games[i].user_score
+                    %span.score.score__left= @games[i].user_score
                     %span.score-vs<>-
-                    %span.score= @games[i].user2_score
+                    %span.score.score__right= @games[i].user2_score
                     %span.user-name.user-name__right= @game_user2_names[i]
                     - i += 1
           - else 

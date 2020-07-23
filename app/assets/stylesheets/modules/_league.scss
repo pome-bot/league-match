@@ -161,9 +161,10 @@
                 overflow: hidden;
               }
               .td-scores{
-                transition: background-color 0.1s;
+                transition: background-color 1s;
               }
               .td-scores.is-colored{
+                transition: background-color 0s;
                 background-color: #CEF9DC;
               }
               td.td-gray{
@@ -211,18 +212,24 @@
                 justify-content: center;
                 align-items: center;
                 padding-left: 20px;
-                transition: background-color 0.1s;
+                transition: background-color 1s;
               }
               select.form-name.is-colored{
+                transition: background-color 0s;
                 background-color: #CEF9DC;
               }
               input.form-score{
                 width: 11vw;
                 margin: 0 2vw;
+                transition: background-color 1s;
                 &::placeholder {
                   color: #004400;
                   opacity: 0.2;
                 }
+              }
+              input.form-score.is-colored{
+                transition: background-color 0s;
+                background-color: #CEF9DC;
               }
             }
             &__send-btn{
@@ -276,6 +283,7 @@
             }
             #fadein-fadeout{
               position: absolute;
+              z-index: 10;
               width: 80vw;
               padding: 20px;
               top: 5vh;
@@ -339,7 +347,7 @@
               display: flex;
               justify-content: center;
               align-items: center;
-              transition: background-color 0.1s;
+              transition: background-color 1s;
               span.user-name{
                 width: 25vw;
                 width: 25vw;
@@ -363,6 +371,7 @@
               }
             }
             .game-box.is-colored{
+              transition: background-color 0s;
               background-color: #CEF9DC;
             }
             .no-game-box{

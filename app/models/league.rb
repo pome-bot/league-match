@@ -24,7 +24,6 @@ class League < ApplicationRecord
 
   def compare_tie_ranker_with_match
     lusers = leagues_users
-
     lusers.each_with_index do |luser, i|
       lusers.each_with_index do |luser2, j|
         if i < j
@@ -196,8 +195,8 @@ class League < ApplicationRecord
   end
 
   def get_game_scores(user_id, user2_id)
-    gameA = games.where(user_id: user_id).find_by(user2_id: user2_id)
-    gameB = games.where(user_id: user2_id).find_by(user2_id: user_id)
+    gameA = games.find_by(user_id: user_id, user2_id: user2_id)
+    gameB = games.find_by(user_id: user2_id, user2_id: user_id)
 
     if gameA.present?
       if gameA.user_score
@@ -310,8 +309,6 @@ class League < ApplicationRecord
   def update_tie_rankers_with_dif(rank_tie)
     lusers = leagues_users.where(rank: rank_tie)
     difs = []
-    max = 0
-    min = 0
 
     lusers.each do |luser|
       difs << luser.difference
@@ -325,12 +322,12 @@ class League < ApplicationRecord
       lusers.each do |luser|
         difs << luser.difference - min
       end
-      max = difs.max - min
+      max -= min
       min = 0
     end
 
     rank = Array.new(max+2, 0)
-    rank[max+1] = 0
+    rank[max+1] = 1
 
     lusers.count.times do |i|
       rank[difs[i]] += 1 
@@ -343,7 +340,7 @@ class League < ApplicationRecord
     end
     
     lusers.each_with_index do |luser, i|
-      luser.update(rank: rank_tie + rank[difs[i]+1])
+      luser.update(rank: rank_tie + rank[difs[i]+1] - 1)
     end
   end
 
@@ -354,14 +351,14 @@ class League < ApplicationRecord
       luser1 = lusers[0]
       luser2 = lusers[1]
 
-      gameA = games.where(user_id: luser1.user_id).find_by(user2_id: luser2.user_id)
-      gameB = games.where(user_id: luser2.user_id).find_by(user2_id: luser1.user_id)
+      gameA = games.find_by(user_id: luser1.user_id, user2_id: luser2.user_id)
+      gameB = games.find_by(user_id: luser2.user_id, user2_id: luser1.user_id)
 
       if gameA.present?
         if gameA.user_score.present?
           if gameA.user_score > gameA.user2_score
             luser2.update(rank: rank_tie + 1)
-          else
+          elsif gameA.user_score < gameA.user2_score
             luser1.update(rank: rank_tie + 1)
           end
         end
@@ -370,7 +367,7 @@ class League < ApplicationRecord
         if gameB.user_score.present?
           if gameB.user_score > gameB.user2_score
             luser1.update(rank: rank_tie + 1)
-          else
+          elsif gameB.user_score < gameB.user2_score
             luser2.update(rank: rank_tie + 1)
           end
         end

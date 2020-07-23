@@ -14,9 +14,6 @@ class UsersController < ApplicationController
       @users = usersA - usersB
     end
 
-    # respond_to do |format|
-    #   format.json
-    # end
   end
 
 end
