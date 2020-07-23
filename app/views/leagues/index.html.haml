@@ -1,13 +1,6 @@
 .wrapper-league
   = render "application/header"
-  .header-league
-    .header-league__name-member
-      = link_to @group.name, group_leagues_path(@group.id), class: "group-name"
-      %ul.group-members
-        - @users.each do |user|
-          %li.group-members__member= user.name
-    = link_to edit_group_path(@group.id), class: "group-cog" do
-      = icon('fas', 'cog', class: "group-cog__icon")
+  = render "application/header-league", group: @group, users: @users
   .main-league
     .main-league__contents
       .add-league-box

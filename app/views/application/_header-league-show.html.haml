@@ -1,0 +1,8 @@
+.header-league-show
+  .header-league-show__name-member
+    %h2.league-name= league.name
+    %ul.league-members
+      - users.each do |user|
+        %li.league-members__member= user.name
+  = link_to edit_group_league_path(league.group_id, league.id), class: "league-cog" do
+    = icon('fas', 'cog', class: "league-cog__icon")
