@@ -1,7 +1,8 @@
-.wrapper-user-edit
+%h1<>users show
+.wrapper-user-show
   = render "application/header"
-  .main-user-edit
-    .main-user-edit__contents
+  .main-user-show
+    .main-user-show__contents
       = link_to destroy_user_session_path, method: :delete, class: "sign-out-btn btn-wrapper" do
         %button.button-gray<>Sign out
       = link_to edit_user_registration_path, class: "edit-account-btn btn-wrapper" do

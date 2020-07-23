@@ -13,7 +13,9 @@ class UsersController < ApplicationController
       usersB = User.where(id: params[:user_ids])
       @users = usersA - usersB
     end
+  end
 
+  def show
   end
 
 end

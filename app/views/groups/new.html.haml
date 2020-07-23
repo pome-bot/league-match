@@ -4,11 +4,4 @@
     .main-group-new__contents
       %h2 Add group
       = render partial: 'form_group', locals: { group: @group }
-  %footer.group
-    .footer-left<>League Match App
-    .footer-right
-      %p<>App favicon by 
-      = link_to "ios-filled", "https://icons8.jp/icon/pack/alphabet/ios-filled"
-      %p<>,
-      = link_to "icons8", "https://icons8.com/"
-
+  = render "application/footer"

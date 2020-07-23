@@ -39,12 +39,6 @@
           %button.button-gray<>Back
         = link_to user_registration_path, method: :delete, data: { confirm: "Are you sure?" }, class: "cancel-btn btn-wrapper" do
           %button.button-red<>Cancel account
-  %footer.group
-    .footer-left<>League Match App
-    .footer-right
-      %p<>App favicon by 
-      = link_to "ios-filled", "https://icons8.jp/icon/pack/alphabet/ios-filled"
-      %p<>,
-      = link_to "icons8", "https://icons8.com/"
+  = render "application/footer"
 
 -# = render "devise/shared/links"

@@ -13,12 +13,4 @@
             - league.users.order(name: "ASC").each do |user|
               %li.league-box__league-members--member= user.name
           %p.league-box__league-date= league.created_at.strftime("%Y年%m月%d日")
-  %footer.group
-    .footer-left<>League Match App
-    .footer-right
-      %p<>App favicon by 
-      = link_to "ios-filled", "https://icons8.jp/icon/pack/alphabet/ios-filled"
-      %p<>,
-      = link_to "icons8", "https://icons8.com/"
-
-
+  = render "application/footer"
