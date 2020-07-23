@@ -223,10 +223,12 @@ class League < ApplicationRecord
 
   def get_user2_names
     game_user2_names = Array.new(games.length)
-    i = 0
-    games.order(order: "ASC").each do |game|
-      game_user2_names[i] = User.find_by(id: game.user2_id).name
-      i += 1
+    games.order(order: "ASC").each_with_index do |game, i|
+      if User.find_by(id: game.user2_id).present?
+        game_user2_names[i] = User.find_by(id: game.user2_id).name
+      else
+        game_user2_names[i] = ""
+      end
     end
     return game_user2_names
   end

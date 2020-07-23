@@ -4,6 +4,9 @@ class GroupsController < ApplicationController
     @groups = current_user.groups.order(created_at: "DESC")
   end
 
+  def show
+  end
+
   def new
     @group = Group.new
   end

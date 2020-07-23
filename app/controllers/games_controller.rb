@@ -54,6 +54,6 @@ class GamesController < ApplicationController
     league.compare_tie_ranker_with_dif
     league = League.find(league_id)
     league.compare_tie_ranker_with_match
-end
+  end
 
 end
