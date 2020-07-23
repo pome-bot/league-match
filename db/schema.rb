@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_22_073327) do
+ActiveRecord::Schema.define(version: 2020_07_23_073815) do
 
   create_table "games", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "league_id", null: false
@@ -64,10 +64,10 @@ ActiveRecord::Schema.define(version: 2020_07_22_073327) do
     t.integer "lost", default: 0
     t.integer "even", default: 0
     t.integer "point", default: 0
+    t.integer "difference", default: 0
     t.integer "rank", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "difference", default: 0
     t.index ["league_id", "user_id"], name: "index_leagues_users_on_league_id_and_user_id", unique: true
     t.index ["league_id"], name: "index_leagues_users_on_league_id"
     t.index ["order"], name: "index_leagues_users_on_order"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 2020_07_22_073327) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["name"], name: "index_users_on_name", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

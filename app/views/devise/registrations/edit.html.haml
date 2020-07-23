@@ -36,7 +36,7 @@
       .other-btns
         = link_to edit_user_path(current_user), class: "back-btn btn-wrapper" do
           %button.button-gray<>Back
-        = link_to user_path(current_user.id), method: :delete, data: { confirm: "Are you sure?" }, class: "cancel-btn btn-wrapper" do
+        = link_to user_registration_path, method: :delete, data: { confirm: "Are you sure?" }, class: "cancel-btn btn-wrapper" do
           %button.button-red<>Cancel account
   %footer.group
     .footer-left<>League Match App
