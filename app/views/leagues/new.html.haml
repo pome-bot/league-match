@@ -1,8 +1,5 @@
 .wrapper-league-new
-  %header.group
-    = link_to current_user.name, groups_path, class: "header-user-name"
-    = link_to edit_user_path(current_user), class: "header-cog" do
-      = icon('fas', 'cog', class: "header-cog__icon")
+  = render "application/header"
   .header-league
     .header-league__name-member
       = link_to @group.name, group_leagues_path(@group.id), class: "group-name"

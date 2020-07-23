@@ -15,10 +15,25 @@ header.group{
     white-space: nowrap;
     overflow: hidden;
   }
-  a.header-cog{
-    color: white;
-    font-size: 3vh;
+  .header-icons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    a.header-icon{
+      color: white;
+      display: block;
+      .header-icon__poll{
+        font-size: 3.5vh;
+      }
+      .header-icon__cog{
+        font-size: 3vh;
+      }
+    }
+    a.header-icon-poll{
+      margin-right: 4vw;
+    }
   }
+
 }
 
 footer.group{

@@ -1,17 +1,18 @@
 .wrapper-sign-edit
-  %header.group
-    = link_to current_user.name, groups_path, class: "header-user-name"
-    = link_to edit_user_path(current_user), class: "header-cog" do
-      = icon('fas', 'cog', class: "header-cog__icon")
+  = render "application/header"
   .main-sign-edit
     .main-sign-edit__contents
       %h2<>Edit account
       = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
         = render "devise/shared/error_messages", resource: resource
         .field
+          %label<>name
+          %br/
+          = f.text_field :name, autofocus: true, autocomplete: "name", class: "input-field"
+        .field
           %label<>email
           %br/
-          = f.email_field :email, autofocus: true, autocomplete: "email", class: "input-field"
+          = f.email_field :email, autocomplete: "email", class: "input-field"
         - if devise_mapping.confirmable? && resource.pending_reconfirmation?
           %div
             Currently waiting confirmation for: #{resource.unconfirmed_email}

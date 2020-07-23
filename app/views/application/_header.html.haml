@@ -1,0 +1,7 @@
+%header.group
+  = link_to current_user.name, groups_path, class: "header-user-name"
+  .header-icons
+    = link_to user_path(current_user), class: "header-icon header-icon-poll" do
+      = icon('fas', 'poll-h', class: "header-icon__poll")
+    = link_to edit_user_path(current_user), class: "header-icon" do
+      = icon('fas', 'cog', class: "header-icon__cog")
