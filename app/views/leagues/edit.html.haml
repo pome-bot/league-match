@@ -1,0 +1,41 @@
+.wrapper-league-edit
+  = render "application/header"
+  = render "application/header-league", group: @group, users: @group.users.order(name: "ASC")
+  .main-league-edit
+    .main-league-edit__contents
+      %h2<>Edit league
+      - if @league.errors.any?
+        .league-new__errors#error_explanation
+          %h2= "Error: #{@league.errors.full_messages.count}"
+          %ul
+            - @league.errors.full_messages.each do |message|
+              %li= message
+      = form_with model: [@group, @league], local: true, id: "new-league" do |f|
+        .field
+          %label<>league name
+          %br/
+          = f.text_field :name, autofocus: true, autocomplete: "name", class: 'input-field'
+        .field
+          %label<>league point setting
+          %br/
+          .field__point
+            %label<>- win point
+            = f.number_field :win_point, class: 'input-num-field'
+          .field__point
+            %label<>- lose point
+            = f.number_field :lose_point, class: 'input-num-field'
+          .field__point
+            %label<>- draw point
+            = f.number_field :even_point, class: 'input-num-field'
+        .field
+          %label<>league table order setting
+          %br/
+          = select_tag "league[order_flag]", options_for_select({rank: 0, name: 1}, @league.order_flag)
+        .field.check-boxes-field
+          = f.collection_check_boxes :user_ids, @group.users, :id, :name
+        .actions
+          = f.submit "Update",class: 'button-green submit'
+      = link_to group_league_path(@league.group_id, @league.id), method: :delete, data: { confirm: "Are you sure?" }, class: "cancel-btn btn-wrapper" do
+        %button.button-red<>Cancel league
+  = render "application/footer"
+

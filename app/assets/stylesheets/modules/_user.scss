@@ -247,7 +247,7 @@
       overflow: auto;
       .div-for-border{
         margin-top: 2vh;
-        width: 80%;
+        width: 90%;
         border-bottom: 4px solid #003300;
       }
       .table-wrapper{
@@ -293,6 +293,10 @@
         flex-direction: column;
         h2.group-name{
           margin-top: 1vh;
+          max-width: 80vw;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
         }
       }
       .vs-user-result{

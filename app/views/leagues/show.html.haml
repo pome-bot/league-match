@@ -8,7 +8,7 @@
         %table
           %tr
             %th<>
-            - @users.each do |user|
+            - @users_for_table.each do |user|
               %th.thtd-user-name=user.name
             %th.thtd-border-double<>won
             %th<>lost
@@ -16,10 +16,10 @@
             %th.thtd-border-double<>point
             %th<>dif
             %th.thtd-border-double<>rank
-          - @users.each_with_index do |user, i|
+          - @users_for_table.each_with_index do |user, i|
             %tr
               %td.thtd-user-name=user.name
-              - @users.each_with_index do |user2, j|
+              - @users_for_table.each_with_index do |user2, j|
                 - if i == j
                   %td.td-gray
                 - else

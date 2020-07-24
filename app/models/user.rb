@@ -9,9 +9,9 @@ class User < ApplicationRecord
   # validates :name, presence: true, uniqueness: {case_sensitive: true}
 
   has_many :groups_users
-  has_many :groups, through: :groups_users, dependent: :destroy
+  has_many :groups, through: :groups_users
   has_many :leagues_users
-  has_many :leagues, through: :leagues_users, dependent: :destroy
+  has_many :leagues, through: :leagues_users
   has_many :games, dependent: :nullify
 
   # instead of deleting, indicate the user requested a delete & timestamp it  
