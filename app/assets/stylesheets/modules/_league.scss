@@ -148,9 +148,10 @@
                 border: 1px solid #003300;
                 font-size: (48vh * $mn);
                 text-align: center;
-                padding: 20px;
+                padding: 10px;
                 color: #003300;
                 white-space: nowrap;
+                min-width: 15vw;
               }
               .thtd-border-double{
                 border-left: 3px double #003300;

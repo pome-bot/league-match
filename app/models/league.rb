@@ -10,28 +10,21 @@ class League < ApplicationRecord
   def compare_tie_ranker_with_dif
     lusers = leagues_users
 
-    lusers.each_with_index do |luser, i|
-      lusers.each_with_index do |luser2, j|
-        if i < j
-          if luser.rank == luser2.rank
-            rank_tie = luser.rank
-            update_tie_rankers_with_dif(rank_tie)
-          end
-        end
+    lusers.length.times do |i|
+      if lusers.where(rank: i+1).length >= 2
+        rank_tie = i+1
+        update_tie_rankers_with_dif(rank_tie)
       end
     end
   end
 
   def compare_tie_ranker_with_match
     lusers = leagues_users
-    lusers.each_with_index do |luser, i|
-      lusers.each_with_index do |luser2, j|
-        if i < j
-          if luser.rank == luser2.rank
-            rank_tie = luser.rank
-            update_tie_rankers_with_match(rank_tie)
-          end
-        end
+
+    lusers.length.times do |i|
+      if lusers.where(rank: i+1).length >= 2
+        rank_tie = i+1
+        update_tie_rankers_with_match(rank_tie)
       end
     end
   end
@@ -39,14 +32,13 @@ class League < ApplicationRecord
   def update_leagues_users_table_rank_temp
     lusers = leagues_users
     points = []
-    max = lusers.count * win_point
-    min = 0
-    rank = Array.new(max+2, 0)
-    rank[max+1] = 1
-
     lusers.each do |luser|
       points << luser.point
     end
+    max = points.max
+    min = points.min
+    rank = Array.new(max+2, 0)
+    rank[max+1] = 1
     
     lusers.count.times do |i|
       rank[points[i]] += 1 
@@ -311,11 +303,9 @@ class League < ApplicationRecord
   def update_tie_rankers_with_dif(rank_tie)
     lusers = leagues_users.where(rank: rank_tie)
     difs = []
-
     lusers.each do |luser|
       difs << luser.difference
     end
-
     max = difs.max
     min = difs.min
 

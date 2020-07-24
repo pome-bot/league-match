@@ -50,9 +50,9 @@ class GamesController < ApplicationController
   def update_leagues_users_rank(league_id)
     league = League.find(league_id)
     league.update_leagues_users_table_rank_temp
-    league = League.find(league_id)
+    # league = League.find(league_id)
     league.compare_tie_ranker_with_dif
-    league = League.find(league_id)
+    # league = League.find(league_id)
     league.compare_tie_ranker_with_match
   end
 

@@ -12,7 +12,7 @@
               %th.thtd-user-name=user.name
             %th.thtd-border-double<>won
             %th<>lost
-            %th<>even
+            %th<>draw
             %th.thtd-border-double<>point
             %th<>dif
             %th.thtd-border-double<>rank
@@ -28,8 +28,8 @@
               %td= @lusers.find_by(user_id: user.id).lost
               %td= @lusers.find_by(user_id: user.id).even
               %td.thtd-border-double= @lusers.find_by(user_id: user.id).point
-              %td= @lusers.find_by(user_id: user.id).difference
-              %td.thtd-border-double= @lusers.find_by(user_id: user.id).rank
+              %td= dif = @lusers.find_by(user_id: user.id).difference; dif > 0 ? "+#{dif}" : dif < 0 ? dif : "±0"
+              %td.thtd-border-double= rank = @lusers.find_by(user_id: user.id).rank; rank == 0 ? "" : rank
       .league-form
         = form_with model: [@group, @game], local: true do |f|
           = f.hidden_field :league_id, {value: @league.id}
