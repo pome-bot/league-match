@@ -4,8 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :name, presence: true, uniqueness: true
-  validates :email, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: true, length: {minimum: 1, maximum: 100}
+  validates :email, presence: true, uniqueness: true, length: {minimum: 1, maximum: 100}
   # validates :name, presence: true, uniqueness: {case_sensitive: true}
 
   has_many :groups_users
@@ -13,6 +13,8 @@ class User < ApplicationRecord
   has_many :leagues_users
   has_many :leagues, through: :leagues_users
   has_many :games, dependent: :nullify
+
+  mount_uploader :image, ImageUploader
 
   # instead of deleting, indicate the user requested a delete & timestamp it  
   def soft_delete  

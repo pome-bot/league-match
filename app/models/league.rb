@@ -1,6 +1,10 @@
 class League < ApplicationRecord
 
-  validates :name, presence: true
+  validates :name, presence: true, length: {minimum: 1, maximum: 100}
+  validates :win_point, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: -10000, less_than_or_equal_to: 10000}
+  validates :lose_point, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: -10000, less_than_or_equal_to: 10000}
+  validates :even_point, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: -10000, less_than_or_equal_to: 10000}
+  validates :order_flag, presence: true, inclusion: {in: [0, 1]}
 
   belongs_to :group
   has_many :leagues_users

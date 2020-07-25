@@ -221,6 +221,12 @@
     h1, h2{
       font-size: (54vh * $mn);
     }
+    h1.h1-user-name{
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      width: 80vw;
+    }
     &__contents{
       padding-top: 2vh;
       width: 100%;

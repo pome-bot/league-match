@@ -1,5 +1,10 @@
 %header.group
-  = link_to current_user.name, groups_path, class: "header-user-name"
+  .header-left
+    - if current_user.image?
+      = image_tag current_user.image.url, class: "user-image"
+    - else 
+      = image_tag 'default_user_image.png', class: "user-image"
+    = link_to current_user.name, groups_path, class: "header-user-name"
   .header-icons
     = link_to user_path(current_user), class: "header-icon header-icon-poll" do
       = icon('fas', 'poll-h', class: "header-icon__poll")
