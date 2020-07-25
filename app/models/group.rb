@@ -2,9 +2,9 @@ class Group < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
-  has_many :groups_users, dependent: :destroy
-  has_many :users, through: :groups_users
-  has_many :leagues
+  has_many :groups_users
+  has_many :users, through: :groups_users, dependent: :destroy
+  has_many :leagues, dependent: :destroy
 
   def is_having_league?
     if leagues.present?

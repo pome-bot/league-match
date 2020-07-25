@@ -16,6 +16,7 @@ class LeaguesController < ApplicationController
   def edit
     @group = Group.find(params[:group_id])
     @league = League.find(params[:id])
+    @users = @league.users.order(name: "ASC")
   end
 
   def create
@@ -35,11 +36,17 @@ class LeaguesController < ApplicationController
 
   def update
     @group = Group.find(params[:group_id])
+
     @league = League.find(params[:id])
+    @users = @league.users
 
     if @league.users.length <= 1
       render :edit
     elsif @league.update(league_params_update)
+      @users.each do |user|
+        update_leagues_users_table_5columns(@league, user)
+      end
+      update_leagues_users_rank(@league.id)
       redirect_to group_league_path(@league.group_id, @league.id)
     else
       render :edit
@@ -60,13 +67,6 @@ class LeaguesController < ApplicationController
 
     @user_num = @league.users.length
     @users = @league.users.order(name: "ASC")
-
-    @users.each do |user|
-      update_leagues_users_table_5columns(@league, user)
-    end
-    update_leagues_users_rank(league_id)
-
-    @league = League.find(league_id) # reset
     @users_for_table = set_users_for_table(@league, @users)
     @lusers = @league.leagues_users
     @games = @league.games.order(order: "ASC").includes(:user)
@@ -74,7 +74,6 @@ class LeaguesController < ApplicationController
     @name_array = @league.get_name_array
     @game_user2_names = @league.get_user2_names
     @game_nones = @league.get_game_nones
-
   end
 
   private
@@ -84,7 +83,7 @@ class LeaguesController < ApplicationController
   end
 
   def league_params_update
-    params.require(:league).permit(:name, :win_point, :lose_point, :even_point, :order_flag, user_ids: []).merge(group_id: params[:group_id])
+    params.require(:league).permit(:name, :win_point, :lose_point, :even_point, :order_flag).merge(group_id: params[:group_id])
   end
 
   def set_users_for_table(league, users)

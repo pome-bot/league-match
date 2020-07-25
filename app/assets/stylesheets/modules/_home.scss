@@ -73,12 +73,10 @@ footer.top{
     justify-content: center;
     &__contents{
       padding-top: 10vh;
-      height: 70vh;
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow: auto;
       a.sign-up-btn{
         margin-top: 10vh;
       }
@@ -92,30 +90,28 @@ footer.top{
 // about.html.haml
 .wrapper-about{
   .main-about{
-    height: 70vh;
+    min-height: 70vh;
     border-right: 4px solid #003300;
     border-left: 4px solid #003300;
     display: flex;
     justify-content: center;
     &__contents{
       padding-top: 4vh;
-      height: 70vh;
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow: auto;
       h2{
         font-size: (48vh * $mn);
       }
       p{
         margin: 0 6vw;
         margin-top: 4vh;
-        font-size: (32vh * $mn);
+        font-size: (40vh * $mn);
       }
       ul{
         margin: 4vh 8vw 0 12vw;
-        font-size: (32vh * $mn);
+        font-size: (40vh * $mn);
         list-style: square;
       }
       .sign-btns{
@@ -143,12 +139,10 @@ footer.top{
     justify-content: center;
     &__contents{
       padding-top: 4vh;
-      height: 70vh;
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow: auto;
       h2{
         font-size: (64vh * $mn);
         font-weight: bold;

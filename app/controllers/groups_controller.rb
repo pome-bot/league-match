@@ -4,9 +4,6 @@ class GroupsController < ApplicationController
     @groups = current_user.groups.order(created_at: "DESC")
   end
 
-  def show ####
-  end
-
   def new
     @group = Group.new
   end
@@ -31,6 +28,12 @@ class GroupsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    group = Group.find(params[:id])
+    group.destroy
+    redirect_to groups_path
   end
 
   private

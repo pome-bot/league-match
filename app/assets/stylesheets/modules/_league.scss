@@ -1,4 +1,5 @@
 .header-league{
+  min-height: 10.4vh;
   padding: 1vh 4vw 1vh 6vw;
   border-right: 4px solid #003300;
   border-left: 4px solid #003300;
@@ -48,7 +49,8 @@
   font-size: 16px;
   &__name-member{
     width: 100%;
-    h2.league-name{
+    a.league-name{
+      color: white;
       font-size: 2.5vh;
       font-weight: bold;
     }
@@ -77,6 +79,7 @@
 // index.html.haml
 .wrapper-league{
   .main-league{
+    min-height: 76.6vh;
     border-right: 4px solid #003300;
     border-left: 4px solid #003300;
     display: flex;
@@ -128,6 +131,7 @@
 // show.html.haml
 .wrapper-league-show{
   .main-league-show{
+    min-height: 66vh;
     border-right: 4px solid #003300;
     border-left: 4px solid #003300;
     display: flex;
@@ -401,6 +405,7 @@
 // new.html.haml
 .wrapper-league-new{
   .main-league-new{
+    min-height: 76.6vh;
     border-right: 4px solid #003300;
     border-left: 4px solid #003300;
     display: flex;
@@ -456,8 +461,8 @@
         .actions{
           margin: 3vh 0 2vh 0;
           display: block;
-          height: 8vh;
-          width: 50vw;
+          height: 10vh;
+          width: 40vw;
           padding: (10vh / 12);
           input.button-green{
             height: 100%;
@@ -473,6 +478,7 @@
 // edit.html.haml
 .wrapper-league-edit{
   .main-league-edit{
+    min-height: 66vh;
     border-right: 4px solid #003300;
     border-left: 4px solid #003300;
     display: flex;
@@ -519,12 +525,9 @@
             display: block;
             font-size: (48vh * $mn);
             height: (76vh * $mn);
-            width: 25vw;
+            width: 30vw;
             padding: 0 10px;
           }
-        }
-        .field.check-boxes-field{
-          display: none;
         }
         .actions{
           margin: 3vh 0 2vh 0;
@@ -539,11 +542,17 @@
           }
         }
       }
-      a.cancel-btn{
-        margin-top: 8vh;
-        margin-bottom: 2vh;
-        width: 40vw;
-        height: 12vh;
+      .other-btns{
+        margin-top: 2vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        a.cancel-btn{
+          margin-left: 4vw;
+          width: 40vw;
+          height: 10vh;
+        }
+  
       }
     }
   }

@@ -23,5 +23,5 @@
                 %input.check-box__input{name: "league[user_ids][]", type:"checkbox", checked: "checked", value: "#{user.id}", id: "league_user_ids_#{user.id}"}
                 %label.check-box__label{for: "league_user_ids_#{user.id}"}= user.name
         .actions
-          = f.submit "Create",class: 'button-green'
+          = f.submit "Create",class: 'button-green submit'
   = render "application/footer"

@@ -1,6 +1,6 @@
 = form_with model: group, local: true, id: "new-group" do |f|
   - if group.errors.any?
-    .group-new__errors
+    .group-new__errors#error_explanation
       %h2= "Error: #{group.errors.full_messages.count}"
       %ul
         - group.errors.full_messages.each do |message|
@@ -9,10 +9,6 @@
     %label<>group name
     %br/
     = f.text_field :name, autofocus: true, autocomplete: "name", class: 'input-field'
-  -# .field.check-boxes
-  -#   %label.check-box<>members
-  -#   .check-boxes__box
-  -#     = f.collection_check_boxes :user_ids, User.all, :id, :name
   .field
     %label<>search user
     .user-search

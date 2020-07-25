@@ -1,6 +1,6 @@
 .header-league-show
   .header-league-show__name-member
-    %h2.league-name= league.name
+    = link_to league.name, group_league_path(league.group_id, league.id), class: "league-name"
     %ul.league-members
       - users.each do |user|
         %li.league-members__member= user.name

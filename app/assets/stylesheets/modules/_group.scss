@@ -64,19 +64,17 @@ footer.group{
 // index.html.haml
 .wrapper-group{
   .main-group{
-    height: 87vh;
+    min-height: 87vh;
     border-right: 4px solid #003300;
     border-left: 4px solid #003300;
     display: flex;
     justify-content: center;
     &__contents{
       padding: 3vh 10vw 5vh 10vw;
-      height: 100%;
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow: auto;
       .add-group-box{
         margin-bottom: 2vh;
         width: 100%;
@@ -119,19 +117,17 @@ footer.group{
 // new.html.haml
 .wrapper-group-new{
   .main-group-new{
-    height: 87vh;
+    min-height: 87vh;
     border-right: 4px solid #003300;
     border-left: 4px solid #003300;
     display: flex;
     justify-content: center;
     &__contents{
       padding: 3vh 10vw 5vh 10vw;
-      height: 100%;
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow: auto;
       h2{
         font-size: (48vh * $mn);
       }
@@ -142,21 +138,28 @@ footer.group{
 // edit.html.haml
 .wrapper-group-edit{
   .main-group-edit{
-    height: 87vh;
+    min-height: 76.6vh;
     border-right: 4px solid #003300;
     border-left: 4px solid #003300;
     display: flex;
     justify-content: center;
     &__contents{
       padding: 3vh 10vw 5vh 10vw;
-      height: 100%;
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow: auto;
       h2{
         font-size: (48vh * $mn);
+      }
+      .other-btns{
+        margin-top: 2vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        a.cancel-btn{
+          margin-left: 4vw;
+        }
       }
     }
   }
@@ -168,14 +171,11 @@ footer.group{
   display: flex;
   align-items: center;
   flex-direction: column;
-  .group-new__errors{
-
-  }
   .field{
     padding: 1vh 0;
     width: 80vw;
     label{
-      font-size: (32vh * $mn);
+      font-size: (40vh * $mn);
     }
     input.input-field{
       padding: 0 10px;
@@ -217,7 +217,7 @@ footer.group{
   .actions{
     margin: 3vh 0 2vh 0;
     display: block;
-    height: 8vh;
+    height: 10vh;
     width: 40vw;
     padding: (10vh / 12);
     input.button-green{
