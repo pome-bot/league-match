@@ -12,7 +12,8 @@ class User < ApplicationRecord
   has_many :groups, through: :groups_users
   has_many :leagues_users
   has_many :leagues, through: :leagues_users
-  has_many :games, dependent: :nullify
+  has_many :games
+  has_many :messages
 
   mount_uploader :image, ImageUploader
 

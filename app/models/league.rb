@@ -10,6 +10,7 @@ class League < ApplicationRecord
   has_many :leagues_users
   has_many :users, through: :leagues_users, dependent: :destroy
   has_many :games, dependent: :destroy
+  has_many :messages, dependent: :destroy
 
   def compare_tie_ranker_with_dif
     lusers = leagues_users

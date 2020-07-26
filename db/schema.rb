@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_25_093644) do
+ActiveRecord::Schema.define(version: 2020_07_26_062904) do
 
   create_table "games", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "league_id", null: false
@@ -75,6 +75,16 @@ ActiveRecord::Schema.define(version: 2020_07_25_093644) do
     t.index ["user_id"], name: "index_leagues_users_on_user_id"
   end
 
+  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "text", null: false
+    t.bigint "league_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["league_id"], name: "index_messages_on_league_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.text "image"
@@ -98,4 +108,6 @@ ActiveRecord::Schema.define(version: 2020_07_25_093644) do
   add_foreign_key "leagues", "groups"
   add_foreign_key "leagues_users", "leagues"
   add_foreign_key "leagues_users", "users"
+  add_foreign_key "messages", "leagues"
+  add_foreign_key "messages", "users"
 end

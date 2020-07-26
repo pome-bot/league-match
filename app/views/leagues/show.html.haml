@@ -91,8 +91,30 @@
                 .no-game-box<>
                   %span.nogame<>no game:
                   %span.nogame-user-name= @game_nones[j]
-      .league-comments
-        %span<>test
-
-
+      .league-messages
+        %h2<>Messages
+        - @league.messages.includes(:user).each do |message|
+          - if message.user_id == current_user.id
+            .message-box.message-box__current-user
+              .message-box__name-icon.message-box__current-user__name-icon
+                %span.message-user-name= message.user.name
+                .message-img
+                  = image_tag message.user.image.url(:thumb)
+              %span.message-date= message.created_at.strftime("%Y年%m月%d日 %H時%M分")
+              %p.message-text= message.text
+          - else
+            .message-box.message-box__other-user
+              .message-box__name-icon.message-box__other-user__name-icon
+                .message-img
+                  = image_tag message.user.image.url(:thumb)
+                %span.message-user-name= message.user.name
+              %span.message-date= message.created_at.strftime("%Y年%m月%d日 %H時%M分")
+              %p.message-text= message.text
+      .league-message-form
+        = form_with model: [@group, @message], local: true, id: "form-message" do |f|
+          = f.hidden_field :league_id, {value: @league.id}
+          .message-form-contents
+            = f.text_field :text, placeholder: "type a message", class: "message-form-contents__text"
+            .message-form-contents__send-btn
+              = f.submit "Send", class: "button-green submit"
   = render "application/footer"

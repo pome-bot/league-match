@@ -225,7 +225,7 @@
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
-      width: 80vw;
+      max-width: 80vw;
     }
     &__contents{
       padding-top: 2vh;

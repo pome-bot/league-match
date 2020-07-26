@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :groups do
     resources :leagues
     resources :games
+    resources :messages
   end
 
 

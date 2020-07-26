@@ -61,6 +61,7 @@ class LeaguesController < ApplicationController
 
   def show
     @game = Game.new
+    @message = Message.new
     @group = Group.find(params[:group_id])
     league_id = params[:id]
     @league = League.find(league_id)
