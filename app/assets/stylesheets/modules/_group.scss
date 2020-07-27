@@ -100,6 +100,10 @@ footer.group{
           display: block;
           font-size: (64vh * $mn);
           color: #003300;
+          width: 100%;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
         }
         &__group-members{
           width: 70vw;
@@ -239,3 +243,62 @@ footer.group{
     }
   }
 }
+
+
+@media screen and (min-width:1024px) {
+
+  .wrapper-group{
+    width: 1024px;
+    margin: 0 auto;
+    a.btn-wrapper{
+      width: 300px;
+    }
+    .main-group{
+      &__contents{
+        .group-box{
+          &__group-members{
+            width: 700px;
+            &--member{
+              max-width: 700px;
+              }
+          }
+        }
+      }
+    }
+  }
+  
+  .wrapper-group-new{
+    width: 1024px;
+    margin: 0 auto;
+  }
+
+  .wrapper-group-edit{
+    width: 1024px;
+    margin: 0 auto;
+    a.btn-wrapper{
+      width: 300px;
+    }
+  }
+
+  #new-group{
+    .field{
+      width: 500px;
+      input.input-field{
+        width: 500px;
+      }
+      .group-member{
+        &__name{
+          max-width: 400px;
+        }
+      }
+    }
+    .actions{
+      width: 300px;
+    }
+  }
+  
+
+
+}
+
+

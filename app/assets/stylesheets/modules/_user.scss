@@ -201,9 +201,7 @@
       align-items: center;
       a.btn-wrapper{
         margin-bottom: 10vh;
-        button{
-          width: 40vw;
-        }
+        width: 44vw;
       }
     }
   }
@@ -298,4 +296,124 @@
     }
   }
 }
+
+
+@media screen and (min-width:1024px) {
+
+  .wrapper-sign-up{
+    width: 1024px;
+    margin: 0 auto;
+    a.btn-wrapper{
+      width: 300px;
+    }
+    .main-sign-up{
+      &__contents{
+        #new_user{
+          .field{
+            input.input-field{
+              width: 500px;
+            }
+          }
+          .actions{
+            width: 300px;
+          }
+        }
+      }
+    }
+  }
+  
+  .wrapper-sign-in{
+    width: 1024px;
+    margin: 0 auto;
+    a.btn-wrapper{
+      width: 300px;
+    }
+    .main-sign-in{
+      &__contents{
+        #new_user{
+          .field{
+            input.input-field{
+              width: 500px;
+            }
+          }
+          .actions{
+            width: 300px;
+          }
+        }
+      }
+    }
+  }
+  
+  .wrapper-sign-edit{
+    width: 1024px;
+    margin: 0 auto;
+    a.btn-wrapper{
+      width: 300px;
+    }
+    .main-sign-edit{
+      &__contents{
+        #edit_user{
+          .field{
+            width: 500px;
+          }
+          .actions{
+            width: 300px;
+          }
+        }
+      }
+    }
+  }
+  
+  .wrapper-user-edit{
+    width: 1024px;
+    margin: 0 auto;
+    a.btn-wrapper{
+      width: 350px;
+    }
+    .main-user-edit{
+      &__contents{
+        a.btn-wrapper{
+          width: 350px;
+        }
+      }
+    }
+  }
+  
+  .wrapper-user-show{
+    width: 1024px;
+    margin: 0 auto;
+    .main-user-show{
+      h1.h1-user-name{
+        max-width: 800px;
+      }
+      &__contents{
+        .table-wrapper{
+          width: 900px;
+          th, td{
+            min-width: 80px;
+          }
+          .thtd-name{
+            max-width: 300px;
+          }
+        }
+        .all-result{
+          .result-all__rank-table.table-wrapper{
+            th, td{
+              min-width: 80px;
+            }
+          }
+        }
+        .group-result{
+          h2.group-name{
+            max-width: 800px;
+          }
+        }
+        .vs-user-result{
+        }
+      }
+    }
+  }
+  
+}
+
 

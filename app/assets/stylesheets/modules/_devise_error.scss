@@ -17,3 +17,9 @@
     list-style: square;
   }
 }
+
+@media screen and (min-width:1024px) {
+  #error_explanation{
+    width: 600px;
+  }
+}

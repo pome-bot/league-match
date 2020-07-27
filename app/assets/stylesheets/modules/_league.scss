@@ -357,7 +357,6 @@
               transition: background-color 1s;
               span.user-name{
                 width: 25vw;
-                width: 25vw;
                 text-overflow: ellipsis;
                 white-space: nowrap;
                 overflow: hidden;
@@ -390,12 +389,18 @@
               span.nogame{
                 margin-right: 2vw;
               }
+              span.nogame-user-name{
+                max-width: 60vw;
+                white-space: normal;
+                text-overflow: ellipsis;
+                overflow: hidden;
+              }
             }
           }
         }
       }
       .league-messages{
-        height: 60vh;
+        max-height: 60vh;
         overflow: auto;
         font-size: (48vh * $mn);
         width: 100%;
@@ -644,7 +649,207 @@
           width: 40vw;
           height: 10vh;
         }
+      }
+    }
+  }
+}
+
+@media screen and (min-width:1024px) {
+
+  .wrapper-league{
+    width: 1024px;
+    margin: 0 auto;
+    a.btn-wrapper{
+      width: 300px;
+    }
+    .main-league{
+      &__contents{
+        .league-box{
+          &__league-members{
+            width: 700px;
+            &--member{
+              max-width: 700px;
+            }
+          }
+        }
+      }
+    }
+  }
   
+  .wrapper-league-new{
+    width: 1024px;
+    margin: 0 auto;
+    a.btn-wrapper{
+      width: 300px;
+    }
+    .main-league-new{
+      &__contents{
+        #new-league{
+          .field{
+            input.input-field{
+              width: 500px;
+            }
+          }
+          .field.check-boxes-field{
+            width: 500px;
+            .check-boxes{
+              .check-box{
+                label.check-box__label{
+                  max-width: 450px;
+                }
+              }
+            }
+          }
+          .actions{
+            width: 300px;
+          }
+        }
+      }
+    }
+  }
+  
+  .wrapper-league-edit{
+    width: 1024px;
+    margin: 0 auto;
+    a.btn-wrapper{
+      width: 300px;
+    }
+    .main-league-edit{
+      &__contents{
+        #new-league{
+          .field{
+            width: 500px;
+            input.input-field{
+              width: 100%;
+            }
+            &__point{
+              margin-left: 20px;
+              label{
+                width: 150px;
+              }
+              input.input-num-field{
+                width: 100px;
+                text-align: center;
+              }
+            }
+            select{
+              width: 200px;
+            }
+          }
+          .actions{
+            width: 300px;
+          }
+        }
+        .other-btns{
+          a.cancel-btn{
+            width: 300px;
+          }
+        }
+      }
+    }
+  }
+  
+  .wrapper-league-show{
+    width: 1024px;
+    margin: 0 auto;
+    a.btn-wrapper{
+      width: 300px;
+    }
+    .main-league-show{
+      &__contents{
+        .league-table{
+          width: 900px;
+          table{
+            tbody{
+              tr{
+                th, td{
+                  padding: 10px;
+                  min-width: 80px;
+                }
+                .thtd-user-name{
+                  max-width: 200px;
+                }
+              }
+            }
+          }
+        }
+        .league-form{
+          form{
+            .form-scores{
+              &__score-box{
+                select.form-name{
+                  width: 300px;
+                }
+                input.form-score{
+                  width: 80px;
+                }
+              }
+              &__send-btn{
+                width: 300px;
+              }
+            }
+          }
+        }
+        .league-order{
+          .order-header{
+            &__side{
+              width: 10vw;
+            }
+            &__right{
+              #fadein-fadeout{
+                width: 800px;
+                right: 50px;
+                transform: translate(0, 0);
+              }
+            }
+          }
+          .order-contents{
+            .round-box{
+              .game-box{
+                span.user-name{
+                  width: 300px;
+                }
+                span.score{
+                  width: 100px;
+                }
+              }
+              .no-game-box{
+                span.nogame-user-name{
+                  max-width: 500px;
+                }
+              }
+            }
+          }
+        }
+        .league-messages{
+          max-height: 60vh;
+          .message-box{
+            width: 800px;
+            &__name-icon{
+              .message-img{
+                width: 50px;
+                img{
+                  border-radius: 50px;
+                  height: auto;
+                  width: 100px;
+                }
+              }
+            }
+            p.message-text{
+              max-width: 700px;
+            }
+          }
+        }
+        .league-message-form{
+          .message-form-contents{
+            &__text{
+              width: 900px;
+            }
+            &__send-btn{
+              width: 300px;
+            }
+          }
+        }
       }
     }
   }

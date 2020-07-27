@@ -162,3 +162,36 @@ footer.top{
     }
   }
 }
+
+
+@media screen and (min-width:1024px) {
+  // top.html.haml
+  .wrapper-top{
+    width: 1024px;
+    margin: 0 auto;
+    a.btn-wrapper{
+      width: 300px;
+    }
+  }
+
+  // about.html.haml
+  .wrapper-about{
+    width: 1024px;
+    margin: 0 auto;
+    a.btn-wrapper{
+      width: 300px;
+    }
+  }
+
+  // signout.html.haml
+  .wrapper-signout{
+    width: 1024px;
+    margin: 0 auto;
+    a.btn-wrapper{
+      width: 300px;
+    }
+  }
+
+}
+
+
