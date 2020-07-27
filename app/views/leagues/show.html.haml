@@ -1,3 +1,4 @@
+= javascript_include_tag 'autoReload'
 .wrapper-league-show
   = render "application/header"
   = render "application/header-league", group: @group, users: @group.users.order(name: "ASC")
@@ -95,7 +96,7 @@
         %h2<>Messages
         - @league.messages.includes(:user).each do |message|
           - if message.user_id == current_user.id
-            .message-box.message-box__current-user
+            .message-box.message-box__current-user{data: {message: {id: message.id}}}
               .message-box__name-icon.message-box__current-user__name-icon
                 %span.message-user-name= message.user.name
                 .message-img
@@ -103,7 +104,7 @@
               %span.message-date= message.created_at.strftime("%Y年%m月%d日 %H時%M分")
               %p.message-text= message.text
           - else
-            .message-box.message-box__other-user
+            .message-box.message-box__other-user{data: {message: {id: message.id}}}
               .message-box__name-icon.message-box__other-user__name-icon
                 .message-img
                   = image_tag message.user.image.url(:thumb)
@@ -116,5 +117,5 @@
           .message-form-contents
             = f.text_field :text, placeholder: "type a message", class: "message-form-contents__text"
             .message-form-contents__send-btn
-              = f.submit "Send", class: "button-green submit"
+              = f.submit "Send", class: "button-green submit", id: "form-message-submit"
   = render "application/footer"

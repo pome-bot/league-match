@@ -2,20 +2,25 @@ class MessagesController < ApplicationController
 
   def create
     league_id = params[:message][:league_id]
-    league = League.find(league_id)
+    @league = League.find(league_id)
+    @message = @league.messages.new(message_params)
 
-    message = Message.new(message_params)
-    if message.save
-      redirect_to group_league_path(league.group_id, league.id)
+    if @message.save
+      respond_to do |format|
+        format.json
+      end
     else
-      redirect_to group_league_path(league.group_id, league.id)
+      respond_to do |format|
+        format.json {render plain: "dummy"}
+        # format.json {render plain: '{"name":"a"}'}
+      end
     end
   end
 
   private
 
   def message_params
-    params.require(:message).permit(:text).merge(league_id: params[:message][:league_id], user_id: current_user.id)
+    params.require(:message).permit(:text).merge(user_id: current_user.id)
   end
 
 end

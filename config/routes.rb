@@ -8,9 +8,12 @@ Rails.application.routes.draw do
 
   resources :users
   resources :groups do
-    resources :leagues
     resources :games
     resources :messages
+    resources :leagues
+    namespace :api do
+      resources :messages, only: :index, defaults: { format: 'json' }
+    end
   end
 
 
