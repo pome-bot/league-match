@@ -54,6 +54,6 @@ production:
   password: <%= ENV['LEAGUE_MATCH_DATABASE_PASSWORD'] %>
 
   adapter: postgresql
-  encoding: unicoded
+  encoding: unicode
   pool: 5
   
