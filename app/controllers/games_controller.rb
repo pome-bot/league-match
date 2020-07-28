@@ -11,7 +11,7 @@ class GamesController < ApplicationController
     score2 = game_params[:user2_score]
 
     unless user1.present? && user2.present? && user1 != user2 && score1.present? && score2.present?
-      # set error messages
+      redirect_to group_league_path(league.group_id, league.id), alert: 'Error, fill all of 4 input fields.'
     else 
       gameA = league.games.find_by(user_id: user1.id, user2_id: user2.id)
       gameB = league.games.find_by(user_id: user2.id, user2_id: user1.id)
@@ -26,9 +26,9 @@ class GamesController < ApplicationController
         update_leagues_users_table_5columns(league, user2)
         update_leagues_users_rank(league_id)
       end
+      redirect_to group_league_path(league.group_id, league.id), notice: 'Scores was successfully updated.'
     end
 
-    redirect_to group_league_path(league.group_id, league.id)
   end
 
   private

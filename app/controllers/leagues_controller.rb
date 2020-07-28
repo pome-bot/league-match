@@ -25,10 +25,11 @@ class LeaguesController < ApplicationController
     @users = @group.users.order(name: "ASC")
 
     if @league.users.length <= 1
+      @error_msg = "League members should be no less than 2."
       render :new
     elsif @league.save
       @league.create_games(@group)
-      redirect_to group_league_path(@league.group_id, @league.id)
+      redirect_to group_league_path(@league.group_id, @league.id), notice: 'League was successfully created.'
     else
       render :new
     end
@@ -47,7 +48,7 @@ class LeaguesController < ApplicationController
         update_leagues_users_table_5columns(@league, user)
       end
       update_leagues_users_rank(@league.id)
-      redirect_to group_league_path(@league.group_id, @league.id)
+      redirect_to group_league_path(@league.group_id, @league.id), notice: 'League was successfully updated.'
     else
       render :edit
     end
@@ -56,7 +57,7 @@ class LeaguesController < ApplicationController
   def destroy
     league = League.find(params[:id])
     league.destroy
-    redirect_to group_leagues_path(league.group_id)
+    redirect_to group_leagues_path(league.group_id), notice: 'League was successfully deleted.'
   end
 
   def show

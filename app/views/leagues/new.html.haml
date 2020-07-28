@@ -4,12 +4,15 @@
   .main-league-new
     .main-league-new__contents
       %h2<>Add league
-      - if @league.errors.any?
+      - if @league.errors.any? || @error_msg.present?
         .league-new__errors#error_explanation
-          %h2= "Error: #{@league.errors.full_messages.count}"
+          - @error_msg.present? ? error_msg_num = 1 : error_msg_num = 0
+          %h2= "Error: #{@league.errors.full_messages.count + error_msg_num}"
           %ul
             - @league.errors.full_messages.each do |message|
               %li= message
+            - if @error_msg.present?
+              %li= @error_msg
       = form_with model: [@group, @league], local: true, id: "new-league" do |f|
         .field
           %label<>league name
