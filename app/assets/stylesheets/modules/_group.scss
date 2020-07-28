@@ -11,7 +11,7 @@ header.group{
     align-items: center;
     img.user-image{
       height: 4vh;
-      width: 4vh;
+      width: auto;
       border-radius: 2vh;
       background-color: white;
     }
@@ -247,6 +247,14 @@ footer.group{
 
 @media screen and (min-width:1024px) {
 
+  header.group{
+    .header-left{
+      a.header-user-name{
+        max-width: 600px;
+      }
+    }
+  }
+  
   .wrapper-group{
     width: 1024px;
     margin: 0 auto;
