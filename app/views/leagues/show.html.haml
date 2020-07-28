@@ -32,7 +32,7 @@
               %td= dif = @lusers.find_by(user_id: user.id).difference; dif > 0 ? "+#{dif}" : dif < 0 ? dif : "±0"
               %td.thtd-border-double= rank = @lusers.find_by(user_id: user.id).rank; rank == 0 ? "" : rank
       .league-form
-        = form_with model: [@group, @game], local: true do |f|
+        = form_with model: [@group, @game], local: true, id: "form-scores" do |f|
           = f.hidden_field :league_id, {value: @league.id}
           .form-scores
             .form-scores__score-box
@@ -42,7 +42,7 @@
               = f.number_field :user2_score, placeholder: "00", class: "form-score"
               = f.select :user2_name, @name_array, { include_blank: "select"}, class: "form-name"
             .form-scores__send-btn
-              = f.submit "Send", class: "button-green submit"
+              = f.submit "Send", class: "button-green submit", id: "form-scores-submit"
       .league-order
         .order-header
           .order-header__left.order-header__side

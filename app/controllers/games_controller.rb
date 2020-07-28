@@ -26,7 +26,10 @@ class GamesController < ApplicationController
         update_leagues_users_table_5columns(league, user2)
         update_leagues_users_rank(league_id)
       end
-      redirect_to group_league_path(league.group_id, league.id), notice: 'Scores was successfully updated.'
+      # redirect_to group_league_path(league.group_id, league.id), notice: 'Scores was successfully updated.'
+      respond_to do |format|
+        format.json
+      end
     end
 
   end
