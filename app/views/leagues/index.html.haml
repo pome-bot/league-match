@@ -1,0 +1,16 @@
+.wrapper-league
+  = render "application/header"
+  = render "application/header-league", group: @group, users: @users
+  .main-league
+    .main-league__contents
+      .add-league-box
+        = link_to new_group_league_path(@group.id), class: "btn-wrapper" do
+          %button.button-green<>Add league
+      - @leagues.each do |league|
+        .league-box
+          = link_to league.name, group_league_path(league.group_id, league.id), class: "league-box__league-name"
+          %ul.league-box__league-members
+            - league.users.order(name: "ASC").each do |user|
+              %li.league-box__league-members--member= user.name
+          %p.league-box__league-date= league.created_at.strftime("%Y年%m月%d日")
+  = render "application/footer"

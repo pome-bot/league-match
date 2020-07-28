@@ -1,0 +1,15 @@
+.wrapper-group
+  = render "application/header"
+  .main-group
+    .main-group__contents
+      .add-group-box
+        = link_to new_group_path, class: "btn-wrapper" do
+          %button.button-green<>Add group
+      - @groups.each do |group|
+        .group-box
+          = link_to group.name, group_leagues_path(group.id), class: "group-box__group-name"
+          %ul.group-box__group-members
+            - group.users.order(name: "ASC").each do |user|
+              %li.group-box__group-members--member= user.name
+          %p.group-box__group-date= group.created_at.strftime("%Y年%m月%d日")
+  = render "application/footer"

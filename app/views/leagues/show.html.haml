@@ -1,35 +1,121 @@
-
-.div<>----
-
-- if @team_num <= 1
-  %span<>error
-- elsif @team_num % 2 == 0
-  - (@team_num-1).times do |i|
-    %div
-      %span<>Round
-      %span<>
-        = i+1
-      - (@team_num/2).times do |j|
-        %div
-          %span<>= @gameAs[i][j]
-          %span<>-
-          %span<>= @gameBs[i][j]
-- else 
-  - @team_num.times do |i|
-    %div
-      %span<>Round
-      %span<>
-        = i+1
-      - ( (@team_num-1)/2 ).times do |j|
-        %div
-          %span<>= @gameAs[i][j]
-          %span<>-
-          %span<>= @gameBs[i][j]
-    %div<>
-      = @gameCs[i]
-
-      
-        
-
-
-
+= javascript_include_tag 'autoReload'
+.wrapper-league-show
+  = render "application/header"
+  = render "application/header-league", group: @group, users: @group.users.order(name: "ASC")
+  = render "application/header-league-show", league: @league, users: @users
+  .main-league-show
+    .main-league-show__contents
+      .league-table
+        %table
+          %tr
+            %th<>
+            - @users_for_table.each do |user|
+              %th.thtd-user-name=user.name
+            %th.thtd-border-double<>won
+            %th<>lost
+            %th<>draw
+            %th.thtd-border-double<>point
+            %th<>dif
+            %th.thtd-border-double<>rank
+          - @users_for_table.each_with_index do |user, i|
+            %tr
+              %td.thtd-user-name=user.name
+              - @users_for_table.each_with_index do |user2, j|
+                - if i == j
+                  %td.td-gray
+                - else
+                  %td{class: "td-scores", "data-user-name": user.name, "data-user2-name": user2.name}= @league.get_game_scores(user.id, user2.id)
+              %td.thtd-border-double= @lusers.find_by(user_id: user.id).won
+              %td= @lusers.find_by(user_id: user.id).lost
+              %td= @lusers.find_by(user_id: user.id).even
+              %td.thtd-border-double= @lusers.find_by(user_id: user.id).point
+              %td= dif = @lusers.find_by(user_id: user.id).difference; dif > 0 ? "+#{dif}" : dif < 0 ? dif : "±0"
+              %td.thtd-border-double= rank = @lusers.find_by(user_id: user.id).rank; rank == 0 ? "" : rank
+      .league-form
+        = form_with model: [@group, @game], local: true do |f|
+          = f.hidden_field :league_id, {value: @league.id}
+          .form-scores
+            .form-scores__score-box
+              = f.select :user_name, @name_array, { include_blank: "select"}, class: "form-name"
+              = f.number_field :user_score, placeholder: "00", class: "form-score"
+              %span.score-vs<>-
+              = f.number_field :user2_score, placeholder: "00", class: "form-score"
+              = f.select :user2_name, @name_array, { include_blank: "select"}, class: "form-name"
+            .form-scores__send-btn
+              = f.submit "Send", class: "button-green submit"
+      .league-order
+        .order-header
+          .order-header__left.order-header__side
+          .order-header__center
+            %h2<>Recommended order
+          .order-header__right.order-header__side
+            %label#info-toggle
+              = icon('fas', 'info-circle', class: "label-tip__icon")
+            #fadein-fadeout
+              %h2<>Tip of recommended order
+              %P<>Defining left side first and right side next, games can be fair. 
+              %p<>左側を先攻、右側を後攻とすることで、バランスよく対戦できます。
+              %p.close-message<>Click me to close
+        .order-contents
+          - if @user_num <= 1
+            %span<>error
+          - elsif @user_num % 2 == 0
+            - i = 0
+            - (@user_num-1).times do |j|
+              .round-box
+                .round-box__header
+                  %span.round-head<>Round
+                  %span= j+1
+                - (@user_num/2).times do
+                  .game-box
+                    %span.user-name.user-name__left= @games[i].user.name
+                    %span.score.score__left= @games[i].user_score
+                    %span.score-vs<>-
+                    %span.score.score__right= @games[i].user2_score
+                    %span.user-name.user-name__right= @game_user2_names[i]
+                    - i += 1
+          - else 
+            - i = 0
+            - @user_num.times do |j|
+              .round-box
+                .round-box__header
+                  %span.round-head<>Round
+                  %span= j+1
+                - ( (@user_num-1)/2 ).times do
+                  .game-box
+                    %span.user-name.user-name__left= @games[i].user.name
+                    %span.score= @games[i].user_score
+                    %span.score-vs<>-
+                    %span.score= @games[i].user2_score
+                    %span.user-name.user-name__right= @game_user2_names[i]
+                    - i += 1
+                .no-game-box<>
+                  %span.nogame<>no game:
+                  %span.nogame-user-name= @game_nones[j]
+      .league-messages
+        %h2<>Messages
+        - @league.messages.includes(:user).each do |message|
+          - if message.user_id == current_user.id
+            .message-box.message-box__current-user{data: {message: {id: message.id}}}
+              .message-box__name-icon.message-box__current-user__name-icon
+                %span.message-user-name= message.user.name
+                .message-img
+                  = image_tag message.user.image.url(:thumb)
+              %span.message-date= message.created_at.strftime("%Y年%m月%d日 %H時%M分")
+              %p.message-text= message.text
+          - else
+            .message-box.message-box__other-user{data: {message: {id: message.id}}}
+              .message-box__name-icon.message-box__other-user__name-icon
+                .message-img
+                  = image_tag message.user.image.url(:thumb)
+                %span.message-user-name= message.user.name
+              %span.message-date= message.created_at.strftime("%Y年%m月%d日 %H時%M分")
+              %p.message-text= message.text
+      .league-message-form
+        = form_with model: [@group, @message], local: true, id: "form-message" do |f|
+          = f.hidden_field :league_id, {value: @league.id}
+          .message-form-contents
+            = f.text_field :text, placeholder: "type a message", class: "message-form-contents__text"
+            .message-form-contents__send-btn
+              = f.submit "Send", class: "button-green submit", id: "form-message-submit"
+  = render "application/footer"

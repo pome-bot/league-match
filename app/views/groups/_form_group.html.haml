@@ -1,0 +1,29 @@
+= form_with model: group, local: true, id: "new-group" do |f|
+  - if group.errors.any?
+    .group-new__errors#error_explanation
+      %h2= "Error: #{group.errors.full_messages.count}"
+      %ul
+        - group.errors.full_messages.each do |message|
+          %li= message
+  .field
+    %label<>group name
+    %br/
+    = f.text_field :name, autofocus: true, autocomplete: "name", class: 'input-field'
+  .field
+    %label<>search user
+    .user-search
+      %input.input-field#user-search__field{placeholder: "search user", type: "text"}
+    #user-search-result
+  .field#group-members
+    %label<>added members
+    .group-member.group-member__current-user
+      %p.group-member__name= current_user.name
+      %input{name: "group[user_ids][]", type: "hidden", value: current_user.id}
+    - group.users.each do |user|
+      - if current_user.name != user.name
+        .group-member
+          %p.group-member__name= user.name
+          = icon('fas', 'minus-square', class: "group-member__remove group-member__button icon-plus", "data-user-id": user.id, "data-user-name": user.name)
+          %input{name: "group[user_ids][]", type:"hidden", value: user.id}
+  .actions
+    = f.submit class: 'button-green submit'

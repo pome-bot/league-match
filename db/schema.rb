@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_14_112610) do
+ActiveRecord::Schema.define(version: 2020_07_26_062904) do
+
+  create_table "games", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "league_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "user2_id", null: false
+    t.integer "user_score"
+    t.integer "user2_score"
+    t.integer "order", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["league_id", "user_id", "user2_id"], name: "index_games_on_league_id_and_user_id_and_user2_id", unique: true
+    t.index ["league_id"], name: "index_games_on_league_id"
+    t.index ["user2_id"], name: "index_games_on_user2_id"
+    t.index ["user_id"], name: "index_games_on_user_id"
+  end
 
   create_table "groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -32,40 +47,49 @@ ActiveRecord::Schema.define(version: 2020_07_14_112610) do
   create_table "leagues", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "group_id", null: false
+    t.integer "win_point", default: 3, null: false
+    t.integer "lose_point", default: 0, null: false
+    t.integer "even_point", default: 1, null: false
+    t.integer "order_flag", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["group_id"], name: "index_leagues_on_group_id"
     t.index ["name", "group_id"], name: "index_leagues_on_name_and_group_id", unique: true
   end
 
-  create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "leagues_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "league_id", null: false
     t.bigint "user_id", null: false
-    t.integer "order", null: false
+    t.integer "order"
+    t.integer "won", default: 0
+    t.integer "lost", default: 0
+    t.integer "even", default: 0
+    t.integer "point", default: 0
+    t.integer "difference", default: 0
+    t.integer "rank", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["league_id", "user_id"], name: "index_orders_on_league_id_and_user_id", unique: true
-    t.index ["league_id"], name: "index_orders_on_league_id"
-    t.index ["user_id"], name: "index_orders_on_user_id"
+    t.index ["league_id", "user_id"], name: "index_leagues_users_on_league_id_and_user_id", unique: true
+    t.index ["league_id"], name: "index_leagues_users_on_league_id"
+    t.index ["order"], name: "index_leagues_users_on_order"
+    t.index ["user_id"], name: "index_leagues_users_on_user_id"
   end
 
-  create_table "results", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "text", null: false
     t.bigint "league_id", null: false
     t.bigint "user_id", null: false
-    t.integer "user2_id", null: false
-    t.integer "user_score", null: false
-    t.integer "user2_score", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["league_id", "user_id", "user2_id"], name: "index_results_on_league_id_and_user_id_and_user2_id", unique: true
-    t.index ["league_id"], name: "index_results_on_league_id"
-    t.index ["user_id"], name: "index_results_on_user_id"
+    t.index ["league_id"], name: "index_messages_on_league_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
-    t.text "imgae"
+    t.text "image"
     t.string "email", default: "", null: false
+    t.datetime "deleted_at"
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -77,11 +101,13 @@ ActiveRecord::Schema.define(version: 2020_07_14_112610) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "games", "leagues"
+  add_foreign_key "games", "users"
   add_foreign_key "groups_users", "groups"
   add_foreign_key "groups_users", "users"
   add_foreign_key "leagues", "groups"
-  add_foreign_key "orders", "leagues"
-  add_foreign_key "orders", "users"
-  add_foreign_key "results", "leagues"
-  add_foreign_key "results", "users"
+  add_foreign_key "leagues_users", "leagues"
+  add_foreign_key "leagues_users", "users"
+  add_foreign_key "messages", "leagues"
+  add_foreign_key "messages", "users"
 end

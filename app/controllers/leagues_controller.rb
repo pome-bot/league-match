@@ -1,134 +1,122 @@
 class LeaguesController < ApplicationController
 
-  def show
+  def index
+    @group = Group.find(params[:group_id])
+    @leagues = @group.leagues.order(created_at: "DESC").includes(:users)
+    @users = @group.users.order(name: "ASC")
+  end
 
-    group_id = 1
-    league_id = 1
- 
-    @league = League.find(league_id)
+  def new
+    @group = Group.find(params[:group_id])
+    @users = @group.users.order(name: "ASC")
+    @league = League.new
+    @league.users << @group.users.order(name: "ASC")
+  end
+
+  def edit
+    @group = Group.find(params[:group_id])
+    @league = League.find(params[:id])
+    @users = @league.users.order(name: "ASC")
+  end
+
+  def create
+    @group = Group.find(params[:group_id])
+    @league = League.new(league_params)
+    @users = @group.users.order(name: "ASC")
+
+    if @league.users.length <= 1
+      @error_msg = "League members should be no less than 2."
+      render :new
+    elsif @league.save
+      @league.create_games(@group)
+      redirect_to group_league_path(@league.group_id, @league.id), notice: 'League was successfully created.'
+    else
+      render :new
+    end
+  end
+
+  def update
+    @group = Group.find(params[:group_id])
+
+    @league = League.find(params[:id])
     @users = @league.users
-    @team_num = @users.length
 
-
-    place = Array.new(@team_num)
-    @users.each do |user|
-      place[user.id - 1] = user.name 
-    end
-
-    if @team_num <= 1
-      return false
-    elsif @team_num % 2 == 0            # even
-      @gameAs = Array.new(@team_num-1) { Array.new(@team_num/2) }
-      @gameBs = Array.new(@team_num-1) { Array.new(@team_num/2) }
-
-      gameAs_temp, gameBs_temp = even_gameAB(@team_num)
-
-      (@team_num-1).times do |i|
-        (@team_num/2).times do |j|
-          @gameAs[i][j] = place[gameAs_temp[i][j]-1]
-          @gameBs[i][j] = place[gameBs_temp[i][j]-1]
-        end
+    if @league.users.length <= 1
+      render :edit
+    elsif @league.update(league_params_update)
+      @users.each do |user|
+        update_leagues_users_table_5columns(@league, user)
       end
-    else  # @team_num % 2 == 1          # odd
-      @gameAs = Array.new(@team_num) { Array.new( (@team_num-1)/2 ) }
-      @gameBs = Array.new(@team_num) { Array.new( (@team_num-1)/2 ) }
-      @gameCs = Array.new(@team_num)
-
-      gameAs_temp, gameBs_temp = odd_gameAB(@team_num)
-      gameCs_temp = odd_gameC_br(@team_num)
-      @gameCs[0] = place[@team_num-1]
-
-      @team_num.times do |i|
-        ( (@team_num-1)/2 ).times do |j|
-          @gameAs[i][j] = place[gameAs_temp[i][j]-1]
-          @gameBs[i][j] = place[gameBs_temp[i][j]-1]
-        end
-        if i != (@team_num - 1)
-          @gameCs[i+1] = place[gameCs_temp[i+1]-1]
-        end
-      end
+      update_leagues_users_rank(@league.id)
+      redirect_to group_league_path(@league.group_id, @league.id), notice: 'League was successfully updated.'
+    else
+      render :edit
     end
   end
 
-
-end
-
-
-
-
-
-
-
-
-
-def even_gameAB(team_num)
-  place = Array.new(team_num)
-  gameA = Array.new(team_num-1) { Array.new(team_num/2) }
-  gameB = Array.new(team_num-1) { Array.new(team_num/2) }
-
-  team_num.times do |i|
-    place[i] = i+1
+  def destroy
+    league = League.find(params[:id])
+    league.destroy
+    redirect_to group_leagues_path(league.group_id), notice: 'League was successfully deleted.'
   end
 
-  (team_num-1).times do |i|
-    (team_num/2).times do |j|
-      if (j%2 == 1) || (i%2 == 1 && j==0)
-        gameA[i][j] = place[team_num-(j+1)]
-        gameB[i][j] = place[j]
-      else
-        gameA[i][j] = place[j]
-        gameB[i][j] = place[team_num-(j+1)]
+  def show
+    @game = Game.new
+    @message = Message.new
+    @group = Group.find(params[:group_id])
+    league_id = params[:id]
+    @league = League.find(league_id)
+
+    @user_num = @league.users.length
+    @users = @league.users.order(name: "ASC")
+    @users_for_table = set_users_for_table(@league, @users)
+    @lusers = @league.leagues_users
+    @games = @league.games.order(order: "ASC").includes(:user)
+
+    @name_array = @league.get_name_array
+    @game_user2_names = @league.get_user2_names
+    @game_nones = @league.get_game_nones
+  end
+
+  private
+
+  def league_params
+    params.require(:league).permit(:name, user_ids: []).merge(group_id: params[:group_id])
+  end
+
+  def league_params_update
+    params.require(:league).permit(:name, :win_point, :lose_point, :even_point, :order_flag).merge(group_id: params[:group_id])
+  end
+
+  def set_users_for_table(league, users)
+    if league.order_flag == 0
+      users_for_table = []
+      league.leagues_users.order(rank: "ASC").each do |luser|
+        users_for_table << luser.user
       end
+    else
+      users_for_table = users
     end
-    place = shift_place_even(place,team_num)
+    return users_for_table
   end
 
-  return gameA, gameB
-end
-
-def odd_gameAB(team_num)
-  place = Array.new(team_num)
-  gameA = Array.new(team_num) { Array.new( (team_num-1)/2 ) }
-  gameB = Array.new(team_num) { Array.new( (team_num-1)/2 ) }
-
-  team_num.times do |i|
-    place[i] = i+1
+  def update_leagues_users_table_5columns(league, user)
+    luser = league.leagues_users.find_by(user_id: user.id)
+    luser_won = league.get_won_count(user.id)
+    luser_even = league.get_even_count(user.id)
+    luser_lost = league.get_lost_count(user.id)
+    luser_point = luser_won * league.win_point + luser_even * league.even_point + luser_lost * league.lose_point 
+    luser_dif = league.get_difference(user.id)
+    luser.update(won: luser_won, lost: luser_lost, even: luser_even, point: luser_point, difference: luser_dif)
   end
 
-  team_num.times do |i|
-    ( (team_num-1)/2 ).times do |j|
-      if j%2 == 1
-        gameA[i][j] = place[ team_num-(j+2)]
-        gameB[i][j] = place[j]
-      else          
-        gameA[i][j] = place[j]
-        gameB[i][j] = place[ team_num-(j+2)]
-      end
-    end
-    place = shift_place_odd(place, team_num)
+  def update_leagues_users_rank(league_id)
+    league = League.find(league_id)
+    league.update_leagues_users_table_rank_temp
+    # league = League.find(league_id)
+    league.compare_tie_ranker_with_dif
+    # league = League.find(league_id)
+    league.compare_tie_ranker_with_match
   end
 
-  return gameA, gameB
-end
-
-def odd_gameC_br(team_num)
-  gameC = Array.new(@team_num)
-  gameC[0] =team_num
-  (team_num-1).times do |i|
-    gameC[i+1] = i+1
-  end
-  return gameC
-end
-
-def shift_place_even(place, team_num)
-  place.unshift 1
-  place[1] = place[team_num]
-  place.pop
-  return place
-end
-
-def shift_place_odd(place, team_num)
-  place << place[0]
-  place.shift
-  return place
 end

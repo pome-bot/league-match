@@ -1,3 +1,27 @@
 @import "reset";
 @import "font-awesome-sprockets";
 @import "font-awesome";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  -webkit-text-size-adjust: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+input.submit{
+  font-family: Arial;
+}
+
+@import "modules/home";
+@import "modules/user";
+@import "modules/devise_error";
+@import "modules/flash";
+@import "modules/group";
+@import "modules/league";

@@ -1,0 +1,30 @@
+.wrapper-league-new
+  = render "application/header"
+  = render "application/header-league", group: @group, users: @users
+  .main-league-new
+    .main-league-new__contents
+      %h2<>Add league
+      - if @league.errors.any? || @error_msg.present?
+        .league-new__errors#error_explanation
+          - @error_msg.present? ? error_msg_num = 1 : error_msg_num = 0
+          %h2= "Error: #{@league.errors.full_messages.count + error_msg_num}"
+          %ul
+            - @league.errors.full_messages.each do |message|
+              %li= message
+            - if @error_msg.present?
+              %li= @error_msg
+      = form_with model: [@group, @league], local: true, id: "new-league" do |f|
+        .field
+          %label<>league name
+          %br/
+          = f.text_field :name, autofocus: true, autocomplete: "name", class: 'input-field'
+        .field.check-boxes-field
+          %label.check-boxes__member<>members
+          .check-boxes
+            - @users.each do |user|
+              .check-box
+                %input.check-box__input{name: "league[user_ids][]", type:"checkbox", checked: "checked", value: "#{user.id}", id: "league_user_ids_#{user.id}"}
+                %label.check-box__label{for: "league_user_ids_#{user.id}"}= user.name
+        .actions
+          = f.submit "Create",class: 'button-green submit'
+  = render "application/footer"

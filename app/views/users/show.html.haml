@@ -1,0 +1,113 @@
+.wrapper-user-show
+  = render "application/header"
+  .main-user-show
+    .main-user-show__contents
+      %h1.h1-user-name<>Results of #{@user.name}
+      .div-for-border
+      .all-result
+        %h2<>Total results
+        .all-result__table.table-wrapper
+          %table
+            %tr
+              %th<>total game
+              %th<>won
+              %th<>lost
+              %th<>draw
+              %th<>win rate
+              %th<>lose rate
+              %th<>draw rate
+              %th<>point
+              %th<>dif
+              %th<>average rank
+            %tr
+              - twon = @user.get_result_won_all; tlost = @user.get_result_lost_all; teven = @user.get_result_even_all
+              %td= total_game = twon + tlost + teven
+              %td= twon
+              %td= tlost
+              %td= teven
+              %td= total_game != 0 ? "#{sprintf("%.0f", twon / total_game.to_f * 100)}%" : "-"
+              %td= total_game != 0 ? "#{sprintf("%.0f", tlost / total_game.to_f * 100)}%" : "-"
+              %td= total_game != 0 ? "#{sprintf("%.0f", teven / total_game.to_f * 100)}%" : "-"
+              %td= @user.get_result_point_all
+              %td= tdif = @user.get_result_dif_all; tdif > 0 ? "+#{tdif}" : tdif < 0 ? tdif : "±0"
+              %td= total_game != 0 ? @user.get_result_rank_all : "-"
+        - if @rank_max != 0
+          .result-all__rank-table.table-wrapper
+            %table
+              %tr
+                %th<>rank
+                %th<>frequency
+              - @rank_max.times do |i|
+                %tr
+                  %td= i + 1
+                  %td= @lusers.where(rank: i+1).length
+        .all-result-footer.div-for-border
+      .group-result
+        %h2<>Results of each groups
+        - @groups.each do |group|
+          - if group.is_having_league?
+            %h2.group-name= group.name
+            .group-result__table.table-wrapper
+              %table
+                %tr
+                  %th<>league name
+                  %th<>total game
+                  %th<>won
+                  %th<>lost
+                  %th<>draw
+                  %th<>point
+                  %th<>dif
+                  %th<>rank
+                - sum_tlwon = 0; sum_tllost = 0; sum_tleven = 0; sum_tlpt = 0; sum_tldif = 0; sum_tlrank = 0
+                - @leagues.where(group_id: group.id).order(created_at: "DESC").each do |league|
+                  - if league.leagues_users.where(user_id: @user.id).length != 0
+                    %tr
+                      - tlwon = league.leagues_users.find_by(user_id: @user.id).won; tllost = league.leagues_users.find_by(user_id: @user.id).lost; tleven = league.leagues_users.find_by(user_id: @user.id).even 
+                      %td.thtd-name= league.name
+                      %td= total_game_league = tlwon + tllost + tleven
+                      %td= sum_tlwon += tlwon; tlwon
+                      %td= sum_tllost += tllost; tllost
+                      %td= sum_tleven += tleven; tleven
+                      %td= tlpt = league.leagues_users.find_by(user_id: @user.id).point; sum_tlpt += tlpt; tlpt
+                      %td= tldif = league.leagues_users.find_by(user_id: @user.id).difference; sum_tldif += tldif; tldif > 0 ? "+#{tldif}" : tldif < 0 ? tldif : "±0"
+                      %td= tlrank = league.leagues_users.find_by(user_id: @user.id).rank; sum_tlrank += tlrank; tlrank == 0 ? "" : tlrank
+                %tr
+                  %th<>total
+                  %th= sum_tlgame = sum_tlwon + sum_tllost + sum_tleven
+                  %th= sum_tlwon
+                  %th= sum_tllost
+                  %th= sum_tleven
+                  %th= sum_tlpt
+                  %th= sum_tldif > 0 ? "+#{sum_tldif}" : sum_tldif < 0 ? sum_tldif : "±0"
+                  %th= sum_tlgame != 0 ? sprintf("%.2f", sum_tlrank / @leagues.where(group_id: group.id).length.to_f) : "-"
+        .group-result-footer.div-for-border
+      .vs-user-result
+        %h2<>Results against each users
+        - if @user.any_done_game?
+          .vs-user-result__table.table-wrapper
+            %table
+              %tr
+                %th<>against
+                %th<>total game
+                %th<>won
+                %th<>lost
+                %th<>draw
+                %th<>win rate
+                %th<>lose rate
+                %th<>draw rate
+                %th<>dif
+              - User.all.order(name: "ASC").each do |auser|
+                - if @user.get_result_against_user?(auser)
+                  %tr
+                    - tawon = @user.get_result_against_user_won(auser); talost = @user.get_result_against_user_lost(auser); taeven = @user.get_result_against_user_even(auser) 
+                    %td.thtd-name= auser.name
+                    %td= total_game_auser = tawon + talost + taeven
+                    %td= tawon
+                    %td= talost
+                    %td= taeven
+                    %td= total_game_auser != 0 ? "#{sprintf("%.0f", tawon / total_game_auser.to_f * 100)}%" : "-"
+                    %td= total_game_auser != 0 ? "#{sprintf("%.0f", talost / total_game_auser.to_f * 100)}%" : "-"
+                    %td= total_game_auser != 0 ? "#{sprintf("%.0f", taeven / total_game_auser.to_f * 100)}%" : "-"
+                    %td= tadif = @user.get_result_against_user_dif(auser); tadif > 0 ? "+#{tadif}" : tadif < 0 ? tadif : "±0"
+  = render "application/footer"
+

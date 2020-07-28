@@ -1,21 +1,39 @@
-%h2 Sign up
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = render "devise/shared/error_messages", resource: resource
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label :password
-    - if @minimum_password_length
-      %em
-        (#{@minimum_password_length} characters minimum)
-    %br/
-    = f.password_field :password, autocomplete: "new-password"
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "new-password"
-  .actions
-    = f.submit "Sign up"
-= render "devise/shared/links"
+.wrapper-sign-up
+  %header.top
+    = link_to "League Match App", root_path, class: "top__logo" 
+  .main-sign-up
+    .main-sign-up__contents
+      %h2<>Sign up
+      = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+        = render "devise/shared/error_messages", resource: resource
+        .field
+          %label<>name
+          %br/
+          = f.text_field :name, autofocus: true, autocomplete: "name", class: "input-field"
+        .field
+          %label<>email
+          %br/
+          = f.email_field :email, autocomplete: "email", class: "input-field"
+        .field
+          %label<>password (minimun 6 character)
+          %br/
+          = f.password_field :password, class: "input-field"
+        .field
+          %label<>password confirmation
+          %br/
+          = f.password_field :password_confirmation, class: "input-field"
+        .actions
+          = f.submit "Sign up", class: "button-green submit"
+      .other-btns
+        = link_to root_path, class: "back-top-btn btn-wrapper" do
+          %button.button-gray<>Back to top
+        = link_to new_user_session_path, class: "sign-in-btn btn-wrapper" do
+          %button.button-gray<>Sign in
+  %footer.top
+    %p<>App favicon by 
+    = link_to "ios-filled", "https://icons8.jp/icon/pack/alphabet/ios-filled"
+    %p<>,
+    = link_to "icons8", "https://icons8.com/"
+
+-# = render "devise/shared/links"
+

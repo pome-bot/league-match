@@ -1,0 +1,7 @@
+.wrapper-group-new
+  = render "application/header"
+  .main-group-new
+    .main-group-new__contents
+      %h2 Add group
+      = render partial: 'form_group', locals: { group: @group }
+  = render "application/footer"

@@ -1,0 +1,856 @@
+.header-league{
+  min-height: 10.4vh;
+  padding: 1vh 4vw 1vh 6vw;
+  border-right: 4px solid #003300;
+  border-left: 4px solid #003300;
+  border-bottom: 4px solid #003300;
+  color: #003300;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__name-member{
+    width: 100%;
+    a.group-name{
+      color: #003300;
+      font-size: 2.5vh;
+      font-weight: bold;
+    }
+    .group-members{
+      margin-top: 1vh;
+      width: 100%;
+      font-size: 1.8vh;
+      &__member{
+        display: inline-block;
+        max-width: 80vw;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
+  a.group-cog{
+    margin-left: 10px;
+    .group-cog__icon{
+      color: #003300;
+      font-size: 2.5vh;
+    }
+  }
+}
+
+.header-league-show{
+  padding: 1.2vh 4vw 1vh 9vw;
+  border-right: 4px solid #003300;
+  border-left: 4px solid #003300;
+  background-color: #003300;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  &__name-member{
+    width: 100%;
+    a.league-name{
+      color: white;
+      font-size: 2.5vh;
+      font-weight: bold;
+    }
+    .league-members{
+      margin-top: 1vh;
+      width: 100%;
+      font-size: 1.8vh;
+      &__member{
+        display: inline-block;
+        max-width: 75vw;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
+  a.league-cog{
+    margin-left: 20px;
+    .league-cog__icon{
+      font-size: 2.5vh;
+      color: white;
+    }
+  }
+}
+
+// index.html.haml
+.wrapper-league{
+  .main-league{
+    min-height: 76.6vh;
+    border-right: 4px solid #003300;
+    border-left: 4px solid #003300;
+    display: flex;
+    justify-content: center;
+    &__contents{
+      padding: 3vh 10vw 5vh 10vw;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .add-league-box{
+        margin-bottom: 2vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      .league-box{
+        margin-bottom: 2vh;
+        width: 100%;
+        &__league-name{
+          display: block;
+          font-size: (64vh * $mn);
+        }
+        &__league-members{
+          width: 70vw;
+          margin-left: 4vw;
+          font-size: (32vh * $mn);
+          color: #004400;
+          &--member{
+            margin-right: 5px;
+            display: inline-block;
+            max-width: 70vw;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+          }
+        }
+        &__league-date{
+          margin-left: 4vw;
+          margin-top: 1vh;
+          font-size: (32vh * $mn);
+          color: #004400;
+        }
+      }
+    }
+  }
+}
+
+// show.html.haml
+.wrapper-league-show{
+  .main-league-show{
+    min-height: 66vh;
+    border-right: 4px solid #003300;
+    border-left: 4px solid #003300;
+    display: flex;
+    justify-content: center;
+    &__contents{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .league-table{
+        margin: 3vh 5vw;
+        width: 90vw;
+        overflow: auto;
+        table{
+          tbody{
+            tr{
+              th, td{
+                border: 1px solid #003300;
+                font-size: (48vh * $mn);
+                text-align: center;
+                padding: 10px;
+                color: #003300;
+                white-space: nowrap;
+                min-width: 15vw;
+              }
+              .thtd-border-double{
+                border-left: 3px double #003300;
+              }
+              .thtd-user-name{
+                max-width: 25vw;
+                text-overflow: ellipsis;
+                overflow: hidden;
+              }
+              .td-scores{
+                transition: background-color 1s;
+              }
+              .td-scores.is-colored{
+                transition: background-color 0s;
+                background-color: #CEF9DC;
+              }
+              td.td-gray{
+                background-color: lightgray;
+              }
+            }
+          }
+        }
+      }
+      .league-form{
+        padding: 3vh 3vw 0 3vw;
+        width: 100%;
+        background-color: #003300;
+        display: flex;
+        justify-content: center;
+        form{
+          .form-scores{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            &__score-box{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 8vh;
+              width: 100%;
+              padding: (10vh / 12);
+              span.score-vs{
+                font-size: 50px;
+                color: white;
+              }
+              input, select{
+                font-size: (48vh * $mn);
+                text-align: center;
+                border-radius: 5px;
+                border: none;
+                height: 100%;
+                width: 100%;
+                background-color: white;
+              }
+              select.form-name{
+                width: 30vw;
+                appearance: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-left: 20px;
+                transition: background-color 1s;
+              }
+              select.form-name.is-colored{
+                transition: background-color 0s;
+                background-color: #CEF9DC;
+              }
+              input.form-score{
+                width: 11vw;
+                margin: 0 2vw;
+                transition: background-color 1s;
+                &::placeholder {
+                  color: #004400;
+                  opacity: 0.2;
+                }
+              }
+              input.form-score.is-colored{
+                transition: background-color 0s;
+                background-color: #CEF9DC;
+              }
+            }
+            &__send-btn{
+              margin: 2vh 0;
+              display: block;
+              height: 8vh;
+              width: 40vw;
+              padding: (10vh / 12);
+              input.button-green{
+                height: 100%;
+                width: 100%;
+                font-size: (10vh / 3);
+              }
+            }
+          }
+        }
+      }
+      .league-order{
+        padding-top: 2vh;
+        border-bottom: 4px solid #003300;
+        width: 100%;
+        font-size: (48vh * $mn);
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        .order-header{
+          position: relative;
+          margin-bottom: 2vh;
+          padding: 0 4vw;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          &__side{
+            width: 10vw;
+          }
+          &__right{
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            label#info-toggle{
+              height: 100%;
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              cursor: pointer;
+              i.label-tip__icon{
+                font-size: (64vh * $mn);
+                color: #003300;
+              }
+            }
+            #fadein-fadeout{
+              position: absolute;
+              z-index: 10;
+              width: 80vw;
+              padding: 20px;
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+              top: 5vh;
+              right: calc(46vw - 4px);
+              transform: translate(50%, 0);
+              // -webkit-transform: translate(-50%, -50%);
+              // -ms-transform: translate(-50%, -50%);
+              background-color: #CEF9DC;
+              border: 1px solid #003300;
+              border-radius: 5px;
+              transition: opacity 1s, visibility 1s;
+              opacity: 0; 
+              visibility: hidden;
+              h2{
+                font-size: (54vh * $mn);
+                margin-bottom: 2vh;
+              }
+              p{
+                font-size: (48vh * $mn);
+                margin: 0 3vw 1vh 3vw;
+              }
+              p.close-message{
+                cursor: pointer;
+              }
+            }
+            #fadein-fadeout.is-show{
+              opacity: 1;
+              visibility: visible;
+            }
+          }
+          &__center{
+            h2{
+              font-size: (54vh * $mn);
+            }
+          }
+        }
+        .order-contents{
+          width: 100%;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          .round-box{
+            width: 100%;
+            margin-bottom: 3vh;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            &__header{
+              font-size: (54vh * $mn);
+              margin-bottom: 1vh;
+              display: flex;
+              justify-content: center;
+              span.round-head{
+                margin-right: 10px;
+              }
+            }
+            .game-box{
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              transition: background-color 1s;
+              span.user-name{
+                width: 25vw;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+              }
+              span.user-name__left{
+                text-align: right;
+              }
+              span.user-name__right{
+                text-align: left;
+              }
+              span.score{
+                margin: 0 2vw;
+                width: 15vw;
+                text-align: center;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+              }
+            }
+            .game-box.is-colored{
+              transition: background-color 0s;
+              background-color: #CEF9DC;
+            }
+            .no-game-box{
+              opacity: 0.5;
+              margin-top: 1vh;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              span.nogame{
+                margin-right: 2vw;
+              }
+              span.nogame-user-name{
+                max-width: 60vw;
+                white-space: normal;
+                text-overflow: ellipsis;
+                overflow: hidden;
+              }
+            }
+          }
+        }
+      }
+      .league-messages{
+        max-height: 60vh;
+        overflow: auto;
+        font-size: (48vh * $mn);
+        width: 100%;
+        padding: 2vh 5vw 0 5vw;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        h2{
+          font-size: (54vh * $mn);
+          margin-bottom: 4vh;
+        }
+        .message-box{
+          width: 80vw;
+          margin-bottom: 4vh;
+          &__name-icon{
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            .message-img{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: auto;
+              width: 10vw;
+              img{
+                border-radius: 1.5vh;
+                height: 3vh;
+                width: auto;
+              }
+            }
+          }
+          span.message-user-name{
+            width: 100%;
+            font-size: (40vh * $mn);
+          }
+          span.message-date{
+            font-size: (32vh * $mn);
+          }
+          p.message-text{
+            max-width: 80vw;
+            word-wrap: break-word;
+          }
+        }
+        .message-box__current-user{
+          display: flex;
+          align-items: flex-end;
+          flex-direction: column;
+            span.message-user-name{
+              margin-right: 2vw;
+              text-align: end;
+            }
+        }
+        .message-box__other-user{
+          display: flex;
+          align-items: flex-start;
+          flex-direction: column;
+            span.message-user-name{
+              margin-left: 2vw;
+            }
+        }
+      }
+      .league-message-form{
+        width: 100%;
+        background-color: #003300;
+        .message-form-contents{
+          padding-top: 4vh;
+          padding-bottom: 2vh;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          &__text{
+            font-size: (48vh * $mn);
+            width: 80vw;
+            border-radius: 5px;
+            padding: 10px;
+            &::placeholder {
+              color: #004400;
+              opacity: 0.4;
+            }
+          }
+          &__send-btn{
+            margin-top: 2vh;
+            display: block;
+            height: 8vh;
+            width: 40vw;
+            padding: (10vh / 12);
+            input.button-green{
+              height: 100%;
+              width: 100%;
+              font-size: (10vh / 3);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// new.html.haml
+.wrapper-league-new{
+  .main-league-new{
+    min-height: 76.6vh;
+    border-right: 4px solid #003300;
+    border-left: 4px solid #003300;
+    display: flex;
+    justify-content: center;
+    font-size: (48vh * $mn);
+    &__contents{
+      padding: 3vh 10vw 5vh 10vw;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      #new-league{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        .field{
+          padding-top: 1vh;
+          padding-bottom: 1vh;
+          font-size: (40vh * $mn);
+          input.input-field{
+            padding: 0 10px;
+            font-size: (48vh * $mn);
+            width: 80vw;
+          }
+        }
+        .field.check-boxes-field{
+          width: 80vw;
+          label.check-boxes__member{
+            display: block;
+          }
+          .check-boxes{
+            .check-box{
+              display: inline-flex;
+              align-items: center;
+              margin-bottom: 2vh;
+              margin-right: 4vw;
+              input.check-box__input{
+                height: 3vh;
+                width: 3vh;
+              }
+              label.check-box__label{
+                font-size: (48vh * $mn);
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                max-width: 70vw;
+                display: block;
+                margin-left: 2vw;
+              }
+            }
+          }
+        }
+        .actions{
+          margin: 3vh 0 2vh 0;
+          display: block;
+          height: 10vh;
+          width: 40vw;
+          padding: (10vh / 12);
+          input.button-green{
+            height: 100%;
+            width: 100%;
+            font-size: (10vh / 3);
+          }
+        }
+      }
+    }
+  }
+}
+
+// edit.html.haml
+.wrapper-league-edit{
+  .main-league-edit{
+    min-height: 66vh;
+    border-right: 4px solid #003300;
+    border-left: 4px solid #003300;
+    display: flex;
+    justify-content: center;
+    font-size: (48vh * $mn);
+    &__contents{
+      padding: 3vh 10vw 5vh 10vw;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      #new-league{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        .field{
+          width: 80vw;
+          padding-top: 1vh;
+          padding-bottom: 1vh;
+          font-size: (40vh * $mn);
+          input{
+            font-size: (48vh * $mn);
+            padding: 0 10px;
+          }
+          input.input-field{
+            width: 100%;
+          }
+          &__point{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 1vh;
+            margin-left: 5vw;
+            label{
+              width: 30vw;
+              display: block;
+            }
+            input.input-num-field{
+              width: 15vw;
+              text-align: center;
+            }
+          }
+          select{
+            display: block;
+            font-size: (48vh * $mn);
+            height: (76vh * $mn);
+            width: 30vw;
+            padding: 0 10px;
+          }
+        }
+        .actions{
+          margin: 3vh 0 2vh 0;
+          display: block;
+          height: 10vh;
+          width: 40vw;
+          padding: (10vh / 12);
+          input.button-green{
+            height: 100%;
+            width: 100%;
+            font-size: (10vh / 3);
+          }
+        }
+      }
+      .other-btns{
+        margin-top: 2vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        a.cancel-btn{
+          margin-left: 4vw;
+          width: 40vw;
+          height: 10vh;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width:1024px) {
+
+  .wrapper-league{
+    width: 1024px;
+    margin: 0 auto;
+    a.btn-wrapper{
+      width: 300px;
+    }
+    .main-league{
+      &__contents{
+        .league-box{
+          &__league-members{
+            width: 700px;
+            &--member{
+              max-width: 700px;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  .wrapper-league-new{
+    width: 1024px;
+    margin: 0 auto;
+    a.btn-wrapper{
+      width: 300px;
+    }
+    .main-league-new{
+      &__contents{
+        #new-league{
+          .field{
+            input.input-field{
+              width: 500px;
+            }
+          }
+          .field.check-boxes-field{
+            width: 500px;
+            .check-boxes{
+              .check-box{
+                label.check-box__label{
+                  max-width: 450px;
+                }
+              }
+            }
+          }
+          .actions{
+            width: 300px;
+          }
+        }
+      }
+    }
+  }
+  
+  .wrapper-league-edit{
+    width: 1024px;
+    margin: 0 auto;
+    a.btn-wrapper{
+      width: 300px;
+    }
+    .main-league-edit{
+      &__contents{
+        #new-league{
+          .field{
+            width: 500px;
+            input.input-field{
+              width: 100%;
+            }
+            &__point{
+              margin-left: 20px;
+              label{
+                width: 150px;
+              }
+              input.input-num-field{
+                width: 100px;
+                text-align: center;
+              }
+            }
+            select{
+              width: 200px;
+            }
+          }
+          .actions{
+            width: 300px;
+          }
+        }
+        .other-btns{
+          a.cancel-btn{
+            width: 300px;
+          }
+        }
+      }
+    }
+  }
+  
+  .wrapper-league-show{
+    width: 1024px;
+    margin: 0 auto;
+    a.btn-wrapper{
+      width: 300px;
+    }
+    .main-league-show{
+      &__contents{
+        .league-table{
+          width: 900px;
+          table{
+            tbody{
+              tr{
+                th, td{
+                  padding: 10px;
+                  min-width: 80px;
+                }
+                .thtd-user-name{
+                  max-width: 200px;
+                }
+              }
+            }
+          }
+        }
+        .league-form{
+          form{
+            .form-scores{
+              &__score-box{
+                select.form-name{
+                  width: 300px;
+                }
+                input.form-score{
+                  width: 80px;
+                }
+              }
+              &__send-btn{
+                width: 300px;
+              }
+            }
+          }
+        }
+        .league-order{
+          .order-header{
+            &__side{
+              width: 10vw;
+            }
+            &__right{
+              #fadein-fadeout{
+                width: 800px;
+                right: 50px;
+                transform: translate(0, 0);
+              }
+            }
+          }
+          .order-contents{
+            .round-box{
+              .game-box{
+                span.user-name{
+                  width: 300px;
+                }
+                span.score{
+                  width: 100px;
+                }
+              }
+              .no-game-box{
+                span.nogame-user-name{
+                  max-width: 500px;
+                }
+              }
+            }
+          }
+        }
+        .league-messages{
+          max-height: 60vh;
+          .message-box{
+            width: 800px;
+            &__name-icon{
+              .message-img{
+                width: 50px;
+                img{
+                  border-radius: 50px;
+                  height: auto;
+                  width: 100px;
+                }
+              }
+            }
+            p.message-text{
+              max-width: 700px;
+            }
+          }
+        }
+        .league-message-form{
+          .message-form-contents{
+            &__text{
+              width: 900px;
+            }
+            &__send-btn{
+              width: 300px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

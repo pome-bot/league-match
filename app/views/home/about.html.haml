@@ -1,0 +1,26 @@
+.wrapper-about
+  %header.top
+    = link_to "League Match App", root_path, class: "top__logo" 
+  .main-about
+    .main-about__contents
+      %h2<>What is League Match App?
+      %p<>このアプリでは、リーグ戦を管理することができます。グループを作成し、それぞれのグループで複数のリーグを組むことができます。このアプリの特徴は以下のとおりです。
+      %ul
+        %li<>グループ毎に複数のリーグ戦を組むことができる。
+        %li<>リーグ戦の勝敗を記録できる。
+        %li<>リーグ戦の試合順を自動で作成できる。
+        %li<>リーグ毎にコメントを投稿できる。
+        %li<>ユーザーの試合成績を確認できる。
+      .sign-btns
+        = link_to new_user_session_path, class: "sign-in-btn btn-wrapper" do
+          %button.button-green<>Sign in
+        = link_to new_user_registration_path, class: "sign-up-btn btn-wrapper" do
+          %button.button-green<>Sign up
+      = link_to root_path, class: "back-top-btn btn-wrapper" do
+        %button.button-gray<>Back to top
+  %footer.top
+    %p<>App favicon by 
+    = link_to "ios-filled", "https://icons8.jp/icon/pack/alphabet/ios-filled"
+    %p<>,
+    = link_to "icons8", "https://icons8.com/"
+

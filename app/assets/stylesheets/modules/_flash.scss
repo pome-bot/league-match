@@ -1,0 +1,29 @@
+.flash-box{
+  position: absolute;
+  font-size: (48vh * $mn);
+  background-color: #CEF9DC;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border: 1px solid #003300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flash-box.is-hidden{
+  transition: opacity 3s, visibility 3s;
+  opacity: 0;
+  visibility: hidden;
+}
+
+@media screen and (min-width:1024px) {
+  // top.html.haml
+  .flash-box{
+    left: calc((100% - 1024px) / 2);
+    width: 1024px;
+    margin: 0 auto;
+  }
+
+}
+
+
