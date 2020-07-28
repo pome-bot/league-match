@@ -52,3 +52,8 @@ production:
   database: league_match_production
   username: league_match
   password: <%= ENV['LEAGUE_MATCH_DATABASE_PASSWORD'] %>
+
+  adapter: postgresql
+  encoding: unicoded
+  pool: 5
+  
