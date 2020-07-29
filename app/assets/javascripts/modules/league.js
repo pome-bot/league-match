@@ -28,7 +28,7 @@ $(function(){
     $("#game_user2_score").val(score2); 
   }
 
-  $(".td-scores").on("click", function() {
+  $(".league-table").on("click", ".td-scores", function() {
     const this_element = $(this);
     const user_name = $(this).data('user-name');
     const user2_name = $(this).data('user2-name');

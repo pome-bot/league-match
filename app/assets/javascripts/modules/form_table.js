@@ -1,18 +1,60 @@
 $(function(){
 
-  function buildHTML(message){
+  function buildHTML_for_table(data){
+    let users = data["users_for_table"];
+    let table_rows = data["table_rows"];
+    let user_num = users.length;
+
     let html;
-      html = `<div class="message-box message-box__current-user" data-message-id=${message.id}>
-                <div class="message-box__name-icon message-box__current-user__name-icon">
-                  <span class="message-user-name">${message.user_name}</span>
-                  <div class="message-img">
-                    <img src="${message.user_img}">
-                  </div>
-                </div>
-                <span class="message-date">${message.date}</span>
-                <p class="message-text">${message.text}</p>
-              </div>`
+    html = `<table><tbody><tr>`;
+    $.each(table_rows[0], function(i, th) {
+      if (i == 0){
+        html += `<th></th>`;
+      } else {
+        html += `<th class="thtd-user-name">${th}</th>`;
+      }
+      if (i >= user_num){ return false; }
+    });
+    html += `<th class="thtd-border-double">won</th><th>lost</th><th>draw</th><th class="thtd-border-double">point</th><th>dif</th><th class="thtd-border-double">rank</th></tr>`
+
+    $.each(table_rows, function(i, table_row) {
+      if (i !== 0){
+        html += `<tr>`;
+        $.each(table_row, function(j, td) {
+          if (j==0){
+            html += `<td class="thtd-user-name">${td}</td>`;
+          } else if (i==j){
+            html += `<td class="td-gray"></td>`;
+          } else if (j <= user_num){
+            html += `<td class="td-scores" data-user-name="${users[i-1].name}" data-user2-name="${users[j-1].name}">${td}</td>`;
+          } else if (j == user_num+1 || j == user_num+4 || j == user_num+6){
+            html += `<td class="thtd-border-double">${td}</td>`;
+          } else {
+            html += `<td>${td}</td>`;
+          }
+        });
+        html += `</tr>`;
+      }
+    });
+    html += `</tbody></table>`;
     return html;
+  }
+
+  function update_score_in_order(data){
+    let game_boxes = $(".game-box");
+    $.each(game_boxes, function(i, game_box) {
+      let this_game_box = $(game_box);
+      let user_name_left = this_game_box.children(".user-name.user-name__left").text();
+      let user_name_right = this_game_box.children(".user-name.user-name__right").text();
+
+      if (user_name_left == data.user1_name && user_name_right == data.user2_name) {
+        this_game_box.children(".score.score__left").text(data.user1_score);
+        this_game_box.children(".score.score__right").text(data.user2_score);
+      } else if (user_name_left == data.user2_name && user_name_right == data.user1_name) {
+        this_game_box.children(".score.score__left").text(data.user2_score);
+        this_game_box.children(".score.score__right").text(data.user1_score);
+      }
+    });
   }
 
   // ajax -- change table
@@ -43,10 +85,10 @@ $(function(){
       })
   
       .done(function(data){
-        console.log("done");
-        // let html = buildHTML(message);
-        // $('.league-messages').append(html);
-        // $('.league-messages').animate({ scrollTop: $('.league-messages')[0].scrollHeight});
+        update_score_in_order(data["data_for_order"]);
+        let html = buildHTML_for_table(data["data_for_table"]);
+        $(".league-table").empty();
+        $(".league-table").append(html);
       })
       .fail(function(){
         alert('Error');

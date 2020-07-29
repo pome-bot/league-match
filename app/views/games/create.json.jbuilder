@@ -1,19 +1,14 @@
-json.user_num @league.users.length
-json.array_for_order do
-  json.array! @games do |game|
-    json.user_name   game.user.name
-    json.user_score  game.user_score
-    json.user2_score game.user2_score
+json.data_for_order do
+  json.user1_name   @user1.name
+  json.user2_name   @user2.name
+  json.user1_score  @score1
+  json.user2_score  @score2
+end
+json.data_for_table do
+  json.users_for_table do
+    json.array! @users_for_table, :id, :name
+  end
+  json.table_rows do
+    json.array! @table_rows
   end
 end
-json.array_for_order_user2_names do
-  json.array! do
-    
-  end
-end
-json.array_for_order_game_nones do
-  json.array! do
-    
-  end
-end
-
