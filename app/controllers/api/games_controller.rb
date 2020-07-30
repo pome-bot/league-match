@@ -10,15 +10,19 @@ class Api::GamesController < ApplicationController
     lusers = @league.leagues_users
 
     count_dif_game = 0
+    count_dif_name = 0
     game_results.each do |game_result|
       name1 = game_result[1][:user1_name]
       name2 = game_result[1][:user2_name]
+      id1 = game_result[1][:user1_id]
+      id2 = game_result[1][:user2_id]
       score1 = game_result[1][:user1_score]
       score2 = game_result[1][:user2_score]
-      id1 = User.find_by(name: name1).id
-      id2 = User.find_by(name: name2).id
 
       game = @league.games.find_by(user_id: id1, user2_id: id2)
+      unless game.user.name == name1 && User.find(game.user2_id).name == name2
+        count_dif_name += 1
+      end
       if game.user_score?
         unless game.user_score == score1.to_i && game.user2_score == score2.to_i
           count_dif_game += 1
@@ -30,6 +34,12 @@ class Api::GamesController < ApplicationController
       end
     end
 
+    if count_dif_name >= 1
+      @reload_flag = 1
+    else
+      @reload_flag = 0
+    end
+
     if count_dif_game >= 1
       @update_flag = 1
       @games_for_order = []
@@ -38,6 +48,8 @@ class Api::GamesController < ApplicationController
         name2 = User.find(game.user2_id).name
         score1 = game.user_score
         score2 = game.user2_score
+        score1 = "" unless score1.present?
+        score2 = "" unless score2.present?
         @games_for_order << {name1: name1, name2: name2, score1: score1, score2: score2}
       end
       @users_for_table = set_users_for_table(@league, users)

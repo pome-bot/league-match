@@ -1,7 +1,8 @@
+json.reload_flag @reload_flag
 json.update_flag @update_flag
 json.data_for_table do
   json.users_for_table do
-    json.array! @users_for_table, :name
+    json.array! @users_for_table, :id
   end
   json.table_rows do
     json.array! @table_rows

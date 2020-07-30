@@ -208,16 +208,6 @@ class League < ApplicationRecord
     return nil
   end
 
-  def get_name_array
-    name_array = Array.new(users.length) 
-    i = 0
-    users.order("name ASC").each do |user|
-      name_array[i] = user.name
-      i += 1 
-    end
-    return name_array
-  end
-
   def get_user2_names
     game_user2_names = Array.new(games.length)
     games.order(order: "ASC").each_with_index do |game, i|

@@ -7,8 +7,8 @@ class GamesController < ApplicationController
     user_num = @league.users.length
     lusers = @league.leagues_users
 
-    @user1 = User.find_by(name: params[:game][:user_name])
-    @user2 = User.find_by(name: params[:game][:user2_name])
+    @user1 = User.find(params[:game][:user_id])
+    @user2 = User.find(params[:game][:user2_id])
 
     @score1 = game_params[:user_score]
     @score2 = game_params[:user2_score]

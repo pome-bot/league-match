@@ -613,6 +613,7 @@
               display: block;
             }
             input.input-num-field{
+              font-size: 48px;
               width: 15vw;
               text-align: center;
             }
@@ -711,6 +712,7 @@
           .field{
             input.input-field{
               width: 500px;
+              font-size: 32px;
             }
           }
           .field.check-boxes-field{
@@ -744,6 +746,7 @@
             width: 500px;
             input.input-field{
               width: 100%;
+              font-size: 32px;
             }
             &__point{
               margin-left: 20px;
@@ -753,6 +756,7 @@
               input.input-num-field{
                 width: 100px;
                 text-align: center;
+                font-size: 32px;
               }
             }
             select{
@@ -802,9 +806,11 @@
               &__score-box{
                 select.form-name{
                   width: 300px;
+                  font-size: 32px;
                 }
                 input.form-score{
                   width: 80px;
+                  font-size: 32px;
                 }
               }
               &__send-btn{
@@ -867,6 +873,7 @@
           .message-form-contents{
             &__text{
               width: 900px;
+              font-size: 32px;
             }
             &__send-btn{
               width: 300px;
