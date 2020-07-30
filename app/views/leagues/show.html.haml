@@ -1,4 +1,5 @@
-= javascript_include_tag 'autoReload'
+= javascript_include_tag 'autoReload_message'
+= javascript_include_tag 'autoReload_leagueTable'
 .wrapper-league-show
   = render "application/header"
   = render "application/header-league", group: @group, users: @group.users.order(name: "ASC")
@@ -32,7 +33,7 @@
               %td= dif = @lusers.find_by(user_id: user.id).difference; dif > 0 ? "+#{dif}" : dif < 0 ? dif : "±0"
               %td.thtd-border-double= rank = @lusers.find_by(user_id: user.id).rank; rank == 0 ? "" : rank
       .league-form
-        = form_with model: [@group, @game], local: true do |f|
+        = form_with model: [@group, @game], local: true, id: "form-scores" do |f|
           = f.hidden_field :league_id, {value: @league.id}
           .form-scores
             .form-scores__score-box
@@ -42,7 +43,7 @@
               = f.number_field :user2_score, placeholder: "00", class: "form-score"
               = f.select :user2_name, @name_array, { include_blank: "select"}, class: "form-name"
             .form-scores__send-btn
-              = f.submit "Send", class: "button-green submit"
+              = f.submit "Send", class: "button-green submit", id: "form-scores-submit"
       .league-order
         .order-header
           .order-header__left.order-header__side
@@ -84,9 +85,9 @@
                 - ( (@user_num-1)/2 ).times do
                   .game-box
                     %span.user-name.user-name__left= @games[i].user.name
-                    %span.score= @games[i].user_score
+                    %span.score.score__left= @games[i].user_score
                     %span.score-vs<>-
-                    %span.score= @games[i].user2_score
+                    %span.score.score__right= @games[i].user2_score
                     %span.user-name.user-name__right= @game_user2_names[i]
                     - i += 1
                 .no-game-box<>

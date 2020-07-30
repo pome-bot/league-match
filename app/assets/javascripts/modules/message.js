@@ -36,8 +36,10 @@ $(function(){
 
     if (form_text_val == "") {
       alert('message should not be blank');
-      $('#form-message')[0].reset();
-      $('#form-message-submit').prop('disabled', false);
+      setTimeout(function(){
+        $('#form-message')[0].reset();
+        $('#form-message-submit').prop('disabled', false);
+      },200);
     } else {
       const formData = new FormData(this);
       const url = $(this).attr('action')  // "/groups/:group_id/messages"
