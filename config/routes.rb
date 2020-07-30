@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :leagues
     namespace :api do
       resources :messages, only: :index, defaults: { format: 'json' }
+      resources :games, only: :index, defaults: { format: 'json' }
     end
   end
 

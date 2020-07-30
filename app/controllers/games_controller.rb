@@ -115,7 +115,8 @@ class GamesController < ApplicationController
       table_row_temp[user_num+2] = lusers.find_by(user_id: user.id).lost
       table_row_temp[user_num+3] = lusers.find_by(user_id: user.id).even
       table_row_temp[user_num+4] = lusers.find_by(user_id: user.id).point
-      dif = lusers.find_by(user_id: user.id).difference; dif > 0 ? "+#{dif}" : dif < 0 ? dif : "±0"
+      dif = lusers.find_by(user_id: user.id).difference
+      dif > 0 ? dif = "+#{dif}" : dif < 0 ? dif : dif = "±0"
       table_row_temp[user_num+5] = dif
       rank = lusers.find_by(user_id: user.id).rank; rank == 0 ? "" : rank
       table_row_temp[user_num+6] = rank

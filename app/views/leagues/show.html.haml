@@ -1,4 +1,5 @@
-= javascript_include_tag 'autoReload'
+= javascript_include_tag 'autoReload_message'
+= javascript_include_tag 'autoReload_leagueTable'
 .wrapper-league-show
   = render "application/header"
   = render "application/header-league", group: @group, users: @group.users.order(name: "ASC")

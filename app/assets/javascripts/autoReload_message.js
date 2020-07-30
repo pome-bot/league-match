@@ -59,14 +59,7 @@ $(function(){
   };
 
   // relaod
-  setInterval(reloadMessages, 100000);
-
-  // $(".td-scores").on("click", function() {
-    // reloadMessages();
-  // });
-
-
-
+  setInterval(reloadMessages, 20000);
 
 })
 
