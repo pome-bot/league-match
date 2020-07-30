@@ -415,6 +415,7 @@
           width: 80vw;
           margin-bottom: 4vh;
           &__name-icon{
+            width: 100%;
             display: flex;
             justify-content: flex-end;
             align-items: center;
@@ -434,6 +435,9 @@
           span.message-user-name{
             width: 100%;
             font-size: (40vh * $mn);
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
           }
           span.message-date{
             font-size: (32vh * $mn);
