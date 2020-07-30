@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get "about", to: "home#about"
   get "signout", to: "home#signout"
 
-  resources :users, only: [:index, :show]
+  resources :users, only: [:index, :show, :edit]
   resources :groups, only: [:index, :new, :edit, :create, :update, :destroy] do
     resources :games, only: :create
     resources :messages, only: :create

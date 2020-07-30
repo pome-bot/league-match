@@ -13,12 +13,20 @@ class GamesController < ApplicationController
     @score1 = game_params[:user_score]
     @score2 = game_params[:user2_score]
 
-    unless @user1.present? && @user2.present? && @user1 != @user2 && @score1.present? && @score2.present?
+    if !(@user1.present? && @user2.present? && @user1 != @user2)
+      @update_flag = 0
       respond_to do |format|
         format.json
-        format.html {redirect_to group_league_path(@league.group_id, @league.id), alert: 'Error, fill all of 4 input fields.'}
+        format.html {redirect_to group_league_path(@league.group_id, @league.id), alert: 'Error, select both of 2 user fields.'}
+      end
+    elsif (@score1.present? && !@score2.present?) || (!@score1.present? && @score2.present?)
+      @update_flag = 0
+      respond_to do |format|
+        format.json
+        format.html {redirect_to group_league_path(@league.group_id, @league.id), alert: 'Error, 2 score fields should be both filled or both empty.'}
       end
     else 
+      @update_flag = 1
       gameA = @league.games.find_by(user_id: @user1.id, user2_id: @user2.id)
       gameB = @league.games.find_by(user_id: @user2.id, user2_id: @user1.id)
       if gameA.present?

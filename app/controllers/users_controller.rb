@@ -26,6 +26,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   private
 
   def check_current_user?

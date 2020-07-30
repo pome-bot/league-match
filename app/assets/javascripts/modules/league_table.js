@@ -66,10 +66,17 @@ $(function(){
     const user1_score = $("#game_user_score").val();
     const user2_score = $("#game_user2_score").val();
 
-    if (user1_name == "" || user2_name == "" || user1_score == "" || user2_score == "") {
-      alert('Error, fill all of 4 input fields.');
+    // if (user1_name == "" || user2_name == "" || user1_score == "" || user2_score == "") {
+    if (user1_name == "" || user2_name == "" || user1_name === user2_name) {
+      alert('Error, select both of 2 user fields.');
       setTimeout(function(){
-        $('#form-scores')[0].reset();
+        // $('#form-scores')[0].reset();
+        $('#form-scores-submit').prop("disabled", false);
+      },200);
+    } else if ( (user1_score == "" && user2_score.length !== 0) || (user2_score == "" && user1_score.length !== 0) ) {
+      alert('Error, 2 score fields should be both filled or both empty.');
+      setTimeout(function(){
+        // $('#form-scores')[0].reset();
         $('#form-scores-submit').prop("disabled", false);
       },200);
     } else {
@@ -85,10 +92,12 @@ $(function(){
       })
   
       .done(function(data){
-        update_score_in_order(data["data_for_order"]);
-        let html = buildHTML_for_table(data["data_for_table"]);
-        $(".league-table").empty();
-        $(".league-table").append(html);
+        if (data.update_flag == 1){
+          update_score_in_order(data["data_for_order"]);
+          let html = buildHTML_for_table(data["data_for_table"]);
+          $(".league-table").empty();
+          $(".league-table").append(html);
+        }
       })
       .fail(function(){
         alert('Error');
