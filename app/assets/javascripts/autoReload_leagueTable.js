@@ -26,7 +26,7 @@ $(function(){
           } else if (i==j){
             html += `<td class="td-gray"></td>`;
           } else if (j <= user_num){
-            html += `<td class="td-scores" data-user-name="${users[i-1].name}" data-user2-name="${users[j-1].name}">${td}</td>`;
+            html += `<td class="td-scores" data-user-id="${users[i-1].id}" data-user2-id="${users[j-1].id}">${td}</td>`;
           } else if (j == user_num+1 || j == user_num+4 || j == user_num+6){
             html += `<td class="thtd-border-double">${td}</td>`;
           } else {
