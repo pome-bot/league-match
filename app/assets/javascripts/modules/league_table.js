@@ -26,7 +26,7 @@ $(function(){
           } else if (i==j){
             html += `<td class="td-gray"></td>`;
           } else if (j <= user_num){
-            html += `<td class="td-scores" data-user-name="${users[i-1].name}" data-user2-name="${users[j-1].name}">${td}</td>`;
+            html += `<td class="td-scores" data-user-id="${users[i-1].id}" data-user2-id="${users[j-1].id}">${td}</td>`;
           } else if (j == user_num+1 || j == user_num+4 || j == user_num+6){
             html += `<td class="thtd-border-double">${td}</td>`;
           } else {
@@ -44,13 +44,13 @@ $(function(){
     let game_boxes = $(".game-box");
     $.each(game_boxes, function(i, game_box) {
       let this_game_box = $(game_box);
-      let user_name_left = this_game_box.children(".user-name.user-name__left").text();
-      let user_name_right = this_game_box.children(".user-name.user-name__right").text();
+      let user_id_left = this_game_box.children(".user-name.user-name__left").data("user-id");
+      let user_id_right = this_game_box.children(".user-name.user-name__right").data("user-id");
 
-      if (user_name_left == data.user1_name && user_name_right == data.user2_name) {
+      if (user_id_left == data.user1_id && user_id_right == data.user2_id) {
         this_game_box.children(".score.score__left").text(data.user1_score);
         this_game_box.children(".score.score__right").text(data.user2_score);
-      } else if (user_name_left == data.user2_name && user_name_right == data.user1_name) {
+      } else if (user_id_left == data.user2_id && user_id_right == data.user1_id) {
         this_game_box.children(".score.score__left").text(data.user2_score);
         this_game_box.children(".score.score__right").text(data.user1_score);
       }
@@ -61,13 +61,12 @@ $(function(){
   $('#form-scores').on('submit', function(e){
     e.preventDefault();
 
-    const user1_name = $("#game_user_name").val();
-    const user2_name = $("#game_user2_name").val();
+    const user1_id = $("#game_user_id").val();
+    const user2_id = $("#game_user2_id").val();
     const user1_score = $("#game_user_score").val();
     const user2_score = $("#game_user2_score").val();
 
-    // if (user1_name == "" || user2_name == "" || user1_score == "" || user2_score == "") {
-    if (user1_name == "" || user2_name == "" || user1_name === user2_name) {
+    if (user1_id == "" || user2_id == "" || user1_id === user2_id) {
       alert('Error, select both of 2 user fields.');
       setTimeout(function(){
         // $('#form-scores')[0].reset();

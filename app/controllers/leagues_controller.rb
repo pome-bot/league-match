@@ -73,7 +73,6 @@ class LeaguesController < ApplicationController
     @lusers = @league.leagues_users
     @games = @league.games.order(order: "ASC").includes(:user)
 
-    @name_array = @league.get_name_array
     @game_user2_names = @league.get_user2_names
     @game_nones = @league.get_game_nones
   end

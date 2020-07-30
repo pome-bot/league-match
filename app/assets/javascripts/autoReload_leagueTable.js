@@ -58,9 +58,11 @@ $(function(){
       let this_game_box = $(game_box);
       let user1_name = this_game_box.children(".user-name.user-name__left").text();
       let user2_name = this_game_box.children(".user-name.user-name__right").text();
+      let user1_id = this_game_box.children(".user-name.user-name__left").data("user-id");
+      let user2_id = this_game_box.children(".user-name.user-name__right").data("user-id");
       let user1_score = this_game_box.children(".score.score__left").text();
       let user2_score = this_game_box.children(".score.score__right").text();
-      game_results.push({user1_name: user1_name, user2_name: user2_name, user1_score: user1_score, user2_score: user2_score});
+      game_results.push({user1_name: user1_name, user2_name: user2_name, user1_id: user1_id, user2_id: user2_id, user1_score: user1_score, user2_score: user2_score});
     });
 
     let url_temp = $("#form-message").attr('action')  // "/groups/:group_id/messages"
@@ -74,11 +76,15 @@ $(function(){
       data: {game_results: game_results, league_id: league_id}
     })
     .done(function(data) {
-      if (data.update_flag == 1){
-        let html = buildHTML_for_table(data["data_for_table"]);
-        $(".league-table").empty();
-        $(".league-table").append(html);
-        update_scores_in_order(data["data_for_order"]);
+      if (data.reload_flag == 1){
+        location.reload();
+      } else {
+        if (data.update_flag == 1){
+          let html = buildHTML_for_table(data["data_for_table"]);
+          $(".league-table").empty();
+          $(".league-table").append(html);
+          update_scores_in_order(data["data_for_order"]);
+        }
       }
     })
     .fail(function() {
