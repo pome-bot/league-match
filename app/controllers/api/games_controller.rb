@@ -48,6 +48,8 @@ class Api::GamesController < ApplicationController
         name2 = User.find(game.user2_id).name
         score1 = game.user_score
         score2 = game.user2_score
+        score1 = "" unless score1.present?
+        score2 = "" unless score2.present?
         @games_for_order << {name1: name1, name2: name2, score1: score1, score2: score2}
       end
       @users_for_table = set_users_for_table(@league, users)
