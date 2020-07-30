@@ -201,7 +201,7 @@
                 color: white;
               }
               input, select{
-                font-size: (48vh * $mn);
+                font-size: 48px;
                 text-align: center;
                 border-radius: 5px;
                 border: none;
@@ -471,7 +471,7 @@
           align-items: center;
           flex-direction: column;
           &__text{
-            font-size: (48vh * $mn);
+            font-size: 48px;
             width: 80vw;
             border-radius: 5px;
             padding: 10px;
@@ -523,7 +523,7 @@
           font-size: (40vh * $mn);
           input.input-field{
             padding: 0 10px;
-            font-size: (48vh * $mn);
+            font-size: 48px;
             width: 80vw;
           }
         }
@@ -596,7 +596,7 @@
           padding-bottom: 1vh;
           font-size: (40vh * $mn);
           input{
-            font-size: (48vh * $mn);
+            font-size: 48px;
             padding: 0 10px;
           }
           input.input-field{
