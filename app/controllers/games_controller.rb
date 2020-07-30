@@ -81,7 +81,6 @@ class GamesController < ApplicationController
     return users_for_table
   end
 
-
   def get_table_rows(user_num, users_for_table, league, lusers)
     table_rows = Array.new(user_num+1) { Array.new(user_num+7) }
     table_row1 = []
@@ -124,6 +123,5 @@ class GamesController < ApplicationController
     end
     return table_rows
   end
-
 
 end
