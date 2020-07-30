@@ -312,6 +312,7 @@
           .field{
             input.input-field{
               width: 500px;
+              font-size: 32px;
             }
           }
           .actions{
@@ -334,6 +335,7 @@
           .field{
             input.input-field{
               width: 500px;
+              font-size: 32px;
             }
           }
           .actions{
@@ -355,6 +357,9 @@
         #edit_user{
           .field{
             width: 500px;
+            input.input-field{
+              font-size: 32px;
+            }
           }
           .actions{
             width: 300px;
