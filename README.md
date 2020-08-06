@@ -21,9 +21,24 @@ You can manage league match (round robin tournament) results. A group can be cre
 
 <br><br>
 
+## Why did I make this?
+
+- リーグ戦が簡単に管理できれば便利だと考えたから。
+  - 学校の部活動やサークルなどでリーグ戦を行うとき、紙媒体ではなくアプリで管理することができれば便利だと考えた。
+  - 既存のリーグ戦アプリはあったが、不便だと思うところがあった。
+  - 使いやすいアプリがあれば良いと思った。
+  - できるだけ使いやすいアプリを作成しようと考えた。
+- 思うようなアプリを作成できるかという腕試しのため。
+
+<br><br>
+
 ## App URL
 
 ### **https://peaceful-brushlands.ml**  
+
+<p>test account: </p>
+<p>  email: red@red</p>
+<p>  password: useruser</p>
 
 <br><br>
 
@@ -78,7 +93,6 @@ You can manage league match (round robin tournament) results. A group can be cre
 </div>
 <br>
 
-
 - リーグが作成されるとおすすめの試合順が作成される。
 - このおすすめの試合順の特徴は以下のとおり。
   - メンバーそれぞれ1試合ある組み合わせを1ラウンドとしている。
@@ -101,12 +115,24 @@ You can manage league match (round robin tournament) results. A group can be cre
 **https://raw.githubusercontent.com/pome-bot/league-match/master/LICENSE.txt**
 
  
-## Versions
+## Development environment
+### Tools
+- Ruby
+- Ruby on Rails
+- mysql
+- Heroku
+- Cloud Flare
+- Git
 
+### Versions
 - Rails version	6.0.3.2
 - Ruby version	ruby 2.6.5p114 (2019-10-01 revision 67812) [x86_64-darwin19]
 - RubyGems version	3.0.3
 - Rack version	2.2.3
+
+
+## Database design
+
 
 
 ## Author
