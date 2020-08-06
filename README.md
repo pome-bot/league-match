@@ -2,7 +2,7 @@
 
 <h2 align="center">League Match App</h2>
 
-<img width="369" alt="f3be127c9775160480fba7540aa72e31" src="https://user-images.githubusercontent.com/61574277/89480753-1e04f700-d7d1-11ea-82cd-93f4ca9b96dd.png">
+<img align="center" width="369" alt="f3be127c9775160480fba7540aa72e31" src="https://user-images.githubusercontent.com/61574277/89480753-1e04f700-d7d1-11ea-82cd-93f4ca9b96dd.png">
 
 <br><br><br>
 
@@ -22,7 +22,9 @@ You can manage league match (round robin tournament) results. A group can be cre
 ## App URL
 
 ### **https://peaceful-brushlands.ml**  
- 
+
+<br><br>
+
 ## Usage
 
 `$ git clone https://github.com/pome-bot/league-match.git`  
@@ -39,7 +41,7 @@ You can manage league match (round robin tournament) results. A group can be cre
 
 <h3 align="center">- League table -</h3>
 
-<img width="385" alt="32626a0d2cd006e2e820e5f7e1073e3f" src="https://user-images.githubusercontent.com/61574277/89482884-d0d75400-d7d5-11ea-8baf-95d919954b7e.png">
+<img align="center" width="385" alt="32626a0d2cd006e2e820e5f7e1073e3f" src="https://user-images.githubusercontent.com/61574277/89482884-d0d75400-d7d5-11ea-8baf-95d919954b7e.png">
 
 - リーグが作成されるとリーグ表が作成される。
 - スコアが送信されると、そのスコアが反映される。
@@ -64,7 +66,7 @@ You can manage league match (round robin tournament) results. A group can be cre
 
 <h3 align="center">- Recommended order -</h3>
 
-<img width="373" alt="9cc21b627b800db2614a47e6b367c5a5" src="https://user-images.githubusercontent.com/61574277/89482914-dcc31600-d7d5-11ea-92ee-480448924a48.png">
+<img align="center" width="373" alt="9cc21b627b800db2614a47e6b367c5a5" src="https://user-images.githubusercontent.com/61574277/89482914-dcc31600-d7d5-11ea-92ee-480448924a48.png">
 
 - リーグが作成されるとおすすめの試合順が作成される。
 - このおすすめの試合順の特徴は以下のとおり。
@@ -80,7 +82,7 @@ You can manage league match (round robin tournament) results. A group can be cre
   
 <br><br>
 
-## 🎫 License
+## License
 
 Copyright (c) 2020 pome-bot
 Released under the MIT license
@@ -93,7 +95,6 @@ Released under the MIT license
 - Ruby version	ruby 2.6.5p114 (2019-10-01 revision 67812) [x86_64-darwin19]
 - RubyGems version	3.0.3
 - Rack version	2.2.3
-
 
 
 ## Author
