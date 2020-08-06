@@ -48,7 +48,7 @@ You can manage league match (round robin tournament) results. A group can be cre
 <div align="center">
   <img width="385" alt="32626a0d2cd006e2e820e5f7e1073e3f" src="https://user-images.githubusercontent.com/61574277/89482884-d0d75400-d7d5-11ea-8baf-95d919954b7e.png">
 </div>
-
+<br>
 
 - リーグが作成されるとリーグ表が作成される。
 - スコアが送信されると、そのスコアが反映される。
@@ -76,6 +76,7 @@ You can manage league match (round robin tournament) results. A group can be cre
 <div align="center">
   <img width="373" alt="9cc21b627b800db2614a47e6b367c5a5" src="https://user-images.githubusercontent.com/61574277/89482914-dcc31600-d7d5-11ea-92ee-480448924a48.png">
 </div>
+<br>
 
 
 - リーグが作成されるとおすすめの試合順が作成される。
