@@ -95,8 +95,8 @@ You can manage league match (round robin tournament) results. A group can be cre
 
 ## License
 
-Copyright (c) 2020 pome-bot
-Released under the MIT license
+<p>Copyright (c) 2020 pome-bot</p>
+<p>Released under the MIT license</p>
 **https://github.com/pome-bot/league-match/blob/master/LICENSE.txt**
 
  
@@ -114,8 +114,7 @@ Released under the MIT license
  
 
 ## Special thanks
-
-Thomas Kirkman
-Recommended order won't be possible without scheduling algorithm. 
+<p>Thomas Kirkman</p>
+<p>Recommended order won't be possible without scheduling algorithm. </p>
 
 
