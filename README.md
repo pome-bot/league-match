@@ -37,9 +37,7 @@ You can manage league match (round robin tournament) results. A group can be cre
 
 <h3 align="center">- Input scores -</h3>
 
-<div align="center">
-  ![test_gif_2](https://user-images.githubusercontent.com/61574277/89481937-c61bbf80-d7d3-11ea-952f-6f1418bff71f.gif)
-</div>
+![test_gif_2](https://user-images.githubusercontent.com/61574277/89481937-c61bbf80-d7d3-11ea-952f-6f1418bff71f.gif)
 
 
 ---
