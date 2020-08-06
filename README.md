@@ -37,8 +37,8 @@ You can manage league match (round robin tournament) results. A group can be cre
 ### **https://peaceful-brushlands.ml**  
 
 <p>test account: </p>
-<p>  email: red@red</p>
-<p>  password: useruser</p>
+<p>　email: red@red</p>
+<p>　password: useruser</p>
 
 <br><br>
 
