@@ -47,12 +47,12 @@ ActiveRecord::Schema.define(version: 2020_07_26_062904) do
   create_table "leagues", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "order_flag", default: 0, null: false
     t.integer "win_point", default: 3, null: false
     t.integer "lose_point", default: 0, null: false
     t.integer "even_point", default: 1, null: false
-    t.integer "order_flag", default: 0, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.index ["group_id"], name: "index_leagues_on_group_id"
     t.index ["name", "group_id"], name: "index_leagues_on_name_and_group_id", unique: true
   end
@@ -60,15 +60,15 @@ ActiveRecord::Schema.define(version: 2020_07_26_062904) do
   create_table "leagues_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "league_id", null: false
     t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.integer "order"
     t.integer "won", default: 0
     t.integer "lost", default: 0
     t.integer "even", default: 0
     t.integer "point", default: 0
-    t.integer "difference", default: 0
     t.integer "rank", default: 0
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.integer "difference", default: 0
     t.index ["league_id", "user_id"], name: "index_leagues_users_on_league_id_and_user_id", unique: true
     t.index ["league_id"], name: "index_leagues_users_on_league_id"
     t.index ["order"], name: "index_leagues_users_on_order"
@@ -87,15 +87,15 @@ ActiveRecord::Schema.define(version: 2020_07_26_062904) do
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
-    t.text "image"
     t.string "email", default: "", null: false
-    t.datetime "deleted_at"
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.text "image"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["name"], name: "index_users_on_name", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
