@@ -107,13 +107,6 @@ You can manage league match (round robin tournament) results. A group can be cre
   
 <br><br>
 
-## License
-
-<p>Copyright (c) 2020 pome-bot</p>
-<p>Released under the MIT license</p>
-
-**https://raw.githubusercontent.com/pome-bot/league-match/master/LICENSE.txt**
-
  
 ## Development environment
 ### Tools
@@ -132,16 +125,109 @@ You can manage league match (round robin tournament) results. A group can be cre
 
 
 ## Database design
+## users table (gem: devise)
+|Column|Type|Options|
+|------|----|-------|
+|name|string|null: false, unique: true|
+|image|text||
+|email|string|null: false, unique: true|
+|password|string|null: false|
+|deleted_at|datetime||
+### Association
+- has_many :groups_users
+- has_many :groups, through: :groups_users
+- has_many :leagues_users
+- has_many :leagues, through: :leagues_users
+- has_many :games
+- has_many :messages
+
+## groups table
+|Column|Type|Options|
+|------|----|-------|
+|name|string|null: false, unique: true|
+### Association
+- has_many :groups_users
+- has_many :users, through: :groups_users, dependent: :destroy
+- has_many :leagues, dependent: :destroy
+
+## groups_users table
+|Column|Type|Options|
+|------|----|-------|
+|user_id|integer|null: false, foreign_key: true|
+|group_id|integer|null: false, foreign_key: true|
+### Association
+- belongs_to :group
+- belongs_to :user
+
+## leagues table
+|Column|Type|Options|
+|------|----|-------|
+|name|string|null: false, unique: true|
+|group_id|integer|null: false, foreign_key: true|
+|win_point|integer|null: false, default: 3|
+|lose_point|integer|null: false, default: 0|
+|even_point|integer|null: false, default: 1|
+|order_flag|integer|null: false, default: 0|
+### Association
+- belongs_to :group
+- has_many :leagues_users
+- has_many :users, through: :leagues_users, dependent: :destroy
+- has_many :games, dependent: :destroy
+- has_many :messages, dependent: :destroy
+
+## leagues_users table
+|Column|Type|Options|
+|------|----|-------|
+|user_id|integer|null: false, foreign_key: true|
+|league_id|integer|null: false, foreign_key: true|
+|order|integer||
+|won|integer||
+|lost|integer||
+|even|integer||
+|point|integer||
+|difference|integer||
+|rank|integer||
+### Association
+- belongs_to :user
+- belongs_to :league
+
+## games table
+|Column|Type|Options|
+|------|----|-------|
+|league_id|integer|null: false, foreign_key: true|
+|user_id|integer|null: false, foreign_key: true|
+|user_score|integer||
+|user2_score|integer||
+|order|integer|null: false|
+### Association
+- belongs_to :user
+- belongs_to :league
+
+## messages table
+|Column|Type|Options|
+|------|----|-------|
+|league_id|integer|null: false, foreign_key: true|
+|user_id|integer|null: false, foreign_key: true|
+|text|string|null: false|
+### Association
+- belongs_to :league
+- belongs_to :user
 
 
+
+## License
+
+<p>Copyright (c) 2020 pome-bot</p>
+<p>Released under the MIT license</p>
+
+**https://raw.githubusercontent.com/pome-bot/league-match/master/LICENSE.txt**
 
 ## Author
 
 [Github](https://github.com/pome-bot)
- 
 
 ## Special thanks
 <p>Thomas Kirkman</p>
-<p>Recommended order won't be possible without scheduling algorithm. </p>
+<p>Recommended order function would be impossible without scheduling algorithm. </p>
 
 
