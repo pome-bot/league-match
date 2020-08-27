@@ -1,5 +1,8 @@
 # README
 
+If you want read in english, see this file:
+**https://github.com/pome-bot/league-match/blob/master/README_english.md**
+
 <h2 align="center">League Match App</h2>
 
 <div align="center">
